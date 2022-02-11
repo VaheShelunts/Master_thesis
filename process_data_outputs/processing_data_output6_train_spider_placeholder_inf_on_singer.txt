@@ -1,0 +1,72 @@
+run python3 -m src.experiments     --process_data     --data_dir data/spider     --db_dir data/spider/database     --dataset_name spider     --question_split          --question_only               --denormalize_sql               --table_shuffling     --use_lstm_encoder     --use_meta_data_encoding          --sql_consistency_check          --use_picklist     --anchor_text_match_threshold 0.85               --top_k_picklist_matches 2     --process_sql_in_execution_order               --num_random_tables_added 0                         --save_best_model_only     --schema_augmentation_factor 1          --data_augmentation_factor 1          --vocab_min_freq 0     --text_vocab_min_freq 0     --program_vocab_min_freq 0     --num_values_per_field 0     --max_in_seq_len 512     --max_out_seq_len 60     --model bridge     --num_steps 100000     --curriculum_interval 0     --num_peek_steps 1000     --num_accumulation_steps 2     --train_batch_size 8     --dev_batch_size 8     --encoder_input_dim 1024     --encoder_hidden_dim 400     --decoder_input_dim 400     --num_rnn_layers 1     --num_const_attn_layers 0     --emb_dropout_rate 0.3     --pretrained_lm_dropout_rate 0     --rnn_layer_dropout_rate 0     --rnn_weight_dropout_rate 0     --cross_attn_dropout_rate 0     --cross_attn_num_heads 8     --res_input_dropout_rate 0.2     --res_layer_dropout_rate 0     --ff_input_dropout_rate 0.4     --ff_hidden_dropout_rate 0.0     --pretrained_transformer bert-large-uncased          --bert_finetune_rate 0.00006     --learning_rate 0.0005     --learning_rate_scheduler inverse-square     --trans_learning_rate_scheduler inverse-square     --warmup_init_lr 0.0005     --warmup_init_ft_lr 0.00003     --num_warmup_steps 4000     --grad_norm 0.3     --decoding_algorithm beam-search     --beam_size 16     --bs_alpha 1.05     --gpu 0     
+2022-01-22 13:51:53.487268: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 36.40it/s]
+  0%|          | 0/45 [00:00<?, ?it/s] 22%|██▏       | 10/45 [00:00<00:00, 92.62it/s] 31%|███       | 14/45 [00:00<00:00, 33.06it/s] 49%|████▉     | 22/45 [00:00<00:00, 39.60it/s] 64%|██████▍   | 29/45 [00:00<00:00, 44.78it/s] 78%|███████▊  | 35/45 [00:00<00:00, 48.07it/s] 89%|████████▉ | 40/45 [00:01<00:00, 28.02it/s]100%|██████████| 45/45 [00:01<00:00, 31.40it/s]
+167 schema graphs loaded
+1 train examples loaded
+45 dev examples loaded
+Warning: file data/spider/fine-tune.json not found.
+5398 parsed SQL queries loaded
+* text vocab size = 30522
+* program vocab size = 99
+
+processing 1 examples from train...
+--------------------
+text:  what is the biggest city in wyoming
+sql:  SELECT city_name FROM city WHERE population  =  ( SELECT MAX ( population ) FROM city WHERE state_name  =  "wyoming" ) AND state_name  =  "wyoming"
+ground truth values:  [('city.state_name', 'wyoming'), ('city.state_name', 'wyoming')]
+matched values OrderedDict()
+--------------------
+********** train Data Statistics ***********
+OOV observed in 0/1 examples
+Denormalization skipped for 0/1 examples
+Schema truncated for 0/1 examples
+Token restored for 1/1 examples
++ text sizes
+# text tokens (avg) = 7.0
+# text tokens (min) = 7
+# text tokens (max) = 7
++ input sizes
+input size (avg) = 105.0
+input size (min) = 105 
+input size (max) = 105
++ program sizes
+# program tokens (avg) = 30.0	# program whole field tokens = 30.0 (avg)	
+# program tokens (min) = 30	# program whole field tokens = 30 (min)	
+# program tokens (max) = 30	# program whole field tokens = 30 (max)	
+max pointer span size = 1
+---  value extraction performance ---
+micro precision = 0.0
+micro recall = 0.0
+micro F1 = 0.0
+processing 45 examples from dev...
+Picklist: What is the average, minimum, and maximum age of all singers from France?, singer, Country, [France]
+--------------------
+text:  What is the average, minimum, and maximum age for all French singers?
+sql:  SELECT avg(age) ,  min(age) ,  max(age) FROM singer WHERE country  =  'France'
+ground truth values:  [('singer.Country', 'France')]
+matched values OrderedDict()
+--------------------
+********** dev Data Statistics ***********
+OOV observed in 0/45 examples
+Denormalization skipped for 0/45 examples
+Schema truncated for 0/45 examples
+Token restored for 45/45 examples
++ text sizes
+# text tokens (avg) = 13.955555555555556
+# text tokens (min) = 7
+# text tokens (max) = 25
++ input sizes
+input size (avg) = 81.0
+input size (min) = 74 
+input size (max) = 92
++ program sizes
+# program tokens (avg) = 17.955555555555556	# program whole field tokens = 17.955555555555556 (avg)	
+# program tokens (min) = 9	# program whole field tokens = 9 (min)	
+# program tokens (max) = 35	# program whole field tokens = 35 (max)	
+max pointer span size = 0
+---  value extraction performance ---
+micro precision = 0.9777777777777777
+micro recall = 0.9777777777777777
+micro F1 = 0.9777777777777777
+Processed data dumped to data/spider/spider.bridge.question-split.ppl-0.85.2.dn.eo.bert.pkl

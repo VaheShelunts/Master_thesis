@@ -1,0 +1,100 @@
+SELECT papers.title FROM authors JOIN papers ON authors.article_id = papers.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"
+SELECT COUNT(*) FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"
+SELECT DISTINCT COUNT(*), papers.authors FROM authors JOIN papers ON authors.article_id = papers.article_id WHERE papers.year = 2020 GROUP BY papers.authors ORDER BY COUNT(*) DESC LIMIT 1
+SELECT COUNT(*) FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner" AND papers.year = 2020
+SELECT papers.title FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner" AND papers.year = 2020
+SELECT COUNT(*) FROM papers WHERE papers.year = 2020
+SELECT papers.article_id FROM papers WHERE papers.year = 2020
+SELECT COUNT(DISTINCT papers.journal) FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"
+SELECT authors.institutions FROM authors WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"
+SELECT authors.institutions, authors.departments FROM authors WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"
+SELECT COUNT(*) FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"
+SELECT * FROM dsr_count
+SELECT papers.article_id FROM papers WHERE papers.journal_akronym = "JIT"
+SELECT COUNT(*) FROM papers WHERE papers.journal_akronym = "JIT"
+SELECT COUNT(*) FROM papers WHERE papers.journal_akronym = "JIT" AND papers.year = 2020
+SELECT COUNT(*) FROM papers WHERE papers.year = "VALUE" AND papers.journal_akronym = "JIT"
+SELECT COUNT(*) FROM papers WHERE papers.journal_akronym = "JIT" AND papers.year = "VALUE"
+SELECT COUNT(*) FROM papers WHERE papers.authors = "TU Berlin"
+SELECT papers.article_id FROM papers WHERE papers.authors = "TU Berlin"
+SELECT papers.journal FROM papers GROUP BY papers.journal ORDER BY COUNT(*) DESC LIMIT 1
+SELECT papers.journal FROM papers GROUP BY papers.journal ORDER BY COUNT(*) DESC LIMIT 3
+SELECT papers.journal FROM papers GROUP BY papers.journal ORDER BY COUNT(*) DESC LIMIT 1
+SELECT papers.journal FROM papers GROUP BY papers.journal ORDER BY COUNT(*) DESC LIMIT 1
+SELECT papers.journal FROM papers WHERE papers.year = 2020 GROUP BY papers.journal ORDER BY COUNT(*) DESC LIMIT 1
+SELECT papers.article_id FROM papers WHERE papers.journal = "Information Systems Research"
+SELECT papers.title FROM papers WHERE papers.journal = "Information Systems Research"
+SELECT papers.journal FROM papers WHERE papers.journal = "journal Information Systems Research" AND papers.year = 2020
+SELECT papers.journal FROM papers WHERE papers.journal = "Information Systems" GROUP BY papers.journal ORDER BY COUNT(*) DESC LIMIT 1
+SELECT papers.journal FROM papers JOIN citations ON papers.article_id = citations.article_id WHERE papers.journal = "Information Systems" GROUP BY papers.journal ORDER BY COUNT(*) DESC LIMIT 5
+SELECT papers.title, papers.abstract FROM papers WHERE papers.journal = "Information Systems Research"
+SELECT papers.title, papers.abstract FROM papers WHERE papers.journal = "Information Systems Research" AND papers.year = 2020
+SELECT papers.title, papers.abstract FROM papers WHERE papers.journal = "Information Systems Research" AND papers.year = 2020
+SELECT papers.title FROM papers JOIN citations ON papers.article_id = citations.article_id WHERE papers.journal = "Information Systems" GROUP BY papers.journal ORDER BY COUNT(*) DESC LIMIT 10
+SELECT papers.journal FROM papers JOIN authors ON papers.article_id = authors.article_id JOIN authors ON authors.article_id = authors.article_id WHERE authors.institutions = "Washington State University"
+SELECT papers.journal FROM citations JOIN papers ON citations.article_id = papers.article_id GROUP BY papers.journal ORDER BY COUNT(*) DESC LIMIT 3
+SELECT papers.title FROM papers JOIN citations ON papers.article_id = citations.article_id WHERE papers.citekey >= 100
+SELECT papers.title FROM papers JOIN citations ON papers.article_id = citations.article_id WHERE papers.citekey >= 100
+SELECT papers.title FROM citations JOIN papers ON citations.article_id = papers.article_id GROUP BY citations.article_id HAVING COUNT(*) >= 100
+SELECT papers.title FROM papers JOIN citations ON papers.article_id = citations.article_id WHERE papers.year = 2010 AND papers.year >= 100
+SELECT * FROM dsr_count
+SELECT DISTINCT papers.article_id FROM papers JOIN citations ON papers.article_id = citations.article_id WHERE papers.journal = "VALUE" AND papers.year >= 2018 AND papers.journal = "Information Systems"
+SELECT DISTINCT papers.title FROM papers JOIN authors ON papers.article_id = authors.article_id WHERE authors.institutions = "Washington State University" AND papers.year = 2020
+SELECT reference_citations.title FROM reference_citations GROUP BY reference_citations.authors HAVING COUNT(*) < 10
+SELECT reference_citations.authors FROM reference_citations GROUP BY reference_citations.authors HAVING COUNT(*) < 10
+SELECT papers.title FROM papers WHERE papers.year = 2021 ORDER BY papers.year DESC LIMIT 5
+SELECT papers.title, papers.year FROM papers JOIN citations ON papers.article_id = citations.article_id WHERE papers.year = 2020 ORDER BY "citations" DESC LIMIT 5
+SELECT DISTINCT papers.journal FROM papers
+SELECT COUNT(*) FROM authors JOIN papers ON authors.article_id = papers.article_id WHERE authors.firstname = "Zheng" AND papers.authors = "Wanhong"
+SELECT papers.title FROM authors JOIN papers ON authors.article_id = papers.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner" AND papers.year = 2020
+SELECT papers.journal FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner" AND papers.year = 2020
+SELECT papers.authors FROM authors JOIN papers ON authors.article_id = papers.article_id WHERE papers.year = 2020 GROUP BY papers.authors ORDER BY COUNT(*) DESC LIMIT 1
+SELECT papers.title FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "data science"
+SELECT papers.title FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "data science"
+SELECT DISTINCT papers.article_id FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "data science"
+SELECT DISTINCT papers.keywords FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "data science"
+SELECT DISTINCT COUNT(DISTINCT papers.article_id) FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "data science"
+SELECT COUNT(*) FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "data science"
+SELECT papers.title, papers.abstract FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "data science"
+SELECT DISTINCT papers.article_id FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "data science" AND papers.year = 2021
+SELECT DISTINCT papers.article_id FROM papers WHERE papers.year = 2021 AND papers.year = 2021
+SELECT DISTINCT papers.article_id FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "data science" AND papers.year = 2021
+SELECT papers.title, papers.abstract FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "data science"
+SELECT papers.keywords FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "the challenge of defining information system"
+SELECT papers.keywords FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "the challenge of defining information system"
+SELECT COUNT(DISTINCT papers.keywords) FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "the challenge of defining information system"
+SELECT papers.keywords FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id GROUP BY papers.keywords ORDER BY COUNT(*) DESC LIMIT 10
+SELECT papers.keywords FROM papers GROUP BY papers.keywords ORDER BY COUNT(*) DESC LIMIT 1
+SELECT DISTINCT papers.journal FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "data science"
+SELECT papers.journal FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "data science"
+SELECT papers.journal FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "natural language processing"
+SELECT papers.title FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "natural language processing"
+SELECT papers.abstract FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "natural language processing"
+SELECT DISTINCT COUNT(*), papers.keywords FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers.year = 2021 GROUP BY papers.keywords ORDER BY COUNT(*) DESC LIMIT 10
+SELECT DISTINCT COUNT(*), papers.keywords FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers.year = 2021 GROUP BY papers.keywords ORDER BY COUNT(*) DESC LIMIT 10
+SELECT DISTINCT COUNT(*), papers.keywords FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers.year = 2020 GROUP BY papers.keywords ORDER BY COUNT(*) DESC LIMIT 10
+SELECT DISTINCT COUNT(*), papers.keywords FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers.year = 2014 GROUP BY papers.keywords ORDER BY COUNT(*) DESC LIMIT 10
+SELECT DISTINCT papers.journal FROM papers
+SELECT COUNT(DISTINCT papers.journal) FROM papers
+SELECT COUNT(*), papers.journal FROM papers GROUP BY papers.journal
+SELECT papers.journal FROM papers GROUP BY papers.journal ORDER BY COUNT(*) DESC LIMIT 3
+SELECT papers.journal FROM papers GROUP BY papers.journal HAVING COUNT(*) > 1000
+SELECT DISTINCT papers.journal FROM papers
+SELECT papers.journal FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "data science"
+SELECT papers.journal FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id WHERE papers_keywords.keywords = "data science"
+SELECT reference_citations.source_type FROM reference_citations GROUP BY reference_citations.source_type ORDER BY COUNT(*) DESC LIMIT 1
+SELECT DISTINCT reference_citations.source_type FROM reference_citations
+SELECT reference_citations.source_type, COUNT(*) FROM reference_citations GROUP BY reference_citations.source_type
+SELECT papers.journal FROM citations JOIN papers ON citations.article_id = papers.article_id GROUP BY papers.journal ORDER BY COUNT(*) DESC LIMIT 3
+SELECT DISTINCT papers.journal FROM citations JOIN papers ON citations.article_id = papers.article_id
+SELECT papers.journal, COUNT(*) FROM citations JOIN papers ON citations.article_id = papers.article_id GROUP BY papers.journal
+SELECT papers.journal, COUNT(*) FROM papers GROUP BY papers.journal ORDER BY COUNT(*) DESC
+SELECT papers.authors FROM papers GROUP BY papers.authors ORDER BY COUNT(*) DESC LIMIT 10
+SELECT COUNT(*) FROM papers WHERE papers.year = 2021
+SELECT papers.journal FROM papers WHERE papers.year = 2021
+SELECT papers.journal FROM papers WHERE papers.journal_akronym = "akronym"
+SELECT COUNT(*) FROM citations
+SELECT AVG(dsr_count.count_dsr_all) FROM dsr_count
+SELECT dsr_count.article_id FROM dsr_count ORDER BY dsr_count.count_dsr DESC LIMIT 1
+SELECT papers_keywords.keywords FROM papers_keywords WHERE papers_keywords.article_id = 4134
+SELECT papers.abstract FROM papers WHERE papers.article_id = 4134

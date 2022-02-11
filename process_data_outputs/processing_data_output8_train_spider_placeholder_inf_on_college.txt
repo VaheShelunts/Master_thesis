@@ -1,0 +1,741 @@
+run python3 -m src.experiments     --process_data     --data_dir data/spider     --db_dir data/spider/database     --dataset_name spider     --question_split          --question_only               --denormalize_sql               --table_shuffling     --use_lstm_encoder     --use_meta_data_encoding          --sql_consistency_check          --use_picklist     --anchor_text_match_threshold 0.85               --top_k_picklist_matches 2     --process_sql_in_execution_order               --num_random_tables_added 0                         --save_best_model_only     --schema_augmentation_factor 1          --data_augmentation_factor 1          --vocab_min_freq 0     --text_vocab_min_freq 0     --program_vocab_min_freq 0     --num_values_per_field 0     --max_in_seq_len 512     --max_out_seq_len 60     --model bridge     --num_steps 100000     --curriculum_interval 0     --num_peek_steps 1000     --num_accumulation_steps 2     --train_batch_size 8     --dev_batch_size 8     --encoder_input_dim 1024     --encoder_hidden_dim 400     --decoder_input_dim 400     --num_rnn_layers 1     --num_const_attn_layers 0     --emb_dropout_rate 0.3     --pretrained_lm_dropout_rate 0     --rnn_layer_dropout_rate 0     --rnn_weight_dropout_rate 0     --cross_attn_dropout_rate 0     --cross_attn_num_heads 8     --res_input_dropout_rate 0.2     --res_layer_dropout_rate 0     --ff_input_dropout_rate 0.4     --ff_hidden_dropout_rate 0.0     --pretrained_transformer bert-large-uncased          --bert_finetune_rate 0.00006     --learning_rate 0.0005     --learning_rate_scheduler inverse-square     --trans_learning_rate_scheduler inverse-square     --warmup_init_lr 0.0005     --warmup_init_ft_lr 0.00003     --num_warmup_steps 4000     --grad_norm 0.3     --decoding_algorithm beam-search     --beam_size 16     --bs_alpha 1.05     --gpu 0     
+2022-01-22 14:44:48.459905: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 37.13it/s]
+  0%|          | 0/170 [00:00<?, ?it/s]  1%|          | 1/170 [00:00<00:53,  3.18it/s]  1%|          | 2/170 [00:00<00:44,  3.74it/s]  2%|▏         | 3/170 [00:00<00:38,  4.39it/s]  2%|▏         | 4/170 [00:00<00:31,  5.22it/s]  3%|▎         | 5/170 [00:00<00:31,  5.31it/s]  4%|▎         | 6/170 [00:01<00:29,  5.53it/s]  4%|▍         | 7/170 [00:01<00:30,  5.40it/s]  5%|▍         | 8/170 [00:01<00:45,  3.60it/s]  5%|▌         | 9/170 [00:01<00:38,  4.19it/s]  6%|▌         | 10/170 [00:02<00:35,  4.47it/s]  6%|▋         | 11/170 [00:02<00:33,  4.76it/s]  7%|▋         | 12/170 [00:02<00:31,  5.08it/s]  8%|▊         | 13/170 [00:02<00:26,  5.83it/s]  8%|▊         | 14/170 [00:02<00:23,  6.56it/s]  9%|▉         | 16/170 [00:02<00:21,  7.32it/s] 11%|█         | 18/170 [00:03<00:19,  7.84it/s] 11%|█         | 19/170 [00:03<00:19,  7.85it/s] 12%|█▏        | 20/170 [00:03<00:18,  7.95it/s] 12%|█▏        | 21/170 [00:03<00:18,  7.88it/s] 13%|█▎        | 22/170 [00:03<00:19,  7.79it/s] 14%|█▎        | 23/170 [00:03<00:21,  6.82it/s] 14%|█▍        | 24/170 [00:03<00:23,  6.24it/s] 15%|█▍        | 25/170 [00:04<00:21,  6.79it/s] 15%|█▌        | 26/170 [00:04<00:19,  7.22it/s] 16%|█▌        | 27/170 [00:04<00:19,  7.21it/s] 16%|█▋        | 28/170 [00:04<00:19,  7.46it/s] 17%|█▋        | 29/170 [00:04<00:18,  7.65it/s] 18%|█▊        | 30/170 [00:04<00:18,  7.55it/s]167 schema graphs loaded
+1 train examples loaded
+170 dev examples loaded
+Warning: file data/spider/fine-tune.json not found.
+5398 parsed SQL queries loaded
+* text vocab size = 30522
+* program vocab size = 99
+
+processing 1 examples from train...
+--------------------
+text:  what is the biggest city in wyoming
+sql:  SELECT city_name FROM city WHERE population  =  ( SELECT MAX ( population ) FROM city WHERE state_name  =  "wyoming" ) AND state_name  =  "wyoming"
+ground truth values:  [('city.state_name', 'wyoming'), ('city.state_name', 'wyoming')]
+matched values OrderedDict()
+--------------------
+********** train Data Statistics ***********
+OOV observed in 0/1 examples
+Denormalization skipped for 0/1 examples
+Schema truncated for 0/1 examples
+Token restored for 1/1 examples
++ text sizes
+# text tokens (avg) = 7.0
+# text tokens (min) = 7
+# text tokens (max) = 7
++ input sizes
+input size (avg) = 105.0
+input size (min) = 105 
+input size (max) = 105
++ program sizes
+# program tokens (avg) = 30.0	# program whole field tokens = 30.0 (avg)	
+# program tokens (min) = 30	# program whole field tokens = 30 (min)	
+# program tokens (max) = 30	# program whole field tokens = 30 (max)	
+max pointer span size = 1
+---  value extraction performance ---
+micro precision = 0.0
+micro recall = 0.0
+micro F1 = 0.0
+processing 170 examples from dev...
+Picklist: Count the number of rooms that are not in the Lamberton building., classroom, building, [Lamberton]
+Picklist: Count the number of rooms that are not in the Lamberton building., department, building, [Lamberton]
+Picklist: Count the number of rooms that are not in the Lamberton building., section, building, [Lamberton]
+--------------------
+text:  Count the number of rooms that are not in the Lamberton building.
+sql:  SELECT count(*) FROM classroom WHERE building != 'Lamberton'
+ground truth values:  [('classroom.building', 'Lamberton')]
+matched values OrderedDict([(6, ('classroom.building', 'Lamberton')), (21, ('department.building', 'Lamberton')), (63, ('section.building', 'Lamberton'))])
+--------------------
+Picklist: How many classrooms are not in Lamberton?, classroom, building, [Lamberton]
+Picklist: How many classrooms are not in Lamberton?, department, building, [Lamberton]
+Picklist: How many classrooms are not in Lamberton?, section, building, [Lamberton]
+--------------------
+text:  How many classrooms are not in Lamberton?
+sql:  SELECT count(*) FROM classroom WHERE building != 'Lamberton'
+ground truth values:  [('classroom.building', 'Lamberton')]
+matched values OrderedDict([(6, ('classroom.building', 'Lamberton')), (21, ('department.building', 'Lamberton')), (63, ('section.building', 'Lamberton'))])
+--------------------
+Picklist: What is the name of the student who has the highest total credits in the History department., department, dept_name, [History]
+Picklist: What is the name of the student who has the highest total credits in the History department., course, dept_name, [History]
+Picklist: What is the name of the student who has the highest total credits in the History department., student, dept_name, [History]
+--------------------
+text:  What is the name of the student who has the highest total credits in the History department.
+sql:  SELECT name FROM student WHERE dept_name  =  'History' ORDER BY tot_cred DESC LIMIT 1
+ground truth values:  [('student.dept_name', 'History')]
+matched values OrderedDict([(16, ('department.dept_name', 'History')), (32, ('course.dept_name', 'History')), (91, ('student.dept_name', 'History'))])
+--------------------
+Picklist: Give the name of the student in the History department with the most credits., department, dept_name, [History]
+Picklist: Give the name of the student in the History department with the most credits., course, dept_name, [History]
+Picklist: Give the name of the student in the History department with the most credits., student, dept_name, [History]
+--------------------
+text:  Give the name of the student in the History department with the most credits.
+sql:  SELECT name FROM student WHERE dept_name  =  'History' ORDER BY tot_cred DESC LIMIT 1
+ground truth values:  [('student.dept_name', 'History')]
+matched values OrderedDict([(16, ('department.dept_name', 'History')), (32, ('course.dept_name', 'History')), (91, ('student.dept_name', 'History'))])
+--------------------
+Picklist: How many rooms does the Lamberton building have?, classroom, building, [Lamberton]
+Picklist: How many rooms does the Lamberton building have?, department, building, [Lamberton]
+Picklist: How many rooms does the Lamberton building have?, section, building, [Lamberton]
+--------------------
+text:  How many rooms does the Lamberton building have?
+sql:  SELECT count(*) FROM classroom WHERE building  =  'Lamberton'
+ground truth values:  [('classroom.building', 'Lamberton')]
+matched values OrderedDict([(6, ('classroom.building', 'Lamberton')), (21, ('department.building', 'Lamberton')), (63, ('section.building', 'Lamberton'))])
+--------------------
+Picklist: Count the number of classrooms in Lamberton., classroom, building, [Lamberton]
+Picklist: Count the number of classrooms in Lamberton., department, building, [Lamberton]
+Picklist: Count the number of classrooms in Lamberton., section, building, [Lamberton]
+--------------------
+text:  Count the number of classrooms in Lamberton.
+sql:  SELECT count(*) FROM classroom WHERE building  =  'Lamberton'
+ground truth values:  [('classroom.building', 'Lamberton')]
+matched values OrderedDict([(6, ('classroom.building', 'Lamberton')), (21, ('department.building', 'Lamberton')), (63, ('section.building', 'Lamberton'))])
+--------------------
+Picklist: How many different courses offered by Physics department?, department, dept_name, [Physics]
+Picklist: How many different courses offered by Physics department?, course, dept_name, [Physics]
+Picklist: How many different courses offered by Physics department?, instructor, dept_name, [Physics]
+Picklist: How many different courses offered by Physics department?, student, dept_name, [Physics]
+--------------------
+text:  How many different courses offered by Physics department?
+sql:  SELECT count(DISTINCT course_id) FROM course WHERE dept_name  =  'Physics'
+ground truth values:  [('course.dept_name', 'Physics')]
+matched values OrderedDict([(16, ('department.dept_name', 'Physics')), (32, ('course.dept_name', 'Physics')), (45, ('instructor.dept_name', 'Physics')), (93, ('student.dept_name', 'Physics'))])
+--------------------
+Picklist: Count the number of courses in the Physics department., department, dept_name, [Physics]
+Picklist: Count the number of courses in the Physics department., course, dept_name, [Physics]
+Picklist: Count the number of courses in the Physics department., instructor, dept_name, [Physics]
+Picklist: Count the number of courses in the Physics department., student, dept_name, [Physics]
+--------------------
+text:  Count the number of courses in the Physics department.
+sql:  SELECT count(DISTINCT course_id) FROM course WHERE dept_name  =  'Physics'
+ground truth values:  [('course.dept_name', 'Physics')]
+matched values OrderedDict([(16, ('department.dept_name', 'Physics')), (32, ('course.dept_name', 'Physics')), (45, ('instructor.dept_name', 'Physics')), (93, ('student.dept_name', 'Physics'))])
+--------------------
+Picklist: Find the total budgets of the Marketing or Finance department., department, dept_name, [Marketing]
+Picklist: Find the total budgets of the Marketing or Finance department., department, dept_name, [Finance]
+Picklist: Find the total budgets of the Marketing or Finance department., course, dept_name, [Marketing]
+Picklist: Find the total budgets of the Marketing or Finance department., course, dept_name, [Finance]
+Picklist: Find the total budgets of the Marketing or Finance department., instructor, dept_name, [Marketing]
+Picklist: Find the total budgets of the Marketing or Finance department., instructor, dept_name, [Finance]
+Picklist: Find the total budgets of the Marketing or Finance department., student, name, [Finance]
+Picklist: Find the total budgets of the Marketing or Finance department., student, dept_name, [Marketing]
+ 18%|█▊        | 31/170 [00:04<00:18,  7.49it/s] 19%|█▉        | 32/170 [00:04<00:18,  7.33it/s] 19%|█▉        | 33/170 [00:05<00:19,  7.15it/s] 20%|██        | 34/170 [00:05<00:19,  6.80it/s] 21%|██        | 35/170 [00:05<00:20,  6.45it/s] 21%|██        | 36/170 [00:05<00:20,  6.43it/s] 22%|██▏       | 37/170 [00:05<00:21,  6.24it/s] 22%|██▏       | 38/170 [00:05<00:21,  6.15it/s] 23%|██▎       | 39/170 [00:06<00:22,  5.92it/s] 24%|██▎       | 40/170 [00:06<00:21,  6.05it/s] 24%|██▍       | 41/170 [00:06<00:34,  3.76it/s]Picklist: Find the total budgets of the Marketing or Finance department., student, dept_name, [Finance]
+--------------------
+text:  Find the total budgets of the Marketing or Finance department.
+sql:  SELECT sum(budget) FROM department WHERE dept_name  =  'Marketing' OR dept_name  =  'Finance'
+ground truth values:  [('department.dept_name', 'Marketing'), ('department.dept_name', 'Finance')]
+matched values OrderedDict([(16, ('department.dept_name', 'Marketing')), (18, ('department.dept_name', 'Finance')), (34, ('course.dept_name', 'Marketing')), (36, ('course.dept_name', 'Finance')), (49, ('instructor.dept_name', 'Marketing')), (51, ('instructor.dept_name', 'Finance')), (96, ('student.name', 'Finance')), (101, ('student.dept_name', 'Marketing')), (103, ('student.dept_name', 'Finance'))])
+--------------------
+Picklist: What is the sum of budgets of the Marketing and Finance departments?, department, dept_name, [Marketing]
+Picklist: What is the sum of budgets of the Marketing and Finance departments?, department, dept_name, [Finance]
+Picklist: What is the sum of budgets of the Marketing and Finance departments?, course, dept_name, [Marketing]
+Picklist: What is the sum of budgets of the Marketing and Finance departments?, course, dept_name, [Finance]
+Picklist: What is the sum of budgets of the Marketing and Finance departments?, instructor, dept_name, [Marketing]
+Picklist: What is the sum of budgets of the Marketing and Finance departments?, instructor, dept_name, [Finance]
+Picklist: What is the sum of budgets of the Marketing and Finance departments?, student, name, [Finance]
+Picklist: What is the sum of budgets of the Marketing and Finance departments?, student, dept_name, [Marketing]
+Picklist: What is the sum of budgets of the Marketing and Finance departments?, student, dept_name, [Finance]
+--------------------
+text:  What is the sum of budgets of the Marketing and Finance departments?
+sql:  SELECT sum(budget) FROM department WHERE dept_name  =  'Marketing' OR dept_name  =  'Finance'
+ground truth values:  [('department.dept_name', 'Marketing'), ('department.dept_name', 'Finance')]
+matched values OrderedDict([(16, ('department.dept_name', 'Marketing')), (18, ('department.dept_name', 'Finance')), (34, ('course.dept_name', 'Marketing')), (36, ('course.dept_name', 'Finance')), (49, ('instructor.dept_name', 'Marketing')), (51, ('instructor.dept_name', 'Finance')), (96, ('student.name', 'Finance')), (101, ('student.dept_name', 'Marketing')), (103, ('student.dept_name', 'Finance'))])
+--------------------
+Picklist: How many rooms whose capacity is less than 50 does the Lamberton building have?, classroom, building, [Lamberton]
+Picklist: How many rooms whose capacity is less than 50 does the Lamberton building have?, department, building, [Lamberton]
+Picklist: How many rooms whose capacity is less than 50 does the Lamberton building have?, section, building, [Lamberton]
+--------------------
+text:  How many rooms whose capacity is less than 50 does the Lamberton building have?
+sql:  SELECT count(*) FROM classroom WHERE building  =  'Lamberton' AND capacity  <  50
+ground truth values:  [('classroom.building', 'Lamberton')]
+matched values OrderedDict([(6, ('classroom.building', 'Lamberton')), (21, ('department.building', 'Lamberton')), (63, ('section.building', 'Lamberton'))])
+--------------------
+Picklist: Count the number of rooms in Lamberton with capacity lower than 50., classroom, building, [Lamberton]
+Picklist: Count the number of rooms in Lamberton with capacity lower than 50., department, building, [Lamberton]
+Picklist: Count the number of rooms in Lamberton with capacity lower than 50., section, building, [Lamberton]
+--------------------
+text:  Count the number of rooms in Lamberton with capacity lower than 50.
+sql:  SELECT count(*) FROM classroom WHERE building  =  'Lamberton' AND capacity  <  50
+ground truth values:  [('classroom.building', 'Lamberton')]
+matched values OrderedDict([(6, ('classroom.building', 'Lamberton')), (21, ('department.building', 'Lamberton')), (63, ('section.building', 'Lamberton'))])
+--------------------
+Picklist: what is the name of the instructor who is in Statistics department and earns the lowest salary?, department, dept_name, [Statistics]
+Picklist: what is the name of the instructor who is in Statistics department and earns the lowest salary?, course, dept_name, [Statistics]
+Picklist: what is the name of the instructor who is in Statistics department and earns the lowest salary?, instructor, dept_name, [Statistics]
+Picklist: what is the name of the instructor who is in Statistics department and earns the lowest salary?, student, dept_name, [Statistics]
+--------------------
+text:  what is the name of the instructor who is in Statistics department and earns the lowest salary?
+sql:  SELECT name FROM instructor WHERE dept_name  =  'Statistics' ORDER BY salary LIMIT 1
+ground truth values:  [('instructor.dept_name', 'Statistics')]
+matched values OrderedDict([(16, ('department.dept_name', 'Statistics')), (32, ('course.dept_name', 'Statistics')), (45, ('instructor.dept_name', 'Statistics')), (93, ('student.dept_name', 'Statistics'))])
+--------------------
+Picklist: Give the name of the lowest earning instructor in the Statistics department., department, dept_name, [Statistics]
+Picklist: Give the name of the lowest earning instructor in the Statistics department., course, dept_name, [Statistics]
+Picklist: Give the name of the lowest earning instructor in the Statistics department., instructor, dept_name, [Statistics]
+Picklist: Give the name of the lowest earning instructor in the Statistics department., student, dept_name, [Statistics]
+--------------------
+text:  Give the name of the lowest earning instructor in the Statistics department.
+sql:  SELECT name FROM instructor WHERE dept_name  =  'Statistics' ORDER BY salary LIMIT 1
+ground truth values:  [('instructor.dept_name', 'Statistics')]
+matched values OrderedDict([(16, ('department.dept_name', 'Statistics')), (32, ('course.dept_name', 'Statistics')), (45, ('instructor.dept_name', 'Statistics')), (93, ('student.dept_name', 'Statistics'))])
+--------------------
+Picklist: Find the title of course that is provided by both Statistics and Psychology departments., department, dept_name, [Psychology]
+Picklist: Find the title of course that is provided by both Statistics and Psychology departments., department, dept_name, [Statistics]
+Picklist: Find the title of course that is provided by both Statistics and Psychology departments., course, dept_name, [Psychology]
+Picklist: Find the title of course that is provided by both Statistics and Psychology departments., course, dept_name, [Statistics]
+Picklist: Find the title of course that is provided by both Statistics and Psychology departments., instructor, dept_name, [Psychology]
+Picklist: Find the title of course that is provided by both Statistics and Psychology departments., instructor, dept_name, [Statistics]
+Picklist: Find the title of course that is provided by both Statistics and Psychology departments., student, dept_name, [Psychology]
+Picklist: Find the title of course that is provided by both Statistics and Psychology departments., student, dept_name, [Statistics]
+--------------------
+text:  Find the title of course that is provided by both Statistics and Psychology departments.
+sql:  SELECT title FROM course WHERE dept_name  =  'Statistics' INTERSECT SELECT title FROM course WHERE dept_name  =  'Psychology'
+ground truth values:  [('course.dept_name', 'Statistics'), ('course.dept_name', 'Psychology')]
+matched values OrderedDict([(16, ('department.dept_name', 'Psychology')), (18, ('department.dept_name', 'Statistics')), (34, ('course.dept_name', 'Psychology')), (36, ('course.dept_name', 'Statistics')), (49, ('instructor.dept_name', 'Psychology')), (51, ('instructor.dept_name', 'Statistics')), (99, ('student.dept_name', 'Psychology')), (101, ('student.dept_name', 'Statistics'))])
+--------------------
+Picklist: What is the title of a course that is listed in both the Statistics and Psychology departments?, department, dept_name, [Psychology]
+ 25%|██▍       | 42/170 [00:06<00:30,  4.15it/s] 25%|██▌       | 43/170 [00:07<00:27,  4.56it/s] 26%|██▌       | 44/170 [00:07<00:26,  4.76it/s] 26%|██▋       | 45/170 [00:07<00:25,  4.92it/s]Picklist: What is the title of a course that is listed in both the Statistics and Psychology departments?, department, dept_name, [Statistics]
+Picklist: What is the title of a course that is listed in both the Statistics and Psychology departments?, course, dept_name, [Psychology]
+Picklist: What is the title of a course that is listed in both the Statistics and Psychology departments?, course, dept_name, [Statistics]
+Picklist: What is the title of a course that is listed in both the Statistics and Psychology departments?, instructor, dept_name, [Psychology]
+Picklist: What is the title of a course that is listed in both the Statistics and Psychology departments?, instructor, dept_name, [Statistics]
+Picklist: What is the title of a course that is listed in both the Statistics and Psychology departments?, student, dept_name, [Psychology]
+Picklist: What is the title of a course that is listed in both the Statistics and Psychology departments?, student, dept_name, [Statistics]
+--------------------
+text:  What is the title of a course that is listed in both the Statistics and Psychology departments?
+sql:  SELECT title FROM course WHERE dept_name  =  'Statistics' INTERSECT SELECT title FROM course WHERE dept_name  =  'Psychology'
+ground truth values:  [('course.dept_name', 'Statistics'), ('course.dept_name', 'Psychology')]
+matched values OrderedDict([(16, ('department.dept_name', 'Psychology')), (18, ('department.dept_name', 'Statistics')), (34, ('course.dept_name', 'Psychology')), (36, ('course.dept_name', 'Statistics')), (49, ('instructor.dept_name', 'Psychology')), (51, ('instructor.dept_name', 'Statistics')), (99, ('student.dept_name', 'Psychology')), (101, ('student.dept_name', 'Statistics'))])
+--------------------
+Picklist: Find the title of course that is provided by Statistics but not Psychology departments., department, dept_name, [Psychology]
+Picklist: Find the title of course that is provided by Statistics but not Psychology departments., department, dept_name, [Statistics]
+Picklist: Find the title of course that is provided by Statistics but not Psychology departments., course, dept_name, [Psychology]
+Picklist: Find the title of course that is provided by Statistics but not Psychology departments., course, dept_name, [Statistics]
+Picklist: Find the title of course that is provided by Statistics but not Psychology departments., instructor, dept_name, [Psychology]
+Picklist: Find the title of course that is provided by Statistics but not Psychology departments., instructor, dept_name, [Statistics]
+Picklist: Find the title of course that is provided by Statistics but not Psychology departments., student, dept_name, [Psychology]
+Picklist: Find the title of course that is provided by Statistics but not Psychology departments., student, dept_name, [Statistics]
+--------------------
+text:  Find the title of course that is provided by Statistics but not Psychology departments.
+sql:  SELECT title FROM course WHERE dept_name  =  'Statistics' EXCEPT SELECT title FROM course WHERE dept_name  =  'Psychology'
+ground truth values:  [('course.dept_name', 'Statistics'), ('course.dept_name', 'Psychology')]
+matched values OrderedDict([(16, ('department.dept_name', 'Psychology')), (18, ('department.dept_name', 'Statistics')), (34, ('course.dept_name', 'Psychology')), (36, ('course.dept_name', 'Statistics')), (49, ('instructor.dept_name', 'Psychology')), (51, ('instructor.dept_name', 'Statistics')), (99, ('student.dept_name', 'Psychology')), (101, ('student.dept_name', 'Statistics'))])
+--------------------
+Picklist: What are the titles of courses that are in the Statistics department but not the Psychology department?, department, dept_name, [Psychology]
+Picklist: What are the titles of courses that are in the Statistics department but not the Psychology department?, department, dept_name, [Statistics]
+Picklist: What are the titles of courses that are in the Statistics department but not the Psychology department?, course, dept_name, [Psychology]
+Picklist: What are the titles of courses that are in the Statistics department but not the Psychology department?, course, dept_name, [Statistics]
+Picklist: What are the titles of courses that are in the Statistics department but not the Psychology department?, instructor, dept_name, [Psychology]
+Picklist: What are the titles of courses that are in the Statistics department but not the Psychology department?, instructor, dept_name, [Statistics]
+Picklist: What are the titles of courses that are in the Statistics department but not the Psychology department?, student, dept_name, [Psychology]
+Picklist: What are the titles of courses that are in the Statistics department but not the Psychology department?, student, dept_name, [Statistics]
+--------------------
+text:  What are the titles of courses that are in the Statistics department but not the Psychology department?
+sql:  SELECT title FROM course WHERE dept_name  =  'Statistics' EXCEPT SELECT title FROM course WHERE dept_name  =  'Psychology'
+ground truth values:  [('course.dept_name', 'Statistics'), ('course.dept_name', 'Psychology')]
+matched values OrderedDict([(16, ('department.dept_name', 'Psychology')), (18, ('department.dept_name', 'Statistics')), (34, ('course.dept_name', 'Psychology')), (36, ('course.dept_name', 'Statistics')), (49, ('instructor.dept_name', 'Psychology')), (51, ('instructor.dept_name', 'Statistics')), (99, ('student.dept_name', 'Psychology')), (101, ('student.dept_name', 'Statistics'))])
+--------------------
+Picklist: Find the id of instructors who taught a class in Fall 2009 but not in Spring 2010., section, semester, [Spring]
+Picklist: Find the id of instructors who taught a class in Fall 2009 but not in Spring 2010., section, semester, [Fall]
+Picklist: Find the id of instructors who taught a class in Fall 2009 but not in Spring 2010., teaches, semester, [Spring]
+Picklist: Find the id of instructors who taught a class in Fall 2009 but not in Spring 2010., teaches, semester, [Fall]
+Picklist: Find the id of instructors who taught a class in Fall 2009 but not in Spring 2010., student, name, [Fall]
+Picklist: Find the id of instructors who taught a class in Fall 2009 but not in Spring 2010., takes, semester, [Spring]
+Picklist: Find the id of instructors who taught a class in Fall 2009 but not in Spring 2010., takes, semester, [Fall]
+--------------------
+text:  Find the id of instructors who taught a class in Fall 2009 but not in Spring 2010.
+sql:  SELECT id FROM teaches WHERE semester  =  'Fall' AND YEAR  =  2009 EXCEPT SELECT id FROM teaches WHERE semester  =  'Spring' AND YEAR  =  2010
+ground truth values:  [('teaches.semester', 'Fall'), ('teaches.semester', 'Spring')]
+matched values OrderedDict([(53, ('section.semester', 'Spring')), (55, ('section.semester', 'Fall')), (80, ('teaches.semester', 'Spring')), (82, ('teaches.semester', 'Fall')), (92, ('student.name', 'Fall')), (113, ('takes.semester', 'Spring')), (115, ('takes.semester', 'Fall'))])
+--------------------
+Picklist: What are the ids of instructors who taught in the Fall of 2009 but not in the Spring of 2010?, section, semester, [Spring]
+Picklist: What are the ids of instructors who taught in the Fall of 2009 but not in the Spring of 2010?, section, semester, [Fall]
+Picklist: What are the ids of instructors who taught in the Fall of 2009 but not in the Spring of 2010?, teaches, semester, [Spring]
+Picklist: What are the ids of instructors who taught in the Fall of 2009 but not in the Spring of 2010?, teaches, semester, [Fall]
+Picklist: What are the ids of instructors who taught in the Fall of 2009 but not in the Spring of 2010?, student, name, [Fall]
+Picklist: What are the ids of instructors who taught in the Fall of 2009 but not in the Spring of 2010?, takes, semester, [Spring]
+Picklist: What are the ids of instructors who taught in the Fall of 2009 but not in the Spring of 2010?, takes, semester, [Fall]
+--------------------
+text:  What are the ids of instructors who taught in the Fall of 2009 but not in the Spring of 2010?
+sql:  SELECT id FROM teaches WHERE semester  =  'Fall' AND YEAR  =  2009 EXCEPT SELECT id FROM teaches WHERE semester  =  'Spring' AND YEAR  =  2010
+ 27%|██▋       | 46/170 [00:07<00:25,  4.94it/s] 28%|██▊       | 47/170 [00:07<00:23,  5.13it/s] 28%|██▊       | 48/170 [00:08<00:22,  5.35it/s] 29%|██▉       | 49/170 [00:08<00:21,  5.51it/s] 29%|██▉       | 50/170 [00:08<00:20,  5.88it/s] 30%|███       | 51/170 [00:08<00:19,  6.14it/s] 31%|███       | 52/170 [00:08<00:18,  6.53it/s] 31%|███       | 53/170 [00:08<00:17,  6.69it/s] 32%|███▏      | 54/170 [00:08<00:16,  6.87it/s] 32%|███▏      | 55/170 [00:09<00:15,  7.52it/s] 33%|███▎      | 56/170 [00:09<00:15,  7.52it/s] 34%|███▎      | 57/170 [00:09<00:16,  6.95it/s] 34%|███▍      | 58/170 [00:09<00:16,  6.76it/s] 35%|███▍      | 59/170 [00:09<00:15,  7.24it/s] 35%|███▌      | 60/170 [00:09<00:14,  7.62it/s] 36%|███▌      | 61/170 [00:09<00:15,  7.16it/s] 36%|███▋      | 62/170 [00:10<00:15,  6.82it/s] 37%|███▋      | 63/170 [00:10<00:17,  6.23it/s] 38%|███▊      | 64/170 [00:10<00:18,  5.71it/s] 38%|███▊      | 65/170 [00:10<00:18,  5.54it/s] 39%|███▉      | 66/170 [00:10<00:19,  5.30it/s] 39%|███▉      | 67/170 [00:11<00:18,  5.65it/s] 40%|████      | 68/170 [00:11<00:17,  5.95it/s] 41%|████      | 69/170 [00:11<00:16,  6.27it/s] 41%|████      | 70/170 [00:11<00:15,  6.51it/s] 42%|████▏     | 71/170 [00:12<00:27,  3.55it/s] 42%|████▏     | 72/170 [00:12<00:23,  4.14it/s] 43%|████▎     | 73/170 [00:12<00:20,  4.72it/s] 44%|████▎     | 74/170 [00:12<00:18,  5.19it/s] 44%|████▍     | 75/170 [00:12<00:17,  5.58it/s] 45%|████▍     | 76/170 [00:12<00:16,  5.83it/s] 45%|████▌     | 77/170 [00:12<00:14,  6.20it/s] 46%|████▌     | 78/170 [00:13<00:13,  6.65it/s] 46%|████▋     | 79/170 [00:13<00:15,  5.99it/s] 47%|████▋     | 80/170 [00:13<00:15,  5.84it/s] 48%|████▊     | 81/170 [00:13<00:14,  6.22it/s] 48%|████▊     | 82/170 [00:13<00:13,  6.59it/s] 49%|████▉     | 83/170 [00:13<00:12,  6.90it/s] 49%|████▉     | 84/170 [00:13<00:11,  7.38it/s] 50%|█████     | 85/170 [00:14<00:11,  7.16it/s] 51%|█████     | 86/170 [00:14<00:11,  7.35it/s] 51%|█████     | 87/170 [00:14<00:11,  7.36it/s] 52%|█████▏    | 88/170 [00:14<00:11,  7.35it/s] 52%|█████▏    | 89/170 [00:14<00:10,  7.62it/s] 53%|█████▎    | 90/170 [00:14<00:09,  8.08it/s] 54%|█████▎    | 91/170 [00:14<00:10,  7.34it/s] 54%|█████▍    | 92/170 [00:14<00:10,  7.57it/s] 55%|█████▍    | 93/170 [00:15<00:10,  7.01it/s] 55%|█████▌    | 94/170 [00:15<00:11,  6.89it/s] 56%|█████▌    | 95/170 [00:15<00:12,  6.23it/s] 56%|█████▋    | 96/170 [00:15<00:12,  5.93it/s] 57%|█████▋    | 97/170 [00:15<00:11,  6.34it/s] 58%|█████▊    | 98/170 [00:15<00:10,  6.87it/s] 59%|█████▉    | 100/170 [00:16<00:08,  8.20it/s] 59%|█████▉    | 101/170 [00:16<00:09,  7.45it/s] 60%|██████    | 102/170 [00:16<00:09,  7.11it/s] 61%|██████    | 103/170 [00:16<00:09,  6.80it/s] 61%|██████    | 104/170 [00:16<00:10,  6.58it/s] 62%|██████▏   | 105/170 [00:16<00:10,  6.09it/s]ground truth values:  [('teaches.semester', 'Fall'), ('teaches.semester', 'Spring')]
+matched values OrderedDict([(53, ('section.semester', 'Spring')), (55, ('section.semester', 'Fall')), (80, ('teaches.semester', 'Spring')), (82, ('teaches.semester', 'Fall')), (92, ('student.name', 'Fall')), (113, ('takes.semester', 'Spring')), (115, ('takes.semester', 'Fall'))])
+--------------------
+Picklist: What is the id of the instructor who advises of all students from History department?, department, dept_name, [History]
+Picklist: What is the id of the instructor who advises of all students from History department?, course, dept_name, [History]
+Picklist: What is the id of the instructor who advises of all students from History department?, student, dept_name, [History]
+--------------------
+text:  What is the id of the instructor who advises of all students from History department?
+sql:  SELECT i_id FROM advisor AS T1 JOIN student AS T2 ON T1.s_id  =  T2.id WHERE T2.dept_name  =  'History'
+ground truth values:  [('student.dept_name', 'History')]
+matched values OrderedDict([(16, ('department.dept_name', 'History')), (32, ('course.dept_name', 'History')), (91, ('student.dept_name', 'History'))])
+--------------------
+Picklist: Give id of the instructor who advises students in the History department., department, dept_name, [History]
+Picklist: Give id of the instructor who advises students in the History department., course, dept_name, [History]
+Picklist: Give id of the instructor who advises students in the History department., student, dept_name, [History]
+--------------------
+text:  Give id of the instructor who advises students in the History department.
+sql:  SELECT i_id FROM advisor AS T1 JOIN student AS T2 ON T1.s_id  =  T2.id WHERE T2.dept_name  =  'History'
+ground truth values:  [('student.dept_name', 'History')]
+matched values OrderedDict([(16, ('department.dept_name', 'History')), (32, ('course.dept_name', 'History')), (91, ('student.dept_name', 'History'))])
+--------------------
+Picklist: Find the name and salary of the instructors who are advisors of any student from History department?, department, dept_name, [History]
+Picklist: Find the name and salary of the instructors who are advisors of any student from History department?, course, dept_name, [History]
+Picklist: Find the name and salary of the instructors who are advisors of any student from History department?, student, dept_name, [History]
+--------------------
+text:  Find the name and salary of the instructors who are advisors of any student from History department?
+sql:  SELECT T2.name ,  T2.salary FROM advisor AS T1 JOIN instructor AS T2 ON T1.i_id  =  T2.id JOIN student AS T3 ON T1.s_id  =  T3.id WHERE T3.dept_name  =  'History'
+ground truth values:  [('student.dept_name', 'History')]
+matched values OrderedDict([(16, ('department.dept_name', 'History')), (32, ('course.dept_name', 'History')), (91, ('student.dept_name', 'History'))])
+--------------------
+Picklist: What are the names and salaries of instructors who advises students in the History department?, department, dept_name, [History]
+Picklist: What are the names and salaries of instructors who advises students in the History department?, course, dept_name, [History]
+Picklist: What are the names and salaries of instructors who advises students in the History department?, student, dept_name, [History]
+--------------------
+text:  What are the names and salaries of instructors who advises students in the History department?
+sql:  SELECT T2.name ,  T2.salary FROM advisor AS T1 JOIN instructor AS T2 ON T1.i_id  =  T2.id JOIN student AS T3 ON T1.s_id  =  T3.id WHERE T3.dept_name  =  'History'
+ground truth values:  [('student.dept_name', 'History')]
+matched values OrderedDict([(16, ('department.dept_name', 'History')), (32, ('course.dept_name', 'History')), (91, ('student.dept_name', 'History'))])
+--------------------
+Picklist: What is the title of the prerequisite class of International Finance course?, department, dept_name, [Finance]
+Picklist: What is the title of the prerequisite class of International Finance course?, course, title, [International Finance]
+Picklist: What is the title of the prerequisite class of International Finance course?, course, dept_name, [Finance]
+Picklist: What is the title of the prerequisite class of International Finance course?, instructor, dept_name, [Finance]
+Picklist: What is the title of the prerequisite class of International Finance course?, student, name, [Finance]
+Picklist: What is the title of the prerequisite class of International Finance course?, student, dept_name, [Finance]
+--------------------
+text:  What is the title of the prerequisite class of International Finance course?
+sql:  SELECT title FROM course WHERE course_id IN (SELECT T1.prereq_id FROM prereq AS T1 JOIN course AS T2 ON T1.course_id  =  T2.course_id WHERE T2.title  =  'International Finance')
+ground truth values:  [('course.title', 'International Finance')]
+matched values OrderedDict([(16, ('department.dept_name', 'Finance')), (29, ('course.title', 'International Finance')), (35, ('course.dept_name', 'Finance')), (48, ('instructor.dept_name', 'Finance')), (93, ('student.name', 'Finance')), (98, ('student.dept_name', 'Finance'))])
+--------------------
+Picklist: Give the title of the prerequisite to the course International Finance., department, dept_name, [Finance]
+Picklist: Give the title of the prerequisite to the course International Finance., course, title, [International Finance]
+Picklist: Give the title of the prerequisite to the course International Finance., course, dept_name, [Finance]
+Picklist: Give the title of the prerequisite to the course International Finance., instructor, dept_name, [Finance]
+Picklist: Give the title of the prerequisite to the course International Finance., student, name, [Finance]
+Picklist: Give the title of the prerequisite to the course International Finance., student, dept_name, [Finance]
+--------------------
+text:  Give the title of the prerequisite to the course International Finance.
+sql:  SELECT title FROM course WHERE course_id IN (SELECT T1.prereq_id FROM prereq AS T1 JOIN course AS T2 ON T1.course_id  =  T2.course_id WHERE T2.title  =  'International Finance')
+ground truth values:  [('course.title', 'International Finance')]
+matched values OrderedDict([(16, ('department.dept_name', 'Finance')), (29, ('course.title', 'International Finance')), (35, ('course.dept_name', 'Finance')), (48, ('instructor.dept_name', 'Finance')), (93, ('student.name', 'Finance')), (98, ('student.dept_name', 'Finance'))])
+--------------------
+Picklist: Find the title of course whose prerequisite is course Differential Geometry., course, title, [Differential Geometry]
+Picklist: What is the title of the course with Differential Geometry as a prerequisite?, course, title, [Differential Geometry]
+Picklist: Find the names of students who have taken any course in the fall semester of year 2003., section, semester, [Fall]
+Picklist: Find the names of students who have taken any course in the fall semester of year 2003., teaches, semester, [Fall]
+Picklist: Find the names of students who have taken any course in the fall semester of year 2003., student, name, [Fall]
+Picklist: Find the names of students who have taken any course in the fall semester of year 2003., takes, semester, [Fall]
+--------------------
+text:  Find the names of students who have taken any course in the fall semester of year 2003.
+sql:  SELECT name FROM student WHERE id IN (SELECT id FROM takes WHERE semester  =  'Fall' AND YEAR  =  2003)
+ground truth values:  [('takes.semester', 'Fall')]
+matched values OrderedDict([(53, ('section.semester', 'Fall')), (78, ('teaches.semester', 'Fall')), (88, ('student.name', 'Fall')), (109, ('takes.semester', 'Fall'))])
+--------------------
+Picklist: What are the names of students who took a course in the Fall of 2003?, section, semester, [Fall]
+Picklist: What are the names of students who took a course in the Fall of 2003?, teaches, semester, [Fall]
+Picklist: What are the names of students who took a course in the Fall of 2003?, student, name, [Fall]
+ 62%|██████▏   | 106/170 [00:17<00:10,  6.10it/s] 63%|██████▎   | 107/170 [00:17<00:11,  5.48it/s] 64%|██████▎   | 108/170 [00:17<00:11,  5.58it/s] 64%|██████▍   | 109/170 [00:17<00:10,  5.81it/s] 65%|██████▍   | 110/170 [00:18<00:18,  3.29it/s] 65%|██████▌   | 111/170 [00:18<00:16,  3.68it/s] 66%|██████▌   | 112/170 [00:18<00:14,  4.09it/s] 66%|██████▋   | 113/170 [00:18<00:13,  4.10it/s]Picklist: What are the names of students who took a course in the Fall of 2003?, takes, semester, [Fall]
+--------------------
+text:  What are the names of students who took a course in the Fall of 2003?
+sql:  SELECT name FROM student WHERE id IN (SELECT id FROM takes WHERE semester  =  'Fall' AND YEAR  =  2003)
+ground truth values:  [('takes.semester', 'Fall')]
+matched values OrderedDict([(53, ('section.semester', 'Fall')), (78, ('teaches.semester', 'Fall')), (88, ('student.name', 'Fall')), (109, ('takes.semester', 'Fall'))])
+--------------------
+Picklist: What is the title of the course that was offered at building Chandler during the fall semester in the year of 2010?, classroom, building, [Chandler]
+Picklist: What is the title of the course that was offered at building Chandler during the fall semester in the year of 2010?, department, building, [Chandler]
+Picklist: What is the title of the course that was offered at building Chandler during the fall semester in the year of 2010?, section, semester, [Fall]
+Picklist: What is the title of the course that was offered at building Chandler during the fall semester in the year of 2010?, section, building, [Chandler]
+Picklist: What is the title of the course that was offered at building Chandler during the fall semester in the year of 2010?, teaches, semester, [Fall]
+Picklist: What is the title of the course that was offered at building Chandler during the fall semester in the year of 2010?, student, name, [Fall]
+Picklist: What is the title of the course that was offered at building Chandler during the fall semester in the year of 2010?, takes, semester, [Fall]
+--------------------
+text:  What is the title of the course that was offered at building Chandler during the fall semester in the year of 2010?
+sql:  SELECT T1.title FROM course AS T1 JOIN SECTION AS T2 ON T1.course_id  =  T2.course_id WHERE building  =  'Chandler' AND semester  =  'Fall' AND YEAR  =  2010
+ground truth values:  [('section.building', 'Chandler'), ('section.semester', 'Fall')]
+matched values OrderedDict([(6, ('classroom.building', 'Chandler')), (20, ('department.building', 'Chandler')), (57, ('section.semester', 'Fall')), (63, ('section.building', 'Chandler')), (84, ('teaches.semester', 'Fall')), (94, ('student.name', 'Fall')), (115, ('takes.semester', 'Fall'))])
+--------------------
+Picklist: Give the title of the course offered in Chandler during the Fall of 2010., classroom, building, [Chandler]
+Picklist: Give the title of the course offered in Chandler during the Fall of 2010., department, building, [Chandler]
+Picklist: Give the title of the course offered in Chandler during the Fall of 2010., section, semester, [Fall]
+Picklist: Give the title of the course offered in Chandler during the Fall of 2010., section, building, [Chandler]
+Picklist: Give the title of the course offered in Chandler during the Fall of 2010., teaches, semester, [Fall]
+Picklist: Give the title of the course offered in Chandler during the Fall of 2010., student, name, [Fall]
+Picklist: Give the title of the course offered in Chandler during the Fall of 2010., takes, semester, [Fall]
+--------------------
+text:  Give the title of the course offered in Chandler during the Fall of 2010.
+sql:  SELECT T1.title FROM course AS T1 JOIN SECTION AS T2 ON T1.course_id  =  T2.course_id WHERE building  =  'Chandler' AND semester  =  'Fall' AND YEAR  =  2010
+ground truth values:  [('section.building', 'Chandler'), ('section.semester', 'Fall')]
+matched values OrderedDict([(6, ('classroom.building', 'Chandler')), (20, ('department.building', 'Chandler')), (57, ('section.semester', 'Fall')), (63, ('section.building', 'Chandler')), (84, ('teaches.semester', 'Fall')), (94, ('student.name', 'Fall')), (115, ('takes.semester', 'Fall'))])
+--------------------
+--------------------
+text:  Find the name of the instructors who taught C Programming course before.
+sql:  SELECT T1.name FROM instructor AS T1 JOIN teaches AS T2 ON T1.id  =  T2.id JOIN course AS T3 ON T2.course_id  =  T3.course_id WHERE T3.title  =  'C Programming'
+ground truth values:  [('course.title', 'C Programming')]
+matched values OrderedDict()
+--------------------
+--------------------
+text:  What are the names of instructors who have taught C Programming courses?
+sql:  SELECT T1.name FROM instructor AS T1 JOIN teaches AS T2 ON T1.id  =  T2.id JOIN course AS T3 ON T2.course_id  =  T3.course_id WHERE T3.title  =  'C Programming'
+ground truth values:  [('course.title', 'C Programming')]
+matched values OrderedDict()
+--------------------
+Picklist: Find the name and salary of instructors who are advisors of the students from the Math department., department, dept_name, [Math]
+Picklist: Find the name and salary of instructors who are advisors of the students from the Math department., course, dept_name, [Math]
+Picklist: Find the name and salary of instructors who are advisors of the students from the Math department., student, dept_name, [Math]
+--------------------
+text:  Find the name and salary of instructors who are advisors of the students from the Math department.
+sql:  SELECT T2.name ,  T2.salary FROM advisor AS T1 JOIN instructor AS T2 ON T1.i_id  =  T2.id JOIN student AS T3 ON T1.s_id  =  T3.id WHERE T3.dept_name  =  'Math'
+ground truth values:  [('student.dept_name', 'Math')]
+matched values OrderedDict([(16, ('department.dept_name', 'Math')), (32, ('course.dept_name', 'Math')), (91, ('student.dept_name', 'Math'))])
+--------------------
+Picklist: What are the names and salaries of instructors who advise students in the Math department?, department, dept_name, [Math]
+Picklist: What are the names and salaries of instructors who advise students in the Math department?, course, dept_name, [Math]
+Picklist: What are the names and salaries of instructors who advise students in the Math department?, student, dept_name, [Math]
+--------------------
+text:  What are the names and salaries of instructors who advise students in the Math department?
+sql:  SELECT T2.name ,  T2.salary FROM advisor AS T1 JOIN instructor AS T2 ON T1.i_id  =  T2.id JOIN student AS T3 ON T1.s_id  =  T3.id WHERE T3.dept_name  =  'Math'
+ground truth values:  [('student.dept_name', 'Math')]
+matched values OrderedDict([(16, ('department.dept_name', 'Math')), (32, ('course.dept_name', 'Math')), (91, ('student.dept_name', 'Math'))])
+--------------------
+Picklist: Find the name of instructors who are advisors of the students from the Math department, and sort the results by students' total credit., department, dept_name, [Math]
+Picklist: Find the name of instructors who are advisors of the students from the Math department, and sort the results by students' total credit., course, dept_name, [Math]
+Picklist: Find the name of instructors who are advisors of the students from the Math department, and sort the results by students' total credit., student, dept_name, [Math]
+--------------------
+text:  Find the name of instructors who are advisors of the students from the Math department, and sort the results by students' total credit.
+sql:  SELECT T2.name FROM advisor AS T1 JOIN instructor AS T2 ON T1.i_id  =  T2.id JOIN student AS T3 ON T1.s_id  =  T3.id WHERE T3.dept_name  =  'Math' ORDER BY T3.tot_cred
+ground truth values:  [('student.dept_name', 'Math')]
+matched values OrderedDict([(16, ('department.dept_name', 'Math')), (32, ('course.dept_name', 'Math')), (91, ('student.dept_name', 'Math'))])
+--------------------
+Picklist: What are the names of all instructors who advise students in the math depart sorted by total credits of the student., department, dept_name, [Math]
+Picklist: What are the names of all instructors who advise students in the math depart sorted by total credits of the student., course, dept_name, [Math]
+Picklist: What are the names of all instructors who advise students in the math depart sorted by total credits of the student., student, dept_name, [Math]
+--------------------
+text:  What are the names of all instructors who advise students in the math depart sorted by total credits of the student.
+sql:   67%|██████▋   | 114/170 [00:19<00:13,  4.26it/s] 68%|██████▊   | 115/170 [00:19<00:11,  4.76it/s] 68%|██████▊   | 116/170 [00:19<00:10,  5.14it/s] 69%|██████▉   | 117/170 [00:19<00:10,  5.08it/s] 69%|██████▉   | 118/170 [00:19<00:10,  5.09it/s] 70%|███████   | 119/170 [00:19<00:09,  5.65it/s] 71%|███████   | 120/170 [00:20<00:08,  6.24it/s] 71%|███████   | 121/170 [00:20<00:07,  6.68it/s] 72%|███████▏  | 122/170 [00:20<00:06,  7.14it/s] 72%|███████▏  | 123/170 [00:20<00:06,  6.77it/s] 73%|███████▎  | 124/170 [00:20<00:06,  6.71it/s] 74%|███████▎  | 125/170 [00:20<00:06,  6.51it/s] 74%|███████▍  | 126/170 [00:20<00:06,  6.80it/s] 75%|███████▍  | 127/170 [00:21<00:06,  6.17it/s] 75%|███████▌  | 128/170 [00:21<00:07,  5.84it/s] 76%|███████▌  | 129/170 [00:21<00:07,  5.41it/s] 76%|███████▋  | 130/170 [00:21<00:07,  5.25it/s] 77%|███████▋  | 131/170 [00:21<00:07,  5.50it/s] 78%|███████▊  | 132/170 [00:22<00:06,  5.77it/s] 78%|███████▊  | 133/170 [00:22<00:06,  5.73it/s] 79%|███████▉  | 134/170 [00:22<00:05,  6.06it/s] 79%|███████▉  | 135/170 [00:22<00:06,  5.51it/s] 80%|████████  | 136/170 [00:22<00:06,  5.37it/s]SELECT T2.name FROM advisor AS T1 JOIN instructor AS T2 ON T1.i_id  =  T2.id JOIN student AS T3 ON T1.s_id  =  T3.id WHERE T3.dept_name  =  'Math' ORDER BY T3.tot_cred
+ground truth values:  [('student.dept_name', 'Math')]
+matched values OrderedDict([(16, ('department.dept_name', 'Math')), (32, ('course.dept_name', 'Math')), (91, ('student.dept_name', 'Math'))])
+--------------------
+Picklist: What is the course title of the prerequisite of course Mobile Computing?, course, title, [Mobile Computing]
+Picklist: What is the title of the course that is a prerequisite for Mobile Computing?, course, title, [Mobile Computing]
+Picklist: Find the names of instructors who didn't each any courses in any Spring semester., section, semester, [Spring]
+Picklist: Find the names of instructors who didn't each any courses in any Spring semester., teaches, semester, [Spring]
+Picklist: Find the names of instructors who didn't each any courses in any Spring semester., takes, semester, [Spring]
+--------------------
+text:  Find the names of instructors who didn't each any courses in any Spring semester.
+sql:  SELECT name FROM instructor WHERE id NOT IN (SELECT id FROM teaches WHERE semester  =  'Spring')
+ground truth values:  [('teaches.semester', 'Spring')]
+matched values OrderedDict([(53, ('section.semester', 'Spring')), (78, ('teaches.semester', 'Spring')), (107, ('takes.semester', 'Spring'))])
+--------------------
+Picklist: What are the names of instructors who didn't teach courses in the Spring?, section, semester, [Spring]
+Picklist: What are the names of instructors who didn't teach courses in the Spring?, teaches, semester, [Spring]
+Picklist: What are the names of instructors who didn't teach courses in the Spring?, takes, semester, [Spring]
+--------------------
+text:  What are the names of instructors who didn't teach courses in the Spring?
+sql:  SELECT name FROM instructor WHERE id NOT IN (SELECT id FROM teaches WHERE semester  =  'Spring')
+ground truth values:  [('teaches.semester', 'Spring')]
+matched values OrderedDict([(53, ('section.semester', 'Spring')), (78, ('teaches.semester', 'Spring')), (107, ('takes.semester', 'Spring'))])
+--------------------
+Picklist: Find the name of students who didn't take any course from Biology department., department, dept_name, [Biology]
+Picklist: Find the name of students who didn't take any course from Biology department., course, dept_name, [Biology]
+Picklist: Find the name of students who didn't take any course from Biology department., instructor, dept_name, [Biology]
+Picklist: Find the name of students who didn't take any course from Biology department., student, dept_name, [Biology]
+--------------------
+text:  Find the name of students who didn't take any course from Biology department.
+sql:  SELECT name FROM student WHERE id NOT IN (SELECT T1.id FROM takes AS T1 JOIN course AS T2 ON T1.course_id  =  T2.course_id WHERE T2.dept_name  =  'Biology')
+ground truth values:  [('course.dept_name', 'Biology')]
+matched values OrderedDict([(16, ('department.dept_name', 'Biology')), (32, ('course.dept_name', 'Biology')), (45, ('instructor.dept_name', 'Biology')), (93, ('student.dept_name', 'Biology'))])
+--------------------
+Picklist: What are the names of students who haven't taken any Biology courses?, department, dept_name, [Biology]
+Picklist: What are the names of students who haven't taken any Biology courses?, course, dept_name, [Biology]
+Picklist: What are the names of students who haven't taken any Biology courses?, instructor, dept_name, [Biology]
+Picklist: What are the names of students who haven't taken any Biology courses?, student, dept_name, [Biology]
+--------------------
+text:  What are the names of students who haven't taken any Biology courses?
+sql:  SELECT name FROM student WHERE id NOT IN (SELECT T1.id FROM takes AS T1 JOIN course AS T2 ON T1.course_id  =  T2.course_id WHERE T2.dept_name  =  'Biology')
+ground truth values:  [('course.dept_name', 'Biology')]
+matched values OrderedDict([(16, ('department.dept_name', 'Biology')), (32, ('course.dept_name', 'Biology')), (45, ('instructor.dept_name', 'Biology')), (93, ('student.dept_name', 'Biology'))])
+--------------------
+Picklist: Find the name of students who have taken the prerequisite course of the course with title International Finance., department, dept_name, [Finance]
+Picklist: Find the name of students who have taken the prerequisite course of the course with title International Finance., course, title, [International Finance]
+Picklist: Find the name of students who have taken the prerequisite course of the course with title International Finance., course, dept_name, [Finance]
+Picklist: Find the name of students who have taken the prerequisite course of the course with title International Finance., instructor, dept_name, [Finance]
+Picklist: Find the name of students who have taken the prerequisite course of the course with title International Finance., student, name, [Finance]
+Picklist: Find the name of students who have taken the prerequisite course of the course with title International Finance., student, dept_name, [Finance]
+--------------------
+text:  Find the name of students who have taken the prerequisite course of the course with title International Finance.
+sql:  SELECT T1.name FROM student AS T1 JOIN takes AS T2 ON T1.id  =  T2.id WHERE T2.course_id IN (SELECT T4.prereq_id FROM course AS T3 JOIN prereq AS T4 ON T3.course_id  =  T4.course_id WHERE T3.title  =  'International Finance')
+ground truth values:  [('course.title', 'International Finance')]
+matched values OrderedDict([(16, ('department.dept_name', 'Finance')), (29, ('course.title', 'International Finance')), (35, ('course.dept_name', 'Finance')), (48, ('instructor.dept_name', 'Finance')), (93, ('student.name', 'Finance')), (98, ('student.dept_name', 'Finance'))])
+--------------------
+Picklist: What are the names of students who have taken the prerequisite for the course International Finance?, department, dept_name, [Finance]
+Picklist: What are the names of students who have taken the prerequisite for the course International Finance?, course, title, [International Finance]
+Picklist: What are the names of students who have taken the prerequisite for the course International Finance?, course, dept_name, [Finance]
+Picklist: What are the names of students who have taken the prerequisite for the course International Finance?, instructor, dept_name, [Finance]
+Picklist: What are the names of students who have taken the prerequisite for the course International Finance?, student, name, [Finance]
+Picklist: What are the names of students who have taken the prerequisite for the course International Finance?, student, dept_name, [Finance]
+--------------------
+text:  What are the names of students who have taken the prerequisite for the course International Finance?
+sql:  SELECT T1.name FROM student AS T1 JOIN takes AS T2 ON T1.id  =  T2.id WHERE T2.course_id IN (SELECT T4.prereq_id FROM course AS T3 JOIN prereq AS T4 ON T3.course_id  =  T4.course_id WHERE T3.title  =  'International Finance')
+ground truth values:  [('course.title', 'International Finance')]
+matched values OrderedDict([(16, ('department.dept_name', 'Finance')), (29, ('course.title', 'International Finance')), (35, ('course.dept_name', 'Finance')), (48, ('instructor.dept_name', 'Finance')), (93, ('student.name', 'Finance')), (98, ('student.dept_name', 'Finance'))])
+--------------------
+Picklist: Find the name and salary of instructors whose salary is below the average salary of the instructors in the Physics department., department, dept_name, [Physics]
+Picklist: Find the name and salary of instructors whose salary is below the average salary of the instructors in the Physics department., course, dept_name, [Physics]
+Picklist: Find the name and salary of instructors whose salary is below the average salary of the instructors in the Physics department., instructor, dept_name, [Physics]
+Picklist: Find the name and salary of instructors whose salary is below the average salary of the instructors in the Physics department., student, dept_name, [Physics]
+--------------------
+text:   81%|████████  | 137/170 [00:22<00:06,  5.06it/s] 81%|████████  | 138/170 [00:23<00:06,  4.85it/s] 82%|████████▏ | 139/170 [00:23<00:06,  5.14it/s] 82%|████████▏ | 140/170 [00:23<00:05,  5.55it/s] 83%|████████▎ | 141/170 [00:23<00:05,  5.18it/s] 84%|████████▎ | 142/170 [00:23<00:05,  4.92it/s] 84%|████████▍ | 143/170 [00:24<00:04,  5.48it/s] 85%|████████▍ | 144/170 [00:24<00:04,  5.89it/s] 85%|████████▌ | 145/170 [00:24<00:04,  5.90it/s] 86%|████████▌ | 146/170 [00:24<00:04,  5.73it/s] 86%|████████▋ | 147/170 [00:24<00:03,  5.84it/s] 87%|████████▋ | 148/170 [00:25<00:07,  2.76it/s] 88%|████████▊ | 149/170 [00:25<00:06,  3.21it/s]Find the name and salary of instructors whose salary is below the average salary of the instructors in the Physics department.
+sql:  SELECT name ,  salary FROM instructor WHERE salary  <  (SELECT avg(salary) FROM instructor WHERE dept_name  =  'Physics')
+ground truth values:  [('instructor.dept_name', 'Physics')]
+matched values OrderedDict([(16, ('department.dept_name', 'Physics')), (32, ('course.dept_name', 'Physics')), (45, ('instructor.dept_name', 'Physics')), (93, ('student.dept_name', 'Physics'))])
+--------------------
+Picklist: What are the names and salaries for instructors who earn less than the average salary of instructors in the Physics department?, department, dept_name, [Physics]
+Picklist: What are the names and salaries for instructors who earn less than the average salary of instructors in the Physics department?, course, dept_name, [Physics]
+Picklist: What are the names and salaries for instructors who earn less than the average salary of instructors in the Physics department?, instructor, dept_name, [Physics]
+Picklist: What are the names and salaries for instructors who earn less than the average salary of instructors in the Physics department?, student, dept_name, [Physics]
+--------------------
+text:  What are the names and salaries for instructors who earn less than the average salary of instructors in the Physics department?
+sql:  SELECT name ,  salary FROM instructor WHERE salary  <  (SELECT avg(salary) FROM instructor WHERE dept_name  =  'Physics')
+ground truth values:  [('instructor.dept_name', 'Physics')]
+matched values OrderedDict([(16, ('department.dept_name', 'Physics')), (32, ('course.dept_name', 'Physics')), (45, ('instructor.dept_name', 'Physics')), (93, ('student.dept_name', 'Physics'))])
+--------------------
+Picklist: Find the name of students who took some course offered by Statistics department., department, dept_name, [Statistics]
+Picklist: Find the name of students who took some course offered by Statistics department., course, dept_name, [Statistics]
+Picklist: Find the name of students who took some course offered by Statistics department., instructor, dept_name, [Statistics]
+Picklist: Find the name of students who took some course offered by Statistics department., student, dept_name, [Statistics]
+--------------------
+text:  Find the name of students who took some course offered by Statistics department.
+sql:  SELECT T3.name FROM course AS T1 JOIN takes AS T2 ON T1.course_id  =  T2.course_id JOIN student AS T3 ON T2.id  =  T3.id WHERE T1.dept_name  =  'Statistics'
+ground truth values:  [('course.dept_name', 'Statistics')]
+matched values OrderedDict([(16, ('department.dept_name', 'Statistics')), (32, ('course.dept_name', 'Statistics')), (45, ('instructor.dept_name', 'Statistics')), (93, ('student.dept_name', 'Statistics'))])
+--------------------
+Picklist: What are the names of students who have taken Statistics courses?, department, dept_name, [Statistics]
+Picklist: What are the names of students who have taken Statistics courses?, course, dept_name, [Statistics]
+Picklist: What are the names of students who have taken Statistics courses?, instructor, dept_name, [Statistics]
+Picklist: What are the names of students who have taken Statistics courses?, student, dept_name, [Statistics]
+--------------------
+text:  What are the names of students who have taken Statistics courses?
+sql:  SELECT T3.name FROM course AS T1 JOIN takes AS T2 ON T1.course_id  =  T2.course_id JOIN student AS T3 ON T2.id  =  T3.id WHERE T1.dept_name  =  'Statistics'
+ground truth values:  [('course.dept_name', 'Statistics')]
+matched values OrderedDict([(16, ('department.dept_name', 'Statistics')), (32, ('course.dept_name', 'Statistics')), (45, ('instructor.dept_name', 'Statistics')), (93, ('student.dept_name', 'Statistics'))])
+--------------------
+Picklist: Find the building, room number, semester and year of all courses offered by Psychology department sorted by course titles., department, dept_name, [Psychology]
+Picklist: Find the building, room number, semester and year of all courses offered by Psychology department sorted by course titles., course, dept_name, [Psychology]
+Picklist: Find the building, room number, semester and year of all courses offered by Psychology department sorted by course titles., instructor, dept_name, [Psychology]
+Picklist: Find the building, room number, semester and year of all courses offered by Psychology department sorted by course titles., student, dept_name, [Psychology]
+--------------------
+text:  Find the building, room number, semester and year of all courses offered by Psychology department sorted by course titles.
+sql:  SELECT T2.building ,  T2.room_number ,  T2.semester ,  T2.year FROM course AS T1 JOIN SECTION AS T2 ON T1.course_id  =  T2.course_id WHERE T1.dept_name  =  'Psychology' ORDER BY T1.title
+ground truth values:  [('course.dept_name', 'Psychology')]
+matched values OrderedDict([(16, ('department.dept_name', 'Psychology')), (32, ('course.dept_name', 'Psychology')), (45, ('instructor.dept_name', 'Psychology')), (93, ('student.dept_name', 'Psychology'))])
+--------------------
+Picklist: What are the building, room number, semester and year of courses in the Psychology department, sorted using course title?, department, dept_name, [Psychology]
+Picklist: What are the building, room number, semester and year of courses in the Psychology department, sorted using course title?, course, dept_name, [Psychology]
+Picklist: What are the building, room number, semester and year of courses in the Psychology department, sorted using course title?, instructor, dept_name, [Psychology]
+Picklist: What are the building, room number, semester and year of courses in the Psychology department, sorted using course title?, student, dept_name, [Psychology]
+--------------------
+text:  What are the building, room number, semester and year of courses in the Psychology department, sorted using course title?
+sql:  SELECT T2.building ,  T2.room_number ,  T2.semester ,  T2.year FROM course AS T1 JOIN SECTION AS T2 ON T1.course_id  =  T2.course_id WHERE T1.dept_name  =  'Psychology' ORDER BY T1.title
+ground truth values:  [('course.dept_name', 'Psychology')]
+matched values OrderedDict([(16, ('department.dept_name', 'Psychology')), (32, ('course.dept_name', 'Psychology')), (45, ('instructor.dept_name', 'Psychology')), (93, ('student.dept_name', 'Psychology'))])
+--------------------
+--------------------
+text:  Find the names of all instructors in computer science department
+sql:  SELECT name FROM instructor WHERE dept_name  =  'Comp. Sci.'
+ground truth values:  [('instructor.dept_name', 'Comp. Sci.')]
+matched values OrderedDict()
+--------------------
+--------------------
+text:  What are the names of all instructors in the Comp. Sci. department?
+sql:  SELECT name FROM instructor WHERE dept_name  =  'Comp. Sci.'
+ground truth values:  [('instructor.dept_name', 'Comp. Sci.')]
+matched values OrderedDict()
+--------------------
+--------------------
+text:  Find the names of all instructors in Comp. Sci. department with salary > 80000.
+sql:  SELECT name FROM instructor WHERE dept_name  =  'Comp. Sci.'  AND salary  >  80000
+ground truth values:  [('instructor.dept_name', 'Comp. Sci.')]
+matched values OrderedDict()
+--------------------
+--------------------
+text:  What are the names of the instructors in the Comp. Sci. department who earn more than 80000?
+sql:  SELECT name FROM instructor WHERE dept_name  =  'Comp. Sci.'  AND salary  >  80000
+ground truth values:  [('instructor.dept_name', 'Comp. Sci.')]
+matched values OrderedDict()
+--------------------
+--------------------
+text:  Find the names of all instructors in the Art department who have taught some course and the course_id.
+sql:  SELECT name ,  course_id FROM instructor AS T1 JOIN teaches AS T2 ON T1.ID  =  T2.ID WHERE T1.dept_name  =  'Art'
+ground truth values:  [('instructor.dept_name', 'Art')]
+matched values OrderedDict()
+--------------------
+--------------------
+text:  What are the names of Art instructors who have taught a course, and the corresponding course id?
+sql:   88%|████████▊ | 150/170 [00:25<00:05,  3.66it/s] 89%|████████▉ | 151/170 [00:26<00:04,  4.24it/s] 89%|████████▉ | 152/170 [00:26<00:03,  4.82it/s] 90%|█████████ | 153/170 [00:26<00:03,  5.41it/s] 91%|█████████ | 154/170 [00:26<00:02,  5.95it/s] 91%|█████████ | 155/170 [00:26<00:02,  6.15it/s] 92%|█████████▏| 156/170 [00:26<00:02,  6.03it/s] 92%|█████████▏| 157/170 [00:26<00:02,  6.18it/s] 93%|█████████▎| 158/170 [00:27<00:02,  5.81it/s] 94%|█████████▎| 159/170 [00:27<00:01,  5.98it/s]SELECT name ,  course_id FROM instructor AS T1 JOIN teaches AS T2 ON T1.ID  =  T2.ID WHERE T1.dept_name  =  'Art'
+ground truth values:  [('instructor.dept_name', 'Art')]
+matched values OrderedDict()
+--------------------
+Picklist: Find courses that ran in Fall 2009 or in Spring 2010., section, semester, [Spring]
+Picklist: Find courses that ran in Fall 2009 or in Spring 2010., section, semester, [Fall]
+Picklist: Find courses that ran in Fall 2009 or in Spring 2010., teaches, semester, [Spring]
+Picklist: Find courses that ran in Fall 2009 or in Spring 2010., teaches, semester, [Fall]
+Picklist: Find courses that ran in Fall 2009 or in Spring 2010., student, name, [Fall]
+Picklist: Find courses that ran in Fall 2009 or in Spring 2010., takes, semester, [Spring]
+Picklist: Find courses that ran in Fall 2009 or in Spring 2010., takes, semester, [Fall]
+--------------------
+text:  Find courses that ran in Fall 2009 or in Spring 2010.
+sql:  SELECT course_id FROM SECTION WHERE semester  =  'Fall' AND YEAR  =  2009 UNION SELECT course_id FROM SECTION WHERE semester  =  'Spring' AND YEAR  =  2010
+ground truth values:  [('section.semester', 'Fall'), ('section.semester', 'Spring')]
+matched values OrderedDict([(53, ('section.semester', 'Spring')), (55, ('section.semester', 'Fall')), (80, ('teaches.semester', 'Spring')), (82, ('teaches.semester', 'Fall')), (92, ('student.name', 'Fall')), (113, ('takes.semester', 'Spring')), (115, ('takes.semester', 'Fall'))])
+--------------------
+Picklist: What are the ids for courses in the Fall of 2009 or the Spring of 2010?, section, semester, [Spring]
+Picklist: What are the ids for courses in the Fall of 2009 or the Spring of 2010?, section, semester, [Fall]
+Picklist: What are the ids for courses in the Fall of 2009 or the Spring of 2010?, teaches, semester, [Spring]
+Picklist: What are the ids for courses in the Fall of 2009 or the Spring of 2010?, teaches, semester, [Fall]
+Picklist: What are the ids for courses in the Fall of 2009 or the Spring of 2010?, student, name, [Fall]
+Picklist: What are the ids for courses in the Fall of 2009 or the Spring of 2010?, takes, semester, [Spring]
+Picklist: What are the ids for courses in the Fall of 2009 or the Spring of 2010?, takes, semester, [Fall]
+--------------------
+text:  What are the ids for courses in the Fall of 2009 or the Spring of 2010?
+sql:  SELECT course_id FROM SECTION WHERE semester  =  'Fall' AND YEAR  =  2009 UNION SELECT course_id FROM SECTION WHERE semester  =  'Spring' AND YEAR  =  2010
+ground truth values:  [('section.semester', 'Fall'), ('section.semester', 'Spring')]
+matched values OrderedDict([(53, ('section.semester', 'Spring')), (55, ('section.semester', 'Fall')), (80, ('teaches.semester', 'Spring')), (82, ('teaches.semester', 'Fall')), (92, ('student.name', 'Fall')), (113, ('takes.semester', 'Spring')), (115, ('takes.semester', 'Fall'))])
+--------------------
+Picklist: Find courses that ran in Fall 2009 and in Spring 2010., section, semester, [Spring]
+Picklist: Find courses that ran in Fall 2009 and in Spring 2010., section, semester, [Fall]
+Picklist: Find courses that ran in Fall 2009 and in Spring 2010., teaches, semester, [Spring]
+Picklist: Find courses that ran in Fall 2009 and in Spring 2010., teaches, semester, [Fall]
+Picklist: Find courses that ran in Fall 2009 and in Spring 2010., student, name, [Fall]
+Picklist: Find courses that ran in Fall 2009 and in Spring 2010., takes, semester, [Spring]
+Picklist: Find courses that ran in Fall 2009 and in Spring 2010., takes, semester, [Fall]
+--------------------
+text:  Find courses that ran in Fall 2009 and in Spring 2010.
+sql:  SELECT course_id FROM SECTION WHERE semester  =  'Fall' AND YEAR  =  2009 INTERSECT SELECT course_id FROM SECTION WHERE semester  =  'Spring' AND YEAR  =  2010
+ground truth values:  [('section.semester', 'Fall'), ('section.semester', 'Spring')]
+matched values OrderedDict([(53, ('section.semester', 'Spring')), (55, ('section.semester', 'Fall')), (80, ('teaches.semester', 'Spring')), (82, ('teaches.semester', 'Fall')), (92, ('student.name', 'Fall')), (113, ('takes.semester', 'Spring')), (115, ('takes.semester', 'Fall'))])
+--------------------
+Picklist: What are the ids for courses that were offered in both Fall of 2009 and Spring of 2010?, section, semester, [Spring]
+Picklist: What are the ids for courses that were offered in both Fall of 2009 and Spring of 2010?, section, semester, [Fall]
+Picklist: What are the ids for courses that were offered in both Fall of 2009 and Spring of 2010?, teaches, semester, [Spring]
+Picklist: What are the ids for courses that were offered in both Fall of 2009 and Spring of 2010?, teaches, semester, [Fall]
+Picklist: What are the ids for courses that were offered in both Fall of 2009 and Spring of 2010?, student, name, [Fall]
+Picklist: What are the ids for courses that were offered in both Fall of 2009 and Spring of 2010?, takes, semester, [Spring]
+Picklist: What are the ids for courses that were offered in both Fall of 2009 and Spring of 2010?, takes, semester, [Fall]
+--------------------
+text:  What are the ids for courses that were offered in both Fall of 2009 and Spring of 2010?
+sql:  SELECT course_id FROM SECTION WHERE semester  =  'Fall' AND YEAR  =  2009 INTERSECT SELECT course_id FROM SECTION WHERE semester  =  'Spring' AND YEAR  =  2010
+ground truth values:  [('section.semester', 'Fall'), ('section.semester', 'Spring')]
+matched values OrderedDict([(53, ('section.semester', 'Spring')), (55, ('section.semester', 'Fall')), (80, ('teaches.semester', 'Spring')), (82, ('teaches.semester', 'Fall')), (92, ('student.name', 'Fall')), (113, ('takes.semester', 'Spring')), (115, ('takes.semester', 'Fall'))])
+--------------------
+Picklist: Find courses that ran in Fall 2009 but not in Spring 2010., section, semester, [Spring]
+Picklist: Find courses that ran in Fall 2009 but not in Spring 2010., section, semester, [Fall]
+Picklist: Find courses that ran in Fall 2009 but not in Spring 2010., teaches, semester, [Spring]
+Picklist: Find courses that ran in Fall 2009 but not in Spring 2010., teaches, semester, [Fall]
+Picklist: Find courses that ran in Fall 2009 but not in Spring 2010., student, name, [Fall]
+Picklist: Find courses that ran in Fall 2009 but not in Spring 2010., takes, semester, [Spring]
+Picklist: Find courses that ran in Fall 2009 but not in Spring 2010., takes, semester, [Fall]
+--------------------
+text:  Find courses that ran in Fall 2009 but not in Spring 2010.
+sql:  SELECT course_id FROM SECTION WHERE semester  =  'Fall' AND YEAR  =  2009 EXCEPT SELECT course_id FROM SECTION WHERE semester  =  'Spring' AND YEAR  =  2010
+ground truth values:  [('section.semester', 'Fall'), ('section.semester', 'Spring')]
+matched values OrderedDict([(53, ('section.semester', 'Spring')), (55, ('section.semester', 'Fall')), (80, ('teaches.semester', 'Spring')), (82, ('teaches.semester', 'Fall')), (92, ('student.name', 'Fall')), (113, ('takes.semester', 'Spring')), (115, ('takes.semester', 'Fall'))])
+--------------------
+Picklist: What are the ids of courses offered in Fall of 2009 but not in Spring of 2010?, section, semester, [Spring]
+Picklist: What are the ids of courses offered in Fall of 2009 but not in Spring of 2010?, section, semester, [Fall]
+Picklist: What are the ids of courses offered in Fall of 2009 but not in Spring of 2010?, teaches, semester, [Spring]
+Picklist: What are the ids of courses offered in Fall of 2009 but not in Spring of 2010?, teaches, semester, [Fall]
+Picklist: What are the ids of courses offered in Fall of 2009 but not in Spring of 2010?, student, name, [Fall]
+Picklist: What are the ids of courses offered in Fall of 2009 but not in Spring of 2010?, takes, semester, [Spring]
+Picklist: What are the ids of courses offered in Fall of 2009 but not in Spring of 2010?, takes, semester, [Fall]
+--------------------
+text:  What are the ids of courses offered in Fall of 2009 but not in Spring of 2010?
+sql:  SELECT course_id FROM SECTION WHERE semester  =  'Fall' AND YEAR  =  2009 EXCEPT SELECT course_id FROM SECTION WHERE semester  =  'Spring' AND YEAR  =  2010
+ground truth values:  [('section.semester', 'Fall'), ('section.semester', 'Spring')]
+ 94%|█████████▍| 160/170 [00:27<00:01,  5.81it/s] 95%|█████████▍| 161/170 [00:27<00:01,  5.90it/s] 95%|█████████▌| 162/170 [00:27<00:01,  5.86it/s] 96%|█████████▌| 163/170 [00:28<00:01,  5.72it/s] 96%|█████████▋| 164/170 [00:28<00:00,  6.02it/s] 97%|█████████▋| 165/170 [00:28<00:00,  5.67it/s] 98%|█████████▊| 166/170 [00:28<00:00,  5.50it/s] 98%|█████████▊| 167/170 [00:28<00:00,  5.29it/s] 99%|█████████▉| 168/170 [00:28<00:00,  5.25it/s] 99%|█████████▉| 169/170 [00:29<00:00,  5.07it/s]100%|██████████| 170/170 [00:29<00:00,  5.01it/s]
+matched values OrderedDict([(53, ('section.semester', 'Spring')), (55, ('section.semester', 'Fall')), (80, ('teaches.semester', 'Spring')), (82, ('teaches.semester', 'Fall')), (92, ('student.name', 'Fall')), (113, ('takes.semester', 'Spring')), (115, ('takes.semester', 'Fall'))])
+--------------------
+Picklist: Find the total number of instructors who teach a course in the Spring 2010 semester., section, semester, [Spring]
+Picklist: Find the total number of instructors who teach a course in the Spring 2010 semester., teaches, semester, [Spring]
+Picklist: Find the total number of instructors who teach a course in the Spring 2010 semester., takes, semester, [Spring]
+--------------------
+text:  Find the total number of instructors who teach a course in the Spring 2010 semester.
+sql:  SELECT COUNT (DISTINCT ID) FROM teaches WHERE semester  =  'Spring' AND YEAR  =  2010
+ground truth values:  [('teaches.semester', 'Spring')]
+matched values OrderedDict([(53, ('section.semester', 'Spring')), (78, ('teaches.semester', 'Spring')), (107, ('takes.semester', 'Spring'))])
+--------------------
+Picklist: How many instructors teach a course in the Spring of 2010?, section, semester, [Spring]
+Picklist: How many instructors teach a course in the Spring of 2010?, teaches, semester, [Spring]
+Picklist: How many instructors teach a course in the Spring of 2010?, takes, semester, [Spring]
+--------------------
+text:  How many instructors teach a course in the Spring of 2010?
+sql:  SELECT COUNT (DISTINCT ID) FROM teaches WHERE semester  =  'Spring' AND YEAR  =  2010
+ground truth values:  [('teaches.semester', 'Spring')]
+matched values OrderedDict([(53, ('section.semester', 'Spring')), (78, ('teaches.semester', 'Spring')), (107, ('takes.semester', 'Spring'))])
+--------------------
+Picklist: Find names of instructors with salary greater than that of some (at least one) instructor in the Biology department., department, dept_name, [Biology]
+Picklist: Find names of instructors with salary greater than that of some (at least one) instructor in the Biology department., course, dept_name, [Biology]
+Picklist: Find names of instructors with salary greater than that of some (at least one) instructor in the Biology department., instructor, dept_name, [Biology]
+Picklist: Find names of instructors with salary greater than that of some (at least one) instructor in the Biology department., student, dept_name, [Biology]
+--------------------
+text:  Find names of instructors with salary greater than that of some (at least one) instructor in the Biology department.
+sql:  SELECT name FROM instructor WHERE salary  >  (SELECT min(salary) FROM instructor WHERE dept_name  =  'Biology')
+ground truth values:  [('instructor.dept_name', 'Biology')]
+matched values OrderedDict([(16, ('department.dept_name', 'Biology')), (32, ('course.dept_name', 'Biology')), (45, ('instructor.dept_name', 'Biology')), (93, ('student.dept_name', 'Biology'))])
+--------------------
+Picklist: What are the names of instructors who earn more than at least one instructor from the Biology department?, department, dept_name, [Biology]
+Picklist: What are the names of instructors who earn more than at least one instructor from the Biology department?, course, dept_name, [Biology]
+Picklist: What are the names of instructors who earn more than at least one instructor from the Biology department?, instructor, dept_name, [Biology]
+Picklist: What are the names of instructors who earn more than at least one instructor from the Biology department?, student, dept_name, [Biology]
+--------------------
+text:  What are the names of instructors who earn more than at least one instructor from the Biology department?
+sql:  SELECT name FROM instructor WHERE salary  >  (SELECT min(salary) FROM instructor WHERE dept_name  =  'Biology')
+ground truth values:  [('instructor.dept_name', 'Biology')]
+matched values OrderedDict([(16, ('department.dept_name', 'Biology')), (32, ('course.dept_name', 'Biology')), (45, ('instructor.dept_name', 'Biology')), (93, ('student.dept_name', 'Biology'))])
+--------------------
+Picklist: Find the names of all instructors whose salary is greater than the salary of all instructors in the Biology department., department, dept_name, [Biology]
+Picklist: Find the names of all instructors whose salary is greater than the salary of all instructors in the Biology department., course, dept_name, [Biology]
+Picklist: Find the names of all instructors whose salary is greater than the salary of all instructors in the Biology department., instructor, dept_name, [Biology]
+Picklist: Find the names of all instructors whose salary is greater than the salary of all instructors in the Biology department., student, dept_name, [Biology]
+--------------------
+text:  Find the names of all instructors whose salary is greater than the salary of all instructors in the Biology department.
+sql:  SELECT name FROM instructor WHERE salary  >  (SELECT max(salary) FROM instructor WHERE dept_name  =  'Biology')
+ground truth values:  [('instructor.dept_name', 'Biology')]
+matched values OrderedDict([(16, ('department.dept_name', 'Biology')), (32, ('course.dept_name', 'Biology')), (45, ('instructor.dept_name', 'Biology')), (93, ('student.dept_name', 'Biology'))])
+--------------------
+Picklist: What are the names of all instructors with a higher salary than any of the instructors in the Biology department?, department, dept_name, [Biology]
+Picklist: What are the names of all instructors with a higher salary than any of the instructors in the Biology department?, course, dept_name, [Biology]
+Picklist: What are the names of all instructors with a higher salary than any of the instructors in the Biology department?, instructor, dept_name, [Biology]
+Picklist: What are the names of all instructors with a higher salary than any of the instructors in the Biology department?, student, dept_name, [Biology]
+--------------------
+text:  What are the names of all instructors with a higher salary than any of the instructors in the Biology department?
+sql:  SELECT name FROM instructor WHERE salary  >  (SELECT max(salary) FROM instructor WHERE dept_name  =  'Biology')
+ground truth values:  [('instructor.dept_name', 'Biology')]
+matched values OrderedDict([(16, ('department.dept_name', 'Biology')), (32, ('course.dept_name', 'Biology')), (45, ('instructor.dept_name', 'Biology')), (93, ('student.dept_name', 'Biology'))])
+--------------------
+********** dev Data Statistics ***********
+OOV observed in 0/170 examples
+Denormalization skipped for 0/170 examples
+Schema truncated for 0/170 examples
+Token restored for 170/170 examples
++ text sizes
+# text tokens (avg) = 15.08235294117647
+# text tokens (min) = 6
+# text tokens (max) = 26
++ input sizes
+input size (avg) = 168.52941176470588
+input size (min) = 156 
+input size (max) = 187
++ program sizes
+# program tokens (avg) = 19.71764705882353	# program whole field tokens = 19.71764705882353 (avg)	
+# program tokens (min) = 8	# program whole field tokens = 8 (min)	
+# program tokens (max) = 36	# program whole field tokens = 36 (max)	
+max pointer span size = 0
+---  value extraction performance ---
+micro precision = 0.7066760037348272
+micro recall = 0.9529411764705882
+micro F1 = 0.7594974959680842
+Processed data dumped to data/spider/spider.bridge.question-split.ppl-0.85.2.dn.eo.bert.pkl

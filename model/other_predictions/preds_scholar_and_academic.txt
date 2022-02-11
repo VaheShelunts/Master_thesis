@@ -1,0 +1,750 @@
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE author.authorName = "Peter" AND author.authorName = "Barbian"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE author.authorName = "Peter" AND author.authorName = "Barbian"
+SELECT * FROM venue
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.authorId = paper.paperId WHERE author.authorName = "Peter" AND author.authorName = "Barbian"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.authorId = paper.paperId WHERE author.authorName = "Peter" AND author.authorName = "Barbian"
+SELECT * FROM venue
+SELECT author.authorName FROM author WHERE author.authorName = "Peter" AND author.authorName = "Barbian"
+SELECT author.authorName FROM author WHERE author.authorName = "Peter" AND author.authorName = "Barbian"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.authorId = paper.paperId WHERE author.authorName = "Peter" AND author.authorName = "Barbian"
+SELECT author.authorName FROM author WHERE author.authorName = "Peter" AND author.authorName = "Barbian"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE author.authorName = "Peter" AND author.authorName = "Barbian"
+SELECT author.authorName FROM author WHERE author.authorName = "Peter" AND author.authorName = "Barbian"
+SELECT author.authorName FROM author WHERE author.authorName = "Peter" AND author.authorName = "Barbian"
+SELECT * FROM venue
+SELECT author.authorName FROM author WHERE author.authorName = "Peter" AND author.authorName = "Barbian"
+SELECT author.authorName FROM author WHERE author.authorName = "Peter" AND author.authorName = "Mertens" AND author.authorName = "Mertens"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.authorId = paper.paperId WHERE author.authorName = "Peter" AND author.authorName = "Dina" AND author.authorName = "Barbian"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE author.authorName = "Peter" AND author.authorName = "Barbian"
+SELECT * FROM venue
+SELECT * FROM venue
+SELECT * FROM venue
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId GROUP BY author.authorId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorName FROM author GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorName FROM author GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId GROUP BY author.authorId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorName FROM author JOIN keyphrase ON author.authorId = keyphrase.keyphraseId WHERE keyphrase.keyphraseName = "VALUE VALUE VALUE VALUE"
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId GROUP BY author.authorId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorName FROM author GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorName FROM author GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorName FROM author GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorName FROM author GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorName FROM author GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT COUNT(*) FROM author WHERE author.authorName = "noah a smith"
+SELECT author.authorName FROM author WHERE author.authorName = "noah a smith"
+SELECT COUNT(*) FROM author WHERE author.authorName = "noah a smith"
+SELECT COUNT(*) FROM author WHERE author.authorName = "noah a smith"
+SELECT author.authorId FROM author WHERE author.authorName = "noah a smith"
+SELECT COUNT(*) FROM author WHERE author.authorName = "noah a smith"
+SELECT COUNT(*) FROM author WHERE author.authorName = "noah a"
+SELECT COUNT(*) FROM author WHERE author.authorName = "noah a smith"
+SELECT paper.title FROM paper
+SELECT paper.title FROM paper WHERE paper.venueId = "VALUE"
+SELECT paper.title FROM paper WHERE paper.venueId = "chi"
+SELECT COUNT(*) FROM keyphrase
+SELECT paper.title FROM paper WHERE paper.title = "chi"
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = "VALUE"
+SELECT paper.title FROM paper WHERE paper.title = "chi"
+SELECT paper.title FROM paper WHERE paper.title = "chi"
+SELECT paper.title FROM paper WHERE paper.title = "chi"
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.paperId = paper.journalId WHERE paper.year = 2016 AND paper.year = 2016
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.authorId = paper.paperId WHERE author.authorName = "sharon" AND author.authorName = "goldwater"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.authorId = paper.paperId WHERE author.authorName = "sharon" AND author.authorName = "goldwater"
+SELECT author.authorId FROM author WHERE author.authorName = "sharon" AND author.authorName = "goldwater"
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId WHERE author.authorName = "sharon" AND author.authorName = "goldwater"
+SELECT paper.title FROM author JOIN paper ON author.authorId = paper.venueId WHERE author.authorName = "sharon" AND author.authorName = "goldwater"
+SELECT author.authorId FROM author WHERE author.authorName = "sharon" AND author.authorName = "goldwater"
+SELECT paper.title FROM paper WHERE paper.title = "sharon" AND paper.year = "goldwater"
+SELECT author.authorId FROM author WHERE author.authorName = "sharon" AND author.authorName = "goldwater"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE author.authorName = "sharon" AND author.authorName = "goldwater"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.authorId = paper.paperId WHERE author.authorName = "sharon" AND author.authorName = "goldwater"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE author.authorName = "sharon" AND author.authorName = "goldwater"
+SELECT paper.title FROM journal JOIN paper ON journal.journalId = paper.journalId WHERE journal.journalName = "sharon" AND paper.title = "goldwater"
+SELECT paper.title FROM paper JOIN paper ON paper.journalId = paper.paperId WHERE paper.title = "sharon" AND paper.title = "goldwater"
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.title = "sharon" AND paper.year = "goldwater"
+SELECT author.authorId FROM author WHERE author.authorName = "sharon" AND author.authorName = "goldwater"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE author.authorName = "sharon" AND author.authorName = "goldwater"
+SELECT author.authorId FROM author WHERE author.authorName = "sharon" AND author.authorName = "goldwater"
+SELECT paper.title FROM paper WHERE paper.year = "oren" AND paper.year = "etzioni"
+SELECT paper.title FROM paper WHERE paper.year = "oren" AND paper.year = "etzioni"
+SELECT paper.title FROM paper WHERE paper.year = (SELECT MAX(paper.year) FROM paper)
+SELECT paper.title FROM paper WHERE paper.year = "oren" AND paper.year = "etzioni"
+SELECT paper.title FROM author JOIN paper ON author.authorId = paper.journalId WHERE author.authorName = "oren" AND paper.year = "etzioni"
+SELECT paper.title FROM paper WHERE paper.year = "oren" AND paper.year = "etzioni"
+SELECT paper.title FROM paper WHERE paper.year > 2011
+SELECT paper.title FROM paper WHERE paper.year > 2011 AND paper.year > 2011
+SELECT * FROM paper WHERE paper.year > 2011 AND paper.year > 2011
+SELECT paper.title FROM paper WHERE paper.year > 2011 AND paper.year > 2011
+SELECT paper.title FROM paper WHERE paper.year = 2011 AND paper.year = 2011
+SELECT COUNT(*) FROM journal JOIN paper ON journal.journalId = paper.journalId WHERE journal.journalName = "ras bodik"
+SELECT COUNT(*) FROM author JOIN paper ON author.authorId = paper.venueId WHERE author.authorName = "David" AND paper.year = "M.Blei"
+SELECT COUNT(*) FROM author WHERE author.authorName = "David" AND author.authorName = "M.Blei"
+SELECT COUNT(*) FROM author JOIN paper ON author.authorId = paper.journalId WHERE author.authorName = "David" AND author.authorName = "M.Blei"
+SELECT COUNT(*) FROM author WHERE author.authorName = "David" AND author.authorName = "M.Blei"
+SELECT COUNT(*) FROM author WHERE author.authorName = "David" AND author.authorName = "M.Blei"
+SELECT COUNT(*) FROM author JOIN paperKeyphrase ON author.authorId = paperKeyphrase.paperId JOIN paper ON paper.venueId = paper.paperId WHERE author.authorName = "David" AND author.authorName = "M.Blei"
+SELECT COUNT(*) FROM author WHERE author.authorName = "David" AND author.authorName = "M.Blei"
+SELECT COUNT(*) FROM author WHERE author.authorName = "David" AND author.authorName = "M.Blei"
+SELECT * FROM venue
+SELECT COUNT(*) FROM keyphrase WHERE keyphrase.keyphraseName = "VALUE VALUE VALUE"
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId WHERE paper.year = 2010 ORDER BY paper.numCiting DESC LIMIT 1
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId WHERE paper.year = 2010 ORDER BY paper.numCiting DESC LIMIT 1
+SELECT paper.title FROM cite JOIN paper ON cite.citedPaperId = paper.paperId WHERE paper.year = 2010
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId WHERE paper.year = 2010 GROUP BY paper.title ORDER BY COUNT(*) DESC LIMIT 1
+SELECT paper.title FROM paper JOIN paperDataset ON paper.paperId = paperDataset.paperId WHERE paper.year = 2016 AND paper.year = 2016 INTERSECT SELECT paper.title FROM paper JOIN paperDataset ON paper.paperId = paperDataset.paperId WHERE paper.year = 2016
+SELECT paper.title FROM paper JOIN paperDataset ON paper.paperId = paperDataset.paperId JOIN dataset ON paperDataset.datasetId = dataset.datasetId WHERE dataset.datasetName = "CVPR" AND paper.year = 16 INTERSECT SELECT paper.title FROM paper JOIN paperDataset ON paper.paperId = paperDataset.paperId JOIN dataset ON paperDataset.datasetId = dataset.datasetId WHERE dataset.datasetName = "RGB-D"
+SELECT COUNT(*) FROM paper WHERE paper.paperId = "VALUE"
+SELECT COUNT(*) FROM paper WHERE paper.paperId = "VALUE"
+SELECT COUNT(*) FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paperKeyphrase.keyphraseId = "deep"
+SELECT COUNT(*) FROM paper WHERE paper.paperId = "VALUE"
+SELECT COUNT(*) FROM author JOIN writes ON author.authorId = writes.authorId WHERE author.authorName = "Christopher" AND author.authorName = "D.Manning"
+SELECT COUNT(*) FROM author WHERE author.authorName = "Christopher" AND author.authorName = "D.Manning"
+SELECT COUNT(*) FROM author WHERE author.authorName = "Christopher" AND author.authorName = "D.Manning"
+SELECT COUNT(*) FROM author WHERE author.authorName = "Christopher" AND author.authorName = "D.Manning"
+SELECT COUNT(*) FROM author JOIN writes ON author.authorId = writes.authorId WHERE author.authorName = "Christopher" AND author.authorName = "D.Manning"
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE author.authorName = "Christopher" AND paper.title = "D.Manning"
+SELECT COUNT(*) FROM author WHERE author.authorName = "Christopher" AND author.authorName = "D.Manning"
+SELECT COUNT(*) FROM author WHERE author.authorName = "Christopher" AND author.authorName = "D.Manning"
+SELECT COUNT(*) FROM author WHERE author.authorName = "Christopher" AND author.authorName = "D.Manning"
+SELECT COUNT(*) FROM author WHERE author.authorName = "Christopher" AND author.authorName = "D.Manning"
+SELECT COUNT(*) FROM author WHERE author.authorName = "Christopher" AND author.authorName = "D.Manning"
+SELECT COUNT(*) FROM author JOIN writes ON author.authorId = writes.authorId WHERE author.authorName = "Christopher" AND author.authorName = "D.Manning"
+SELECT * FROM venue
+SELECT author.authorId FROM author WHERE author.authorName = "Luke" AND author.authorName = "Zettlemoyer"
+SELECT paperKeyphrase.keyphraseId FROM author JOIN paperKeyphrase ON author.authorId = paperKeyphrase.keyphraseId JOIN paper ON paperKeyphrase.paperId = paper.paperId WHERE author.authorName = "Luke" AND author.authorName = "Zettlemoyer"
+SELECT author.authorId FROM author WHERE author.authorName = "Luke" AND author.authorName = "Zettlemoyer"
+SELECT author.authorId FROM author WHERE author.authorName = "Luke" AND author.authorName = "Zettlemoyer"
+SELECT author.authorId FROM author WHERE author.authorName = "Luke" AND author.authorName = "Zettlemoyer"
+SELECT author.authorId FROM author WHERE author.authorName = "Luke" AND author.authorName = "Zettlemoyer"
+SELECT author.authorId FROM author WHERE author.authorName = "Luke" AND author.authorName = "Zettlemoyer"
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId WHERE author.authorName = "Luke" AND author.authorName = "Zettlemoyer"
+SELECT paper.title FROM author JOIN paper ON author.authorId = paper.venueId WHERE author.authorName = "Luke" AND paper.title = "Zettlemoyer"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE author.authorName = "Luke" AND author.authorName = "Zettlemoyer"
+SELECT author.authorId FROM author WHERE author.authorName = "Luke" AND author.authorName = "Zettlemoyer"
+SELECT author.authorId FROM author WHERE author.authorName = "Luke" AND author.authorName = "Zettlemoyer"
+SELECT paper.title FROM venue JOIN paper ON venue.venueId = paper.venueId WHERE venue.venueName = "Daniella" AND venue.venueName = "Coelho"
+SELECT paper.title FROM journal JOIN paper ON journal.journalId = paper.venueId WHERE paper.title = "Daniella" AND paper.title = "Daniella"
+SELECT paper.title FROM journal JOIN paper ON journal.journalId = paper.venueId WHERE paper.title = "Daniella" AND paper.title = "Coelho"
+SELECT paper.title FROM journal JOIN paper ON journal.journalId = paper.venueId WHERE paper.title = "Daniella" AND paper.title = "Coelho"
+SELECT paper.title FROM venue JOIN paper ON venue.venueId = paper.venueId WHERE venue.venueName = "Daniella" AND venue.venueName = "Coelho"
+SELECT paper.title FROM journal JOIN paper ON journal.journalId = paper.venueId WHERE paper.title = "Daniella" AND paper.title = "Coelho"
+SELECT paper.title FROM venue JOIN paper ON venue.venueId = paper.venueId WHERE venue.venueName = "Daniella" AND paper.title = "Coelho"
+SELECT COUNT(*) FROM paper
+SELECT COUNT(*) FROM author JOIN paperKeyphrase ON author.authorId = paperKeyphrase.paperId WHERE author.authorName = "Ed" AND author.authorName = "Desmond"
+SELECT COUNT(*) FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId JOIN paper ON paperKeyphrase.paperId = paper.paperId WHERE paper.title = "Ed" AND paper.title = "Desmond"
+SELECT COUNT(*) FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.authorId = paper.paperId WHERE author.authorName = "Ed" AND author.authorName = "Desmond"
+SELECT COUNT(*) FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.authorId = paper.paperId WHERE author.authorName = "Ed" AND author.authorName = "Desmond"
+SELECT paper.title FROM venue JOIN paper ON venue.venueId = paper.venueId WHERE paper.year = 2016 AND paper.title = "li dong"
+SELECT venue.venueName FROM venue JOIN paper ON venue.venueId = paper.venueId WHERE paper.year = 2016 AND paper.year = 2016
+SELECT paper.title FROM journal JOIN paper ON journal.journalId = paper.venueId WHERE paper.year = 2016 AND paper.title = "li dong"
+SELECT venue.venueName FROM venue JOIN paper ON venue.venueId = paper.venueId WHERE paper.year = 2016 AND paper.year = 2016
+SELECT paper.title FROM paper WHERE paper.year = 2012 AND paper.year = 2012
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2012 INTERSECT SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2012
+SELECT paper.title FROM paper WHERE paper.year = "acl"
+SELECT paper.title FROM paper WHERE paper.year = 2012
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2012
+SELECT paper.title FROM paper WHERE paper.year = 2012
+SELECT paper.title FROM paper WHERE paper.year = 2012 AND paper.year = 2012
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2012 INTERSECT SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2012
+SELECT paper.title FROM paper WHERE paper.year = 2012 AND paper.year = 2012
+SELECT COUNT(*) FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2012
+SELECT author.authorName FROM author JOIN paperKeyphrase ON author.authorId = paperKeyphrase.paperId JOIN paper ON paper.journalId = paper.paperId WHERE paper.year = 2012 AND paper.title = "acll 2012"
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2012 INTERSECT SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2012
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2012
+SELECT keyphrase.keyphraseName FROM keyphrase WHERE keyphrase.keyphraseName = "VALUE VALUE"
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId
+SELECT COUNT(*) FROM paper
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId JOIN keyphrase ON paperKeyphrase.keyphraseId = keyphrase.keyphraseId WHERE keyphrase.keyphraseName = "Question Answering"
+SELECT paper.title FROM paper WHERE paper.title = "Answering"
+SELECT paper.title FROM paper WHERE paper.title = "Answering"
+SELECT paper.title FROM paper WHERE paper.paperId = "VALUE"
+SELECT paper.title FROM paper WHERE paper.paperId = "VALUE"
+SELECT paper.title FROM paper WHERE paper.paperId = "VALUE"
+SELECT paper.title FROM paper WHERE paper.paperId = "VALUE"
+SELECT * FROM keyphrase WHERE keyphrase.keyphraseName = "Answering"
+SELECT paper.title FROM paper WHERE paper.paperId = "VALUE"
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.title = "Question Answering"
+SELECT paper.title FROM paper WHERE paper.paperId = "VALUE"
+SELECT paper.title FROM paper WHERE paper.title = "Answering"
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = "VALUE"
+SELECT * FROM keyphrase WHERE keyphrase.keyphraseName = "Answering"
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.venueId = "VALUE"
+SELECT paper.title FROM paper WHERE paper.title = "Question Answering"
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paperKeyphrase.keyphraseId = "VALUE"
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paperKeyphrase.keyphraseId = 1
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paperKeyphrase.keyphraseId = "VALUE"
+SELECT paper.title FROM paper
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId JOIN keyphrase ON paperKeyphrase.keyphraseId = keyphrase.keyphraseId WHERE keyphrase.keyphraseName = "Question Answering"
+SELECT * FROM venue
+SELECT author.authorId FROM author JOIN paper ON author.authorId = paper.year WHERE author.authorName = "Luke" AND author.authorName = "S Zettlemoyer"
+SELECT author.authorName FROM author WHERE author.authorName = "sanjeev" INTERSECT SELECT author.authorName FROM author WHERE author.authorName = "sanjeev"
+SELECT paper.title FROM paper WHERE paper.year = "sanjeev" AND paper.year = "arora"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.authorId = paper.paperId WHERE author.authorName = "sanjeev" AND paper.year = "sanjeev arora"
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId WHERE author.authorName = "balakrishnan prababhakaran"
+SELECT COUNT(*) FROM author JOIN cite ON author.authorId = cite.citedPaperId JOIN paper ON cite.citedPaperId = paper.paperId WHERE author.authorName = "zachary" AND paper.title = "tatlock"
+SELECT * FROM venue
+SELECT author.authorId FROM author WHERE author.authorName = "subhasis" INTERSECT SELECT author.authorId FROM author WHERE author.authorName = "subhasis"
+SELECT author.authorId FROM author WHERE author.authorName = "subhasis" INTERSECT SELECT author.authorId FROM author WHERE author.authorName = "subhasis"
+SELECT paper.title FROM paper WHERE paper.title = "subhasisududhuri"
+SELECT COUNT(DISTINCT paper.title) FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2014 AND paper.year = 2014
+SELECT COUNT(*) FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2014
+SELECT COUNT(DISTINCT paper.title) FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2014 AND paper.year = 2014
+SELECT author.authorName FROM author JOIN paperKeyphrase ON author.authorId = paperKeyphrase.paperId JOIN paper ON paperKeyphrase.paperId = paper.paperId WHERE paper.title = "brian" AND paper.title = "curl"
+SELECT author.authorName FROM author WHERE author.authorName = "brian" AND author.authorName = "brian"
+SELECT author.authorName FROM author WHERE author.authorName = "brian" AND author.authorName = "brian"
+SELECT paper.title FROM author JOIN paperKeyphrase ON author.authorId = paperKeyphrase.paperId JOIN paper ON paperKeyphrase.paperId = paper.paperId WHERE author.authorName = "brian" AND paperKeyphrase.keyphraseId = "curless"
+SELECT * FROM venue
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.authorId = paper.paperId WHERE author.authorName = "brian" AND paper.title = "brian" AND paper.title = "curless"
+SELECT * FROM venue
+SELECT paper.title FROM author JOIN paperKeyphrase ON author.authorId = paperKeyphrase.paperId JOIN paper ON paper.paperId = paperKeyphrase.paperId WHERE author.authorName = "brian" AND author.authorName = "curless"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE author.authorName = "brian" AND author.authorName = "curless"
+SELECT author.authorId FROM author JOIN paperKeyphrase ON author.authorId = paperKeyphrase.paperId JOIN keyphrase ON paperKeyphrase.keyphraseId = keyphrase.keyphraseId WHERE keyphrase.keyphraseName = 0 AND keyphrase.keyphraseName = "brian" AND keyphrase.keyphraseName = "curless"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE author.authorName = "brian" AND author.authorName = "curless"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.authorId = paper.paperId WHERE author.authorName = "brian" AND author.authorName = "curless"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.authorId = paper.paperId WHERE author.authorName = "brian" AND author.authorName = "curless"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE author.authorName = "brian" AND author.authorName = "curless"
+SELECT author.authorName FROM author WHERE author.authorId IN (SELECT author.authorId FROM author WHERE author.authorName = "brian")
+SELECT paper.title FROM paper JOIN writes ON paper.paperId = writes.authorId WHERE paper.year = 2015 AND paper.title = "Liwen Xiong"
+SELECT paper.title FROM author JOIN paper ON author.authorId = paper.paperId WHERE paper.year = 2015 AND author.authorName = "Liwen Xiong"
+SELECT paper.title FROM journal JOIN paper ON journal.journalId = paper.journalId WHERE paper.year = 2015 AND paper.title = "Liwen Xiong"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE paper.year = 2015 AND author.authorName = "Liwen Xiong"
+SELECT paper.title FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT paper.title FROM author JOIN paper ON author.authorId = paper.paperId WHERE paper.year = 2015 AND author.authorName = "Liwen Xiong"
+SELECT paper.title FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.year = "Liwen Xiong"
+SELECT paper.title FROM paper WHERE paper.year = "Liwen Xiong"
+SELECT paper.title FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT paper.title FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT paper.title FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT * FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE paper.year = 2015 AND author.authorName = "Liwen Xiong"
+SELECT paper.title FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT paper.title FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT paper.title FROM paper WHERE paper.title = "NIPS"
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId JOIN journal ON paper.journalId = journal.journalId WHERE journal.journalName = "TAIL" AND journal.journalName = "NIPS"
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId JOIN keyphrase ON paper.journalId = keyphrase.keyphraseId WHERE keyphrase.keyphraseName = "NIPS"
+SELECT paper.title FROM paper WHERE paper.title = "TAIL" AND paper.title = "NIPS"
+SELECT paper.title FROM paper WHERE paper.title = "TAIL"
+SELECT paper.title FROM paper WHERE paper.venueId = "TAIL" AND paper.venueId = "NIPS"
+SELECT paper.title FROM paper WHERE paper.venueId = "NIPS"
+SELECT paper.title FROM paper WHERE paper.title = "VALUE VALUE VALUE VALUE"
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.title = "NIPS"
+SELECT COUNT(*) FROM author WHERE author.authorName = "Mark" AND author.authorName = "Steedman"
+SELECT author.authorId FROM author WHERE author.authorName = "Christof" AND author.authorName = "Dallermassl"
+SELECT author.authorId FROM author WHERE author.authorName = "Christof" AND author.authorName = "Dallermassl"
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE paper.year = "Christof" AND paper.year = "Dallermasmasmasmassl"
+SELECT author.authorId FROM author WHERE author.authorName = "Christof" AND author.authorName = "Dallermassl"
+SELECT author.authorName FROM author GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorId FROM author WHERE author.authorName = "mohammad rastegari"
+SELECT paper.title FROM author JOIN paper ON author.authorId = paper.journalId WHERE author.authorName = "mohammad rastegari"
+SELECT paper.title FROM paper WHERE paper.year = 2014 AND paper.year = 2014
+SELECT paper.title FROM paper WHERE paper.year = 2014 ORDER BY paper.year DESC LIMIT 1
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.year = 2016
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.year = 2016
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.year = 2016
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.year = 2016 AND paper.year = 2016
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.year = 2016 AND paper.title = "acl 2016"
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.venueId WHERE paper.year = 2016
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.year = 2016
+SELECT COUNT(*) FROM paper WHERE paper.year = "VALUE VALUE VALUE VALUE"
+SELECT COUNT(*) FROM paper WHERE paper.title = "ImageNet"
+SELECT COUNT(*) FROM dataset JOIN paperDataset ON dataset.datasetId = paperDataset.paperId WHERE dataset.datasetName = "ImageNet"
+SELECT COUNT(*) FROM paper WHERE paper.title = "ImageNet"
+SELECT COUNT(*) FROM paper WHERE paper.title = "ImageNet"
+SELECT COUNT(*) FROM paper WHERE paper.title = "ImageNet"
+SELECT COUNT(*) FROM cite JOIN paper ON cite.citedPaperId = paper.paperId JOIN paper ON cite.citedPaperId = paper.paperId WHERE paper.title = "Mirella" AND paper.title = "Lapata"
+SELECT COUNT(*) FROM cite JOIN paper ON cite.citedPaperId = paper.paperId JOIN paper ON cite.citedPaperId = paper.paperId WHERE paper.title = "Mirella" AND paper.title = "Lapata"
+SELECT COUNT(*) FROM cite JOIN paper ON cite.citedPaperId = paper.paperId JOIN paper ON cite.citedPaperId = paper.paperId WHERE paper.title = "Mirella" AND paper.title = "Lapata"
+SELECT paper.year FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE author.authorName = "Michael" AND paper.title = "Stonebraker" AND paper.title = "Stonebraker"
+SELECT dataset.datasetName FROM dataset WHERE dataset.datasetName = "VALUE VALUE VALUE VALUE"
+SELECT dataset.datasetName FROM dataset WHERE dataset.datasetName = "VALUE VALUE VALUE"
+SELECT dataset.datasetName FROM dataset WHERE dataset.datasetName = "VALUE VALUE VALUE"
+SELECT dataset.datasetName FROM dataset WHERE dataset.datasetId = "VALUE"
+SELECT dataset.datasetName FROM dataset WHERE dataset.datasetName LIKE "% semantic %"
+SELECT dataset.datasetName FROM dataset JOIN paperDataset ON dataset.datasetId = paperDataset.datasetId JOIN paper ON paperDataset.paperId = paper.paperId WHERE paper.title = "VALUE VALUE VALUE VALUE"
+SELECT dataset.datasetName FROM dataset JOIN paperDataset ON dataset.datasetId = paperDataset.datasetId JOIN paper ON paperDataset.paperId = paper.paperId WHERE paper.title = "semantic parsing"
+SELECT dataset.datasetName FROM dataset WHERE dataset.datasetName = "VALUE VALUE VALUE"
+SELECT dataset.datasetName FROM dataset JOIN paperDataset ON dataset.datasetId = paperDataset.datasetId JOIN paper ON paperDataset.paperId = paper.paperId WHERE paper.title = "VALUE VALUE VALUE VALUE VALUE"
+SELECT dataset.datasetName FROM dataset WHERE dataset.datasetId = "VALUE"
+SELECT COUNT(*) FROM dataset WHERE dataset.datasetName = "VALUE VALUE VALUE"
+SELECT dataset.datasetName FROM dataset WHERE dataset.datasetId = "VALUE"
+SELECT dataset.datasetName FROM dataset WHERE dataset.datasetId = "VALUE"
+SELECT venue.venueName FROM venue JOIN paper ON venue.venueId = paper.venueId WHERE venue.venueName = "Peter" AND paper.title = "Mertens"
+SELECT venue.venueName FROM venue JOIN paper ON venue.venueId = paper.venueId JOIN author ON author.authorId = paper.venueId WHERE author.authorName = "Peter" AND author.authorName = "Mertens"
+SELECT venue.venueName FROM venue JOIN paper ON venue.venueId = paper.venueId WHERE venue.venueName = "Peter" AND paper.title = "Mertens"
+SELECT COUNT(*) FROM paper WHERE paper.year = "nature communications"
+SELECT COUNT(*) FROM paper WHERE paper.year = 2015
+SELECT COUNT(DISTINCT paper.title) FROM paper JOIN paper ON paper.paperId = paper.journalId WHERE paper.year = 2015 AND paper.year = 2015
+SELECT COUNT(*) FROM journal JOIN paper ON journal.journalId = paper.journalId WHERE paper.year = 2015 AND journal.journalName = "nature communications"
+SELECT COUNT(*) FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT COUNT(DISTINCT paper.title) FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT COUNT(*) FROM paper JOIN paper ON paper.journalId = paper.paperId WHERE paper.year = 2015
+SELECT COUNT(*) FROM paper JOIN paper ON paper.paperId = paper.journalId WHERE paper.year = 2015
+SELECT COUNT(*) FROM paper JOIN paper ON paper.paperId = paper.journalId WHERE paper.year = 2015 AND paper.title = "nature communications"
+SELECT COUNT(*) FROM paper JOIN paper ON paper.paperId = paper.journalId WHERE paper.year = 2015
+SELECT COUNT(*) FROM paper JOIN paper ON paper.paperId = paper.journalId WHERE paper.year = 2015 AND paper.year = 2015
+SELECT COUNT(*) FROM journal JOIN paper ON journal.journalId = paper.journalId WHERE paper.year = 2015 AND journal.journalName = "nature communications"
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = (SELECT MAX(paper.year) FROM paper)
+SELECT paper.year FROM paper ORDER BY paper.year DESC LIMIT 1
+SELECT dataset.datasetName FROM dataset WHERE dataset.datasetName = "ACL"
+SELECT dataset.datasetName FROM dataset JOIN paperDataset ON dataset.datasetId = paperDataset.datasetId JOIN paper ON paperDataset.paperId = paper.paperId WHERE paper.title = "ACL" GROUP BY dataset.datasetId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT paper.title FROM paper WHERE paper.year = 2016 AND paper.year = 2016
+SELECT COUNT(DISTINCT paper.title) FROM paper WHERE paper.year = "VALUE"
+SELECT COUNT(*) FROM paper WHERE paper.year = 2016
+SELECT COUNT(*) FROM paper WHERE paper.year = 2016
+SELECT COUNT(*) FROM paper WHERE paper.year = "VALUE"
+SELECT COUNT(*) FROM paper WHERE paper.year = (SELECT MAX(paper.year) FROM paper)
+SELECT paper.title FROM paper WHERE paper.year = "VALUE"
+SELECT paper.year FROM paper GROUP BY paper.year ORDER BY COUNT(*) DESC LIMIT 1
+SELECT paper.year FROM paper GROUP BY paper.year ORDER BY COUNT(*) DESC LIMIT 1
+SELECT paper.year FROM paper GROUP BY paper.year ORDER BY COUNT(*) DESC LIMIT 1
+SELECT paper.year FROM paper GROUP BY paper.year ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.paperId = paper.journalId WHERE paper.title = "Noah A"
+SELECT author.authorName FROM author WHERE author.authorName = "Noah a" INTERSECT SELECT author.authorName FROM author WHERE author.authorName = "Noah a"
+SELECT author.authorName FROM author WHERE author.authorName = "Noah A" INTERSECT SELECT author.authorName FROM author WHERE author.authorName = "Noah A Smith"
+SELECT author.authorName FROM author WHERE author.authorName = "Noah A" INTERSECT SELECT author.authorName FROM author WHERE author.authorName = "Noah A"
+SELECT author.authorName FROM author WHERE author.authorName = "Noah A"
+SELECT * FROM venue
+SELECT author.authorName FROM author WHERE author.authorName = "Noah A"
+SELECT author.authorName FROM author WHERE author.authorName = "Noah A Smith"
+SELECT author.authorName FROM author WHERE author.authorName = "Noah A" INTERSECT SELECT author.authorName FROM author WHERE author.authorName = "Noah A Smith"
+SELECT author.authorName FROM author WHERE author.authorName = "Noah A"
+SELECT author.authorName FROM author WHERE author.authorName = "Noah" INTERSECT SELECT author.authorName FROM author WHERE author.authorName = "Noah"
+SELECT author.authorName FROM author WHERE author.authorName = "Noah A"
+SELECT author.authorName FROM author WHERE author.authorName = "Noah A" INTERSECT SELECT author.authorName FROM author WHERE author.authorName = "Noah A Smith"
+SELECT author.authorId FROM author WHERE author.authorName = "Noah A"
+SELECT dataset.datasetName FROM dataset WHERE dataset.datasetName = "jitendra malik"
+SELECT dataset.datasetName FROM dataset JOIN paperDataset ON dataset.datasetId = paperDataset.datasetId JOIN paper ON paperDataset.paperId = paper.paperId JOIN author ON author.authorId = author.authorId WHERE author.authorName = "jitendra"
+SELECT dataset.datasetName FROM dataset JOIN paperDataset ON dataset.datasetId = paperDataset.datasetId JOIN paper ON paperDataset.paperId = paper.paperId WHERE paper.title = "jitendra malik"
+SELECT dataset.datasetName FROM dataset JOIN author ON dataset.datasetId = author.authorId WHERE author.authorName = "jitendra malik"
+SELECT dataset.datasetName FROM dataset JOIN paperDataset ON dataset.datasetId = paperDataset.datasetId JOIN paper ON paperDataset.paperId = paper.paperId JOIN author ON author.authorId = author.authorId WHERE author.authorName = "jitendra malik"
+SELECT author.authorId FROM author WHERE author.authorName = "jitendra"
+SELECT dataset.datasetName FROM dataset WHERE dataset.datasetName = "jitendra malik"
+SELECT paper.title FROM paper WHERE paper.year = "VALUE"
+SELECT paper.title FROM paper WHERE paper.year = "VALUE VALUE VALUE VALUE"
+SELECT paper.title FROM paper WHERE paper.year = (SELECT MAX(paper.year) FROM paper)
+SELECT paper.title FROM paper WHERE paper.year = (SELECT MAX(paper.year) FROM paper)
+SELECT paper.title FROM paper WHERE paper.year = "VALUE"
+SELECT paper.title FROM paper WHERE paper.year = "VALUE VALUE VALUE"
+SELECT paper.title FROM paper WHERE paper.year = (SELECT MAX(paper.year) FROM paper)
+SELECT paper.title FROM paper WHERE paper.year = "VALUE"
+SELECT * FROM keyphrase WHERE keyphrase.keyphraseName = "deep"
+SELECT paper.title FROM paper WHERE paper.year = "VALUE"
+SELECT paper.title FROM paper WHERE paper.year = "VALUE"
+SELECT paper.year FROM paper JOIN paper ON paper.journalId = paper.paperId WHERE paper.title = "Pedro" AND paper.title = "Domingos"
+SELECT paper.year FROM author JOIN paper ON author.authorId = paper.journalId WHERE author.authorName = "Pedro" AND paper.title = "Domingos"
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.year = "jamie" ORDER BY paper.year
+SELECT COUNT(*) FROM paper WHERE paper.year = "jamie" AND paper.title = "callan"
+SELECT COUNT(*) FROM paper WHERE paper.year = "jamie" OR paper.year = "callan"
+SELECT COUNT(*) FROM paper WHERE paper.title = "jamie" AND paper.title = "callan"
+SELECT * FROM venue
+SELECT * FROM venue
+SELECT paper.title FROM author JOIN cite ON author.authorId = cite.citedPaperId JOIN paper ON cite.citedPaperId = paper.paperId WHERE author.authorName = "Daniel" AND author.authorName = "Jurafsky"
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId WHERE cite.citedPaperId = "Daniel" AND paper.numCiting = "Jurafsky"
+SELECT * FROM venue
+SELECT author.authorId FROM author WHERE author.authorName = "Daniel" AND author.authorName = "Jurafsky"
+SELECT paper.title FROM paper
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.year > 2005 GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.paperId = paper.journalId WHERE paper.year = 2005 GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorName FROM author WHERE author.authorName = 2005 GROUP BY author.authorId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT COUNT(*) FROM author JOIN cite ON author.authorId = cite.citedPaperId JOIN paper ON cite.citedPaperId = paper.paperId WHERE author.authorName = "Dan" AND paper.title = "Makumbi"
+SELECT paper.title FROM paper WHERE paper.year > 2010
+SELECT paper.title FROM paper WHERE paper.year > 2010
+SELECT paper.title FROM paper WHERE paper.year > 2010
+SELECT paper.title FROM paper WHERE paper.year > 2010
+SELECT paper.title FROM paper WHERE paper.year > 2010
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId WHERE author.authorName = "oren" AND author.authorName = "etzioni"
+SELECT COUNT(*) FROM cite JOIN dataset ON cite.citedPaperId = dataset.datasetId WHERE dataset.datasetName = "deep" AND dataset.datasetName = "ImageNet"
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId GROUP BY cite.citedPaperId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT DISTINCT paper.title FROM paper
+SELECT paper.title FROM paper ORDER BY paper.title ASC LIMIT 1
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId GROUP BY paper.paperId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId GROUP BY paper.paperId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId GROUP BY paper.title ORDER BY COUNT(*) DESC LIMIT 1
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId GROUP BY paper.paperId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId GROUP BY cite.citingPaperId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId GROUP BY cite.citingPaperId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId GROUP BY cite.citingPaperId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId GROUP BY cite.citedPaperId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT * FROM venue
+SELECT paper.title FROM author JOIN cite ON author.authorId = cite.citedPaperId JOIN paper ON cite.citedPaperId = paper.paperId WHERE author.authorName = "ohad shamir" ORDER BY paper.title DESC LIMIT 1
+SELECT paper.title FROM author JOIN cite ON author.authorId = cite.citedPaperId JOIN paper ON cite.citedPaperId = paper.paperId WHERE author.authorName = "ohad shamir" ORDER BY paper.numCitedBy DESC LIMIT 1
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId WHERE paper.title = "ohad shamir" ORDER BY paper.title DESC LIMIT 1
+SELECT paper.title FROM cite JOIN paper ON cite.citedPaperId = paper.paperId WHERE cite.citedPaperId = (SELECT MAX(paper.numCiting) FROM paper)
+SELECT paper.title FROM author JOIN cite ON author.authorId = cite.citedPaperId JOIN paper ON cite.citedPaperId = paper.paperId WHERE author.authorName = "ohad" GROUP BY paper.title ORDER BY COUNT(*) DESC LIMIT 1
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId WHERE paper.title = "ohad shamir" ORDER BY paper.title DESC LIMIT 1
+SELECT paper.title FROM cite JOIN paper ON cite.citedPaperId = paper.paperId WHERE cite.citedPaperId = (SELECT MAX(paper.numCiting) FROM paper)
+SELECT COUNT(*) FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.year = 2016 AND author.authorName = "michael" AND paper.year = 2016
+SELECT COUNT(*) FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE paper.year = 2016 AND author.authorName = "michael" AND paper.year = 2016
+SELECT COUNT(*) FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.year = 2016 AND paper.year = 2016
+SELECT COUNT(*) FROM author WHERE author.authorName = "ACL"
+SELECT COUNT(*) FROM author WHERE author.authorName = "ACL"
+SELECT COUNT(*) FROM author WHERE author.authorName = "ACL"
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.paperId = paper.journalId WHERE paper.year = 2007 GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.year = 2007 AND paper.title = "CVPRPR 2007"
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.paperId = paper.journalId WHERE paper.year = 2007 GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorName FROM author WHERE author.authorId = 2007 ORDER BY author.authorName DESC LIMIT 1
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.year = 2007 GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.year = 2007 OR paper.year = 2007 GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT COUNT(*) FROM paper WHERE paper.year = 2015
+SELECT COUNT(*) FROM paper WHERE paper.year = 2015 AND paper.title = "ACL 2015"
+SELECT paper.title FROM paper WHERE paper.year = 2014
+SELECT paper.title FROM paper WHERE paper.year = 2014
+SELECT paper.title FROM author JOIN paper ON author.authorId = paper.paperId WHERE author.authorName = "Richard" AND author.authorName = "chi"
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId JOIN journal ON paper.journalId = journal.journalId WHERE journal.journalName = "chi" AND journal.journalName = "chi"
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId JOIN journal ON paper.journalId = journal.journalId WHERE journal.journalName = "chi" AND paper.title = "Richard"
+SELECT paper.title FROM author JOIN paper ON author.authorId = paper.venueId WHERE author.authorName = "Richard" AND paper.venueId = "chi"
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.venueId WHERE paper.title = "chi" AND paper.title = "chi"
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.journalId JOIN paper ON paper.venueId = paper.paperId WHERE paper.title = "chi" AND paper.title = "chi"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.authorId = paper.paperId WHERE author.authorName = "Richard" AND author.authorName = "chi"
+SELECT paper.title FROM paper WHERE paper.venueId = "Richard" AND paper.venueId = "chi"
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId GROUP BY paper.paperId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT journal.journalName FROM journal JOIN cite ON journal.journalId = cite.citedPaperId WHERE journal.journalName = "Artificial Intelligence" GROUP BY journal.journalName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT * FROM paper WHERE paper.year = 2014 AND paper.year = 2014
+SELECT * FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT keyphrase.keyphraseName FROM keyphrase JOIN paper ON keyphrase.keyphraseId = paper.venueId WHERE paper.year = 2015 AND paper.year = 2015
+SELECT * FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT * FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT keyphrase.keyphraseName FROM keyphrase JOIN paper ON keyphrase.keyphraseId = paper.venueId WHERE paper.year = 2015 GROUP BY keyphrase.keyphraseName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT * FROM venue JOIN paper ON venue.venueId = paper.venueId WHERE paper.year = 2015 AND venue.venueName = "NIPSPSPS 2015"
+SELECT COUNT(*) FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.venueId = "deep"
+SELECT paper.title FROM paper WHERE paper.title = "WebKB"
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.title = "WebKB"
+SELECT paper.title FROM paper WHERE paper.title = "WebKB"
+SELECT paper.title FROM paper JOIN paperDataset ON paper.paperId = paperDataset.paperId JOIN dataset ON paperDataset.datasetId = dataset.datasetId WHERE dataset.datasetName = "WebKB"
+SELECT paper.title FROM paper WHERE paper.title = "WebKB"
+SELECT paper.title FROM paper WHERE paper.title = "WebKB"
+SELECT paper.title FROM paper
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.title = "WebKB"
+SELECT paper.title FROM paper JOIN paperDataset ON paper.paperId = paperDataset.paperId JOIN dataset ON paperDataset.datasetId = dataset.datasetId WHERE dataset.datasetName = "WebKB"
+SELECT venue.venueName FROM venue JOIN paper ON venue.venueId = paper.venueId WHERE paper.year = 2013 AND paper.year = 2013
+SELECT author.authorName FROM author GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorName FROM author GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.authorId = paper.paperId WHERE author.authorName = "chris" INTERSECT SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.authorId = paper.paperId WHERE author.authorName = "chris"
+SELECT * FROM venue
+SELECT * FROM venue
+SELECT * FROM venue
+SELECT paper.title FROM paper WHERE paper.year = (SELECT MIN(paper.year) FROM paper)
+SELECT author.authorName FROM author WHERE author.authorName = "benjamin" AND author.authorName = "mako hill"
+SELECT paper.year FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE author.authorName = "benjamin" AND author.authorName = "mako hill"
+SELECT paper.year FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.title = "ameet soni"
+SELECT author.authorName FROM author WHERE author.authorName = "Daniel A Reed" AND author.authorName = "Daniel A Reed"
+SELECT author.authorName FROM author WHERE author.authorName = "Daniel A Reed" AND author.authorName = "Daniel A Reed"
+SELECT COUNT(*) FROM venue JOIN paper ON venue.venueId = paper.venueId WHERE venue.venueName = "sigir"
+SELECT COUNT(*) FROM paper WHERE paper.title = "sigir"
+SELECT COUNT(*) FROM paper JOIN venue ON paper.venueId = venue.venueId WHERE venue.venueName = "sigir"
+SELECT COUNT(*) FROM paper JOIN venue ON paper.venueId = venue.venueId WHERE venue.venueName = "sigir"
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId WHERE paper.numCiting > 5
+SELECT paper.title FROM paper WHERE paper.numCiting > 5
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId WHERE paper.numCiting > 5
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId WHERE paper.numCiting > 5
+SELECT paper.title FROM paper WHERE paper.year = "Mirella" ORDER BY paper.year DESC LIMIT 1
+SELECT paper.title FROM paper WHERE paper.year = 2015
+SELECT paper.title FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT paper.title FROM paper WHERE paper.year = 2015
+SELECT paper.title FROM paper WHERE paper.year = 2015
+SELECT paper.title FROM paper WHERE paper.year = 2015
+SELECT paper.title FROM paper WHERE paper.year = 2015
+SELECT paper.title FROM paper WHERE paper.year = "pldi"
+SELECT paper.title FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT paper.title FROM paper WHERE paper.year = 2015
+SELECT paper.title FROM paper WHERE paper.year = 2015
+SELECT paper.title FROM paper WHERE paper.year = 2015
+SELECT paper.title FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT paper.title FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT * FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT paper.title FROM paper WHERE paper.year = 2015 AND paper.year = 2015
+SELECT paper.title FROM paper WHERE paper.year = 2015
+SELECT journal.journalName FROM journal
+SELECT journal.journalName FROM journal JOIN paper ON journal.journalId = paper.journalId WHERE paper.year = 2011 AND paper.year = 2011
+SELECT paper.title FROM paper WHERE paper.year = 2016 AND paper.year = 2016
+SELECT * FROM venue
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.paperId = paper.venueId WHERE paper.title = "sensor fusion"
+SELECT author.authorName FROM author WHERE author.authorName = "VALUE VALUE VALUE VALUE"
+SELECT venue.venueName FROM venue WHERE venue.venueName = "VALUE VALUE VALUE VALUE"
+SELECT * FROM venue
+SELECT author.authorName FROM author WHERE author.authorName = "VALUE VALUE VALUE VALUE"
+SELECT COUNT(*) FROM author JOIN cite ON author.authorId = cite.citedPaperId JOIN paper ON cite.citedPaperId = paper.paperId WHERE author.authorName = "michael" AND author.authorName = "i.. jordan"
+SELECT COUNT(*) FROM author JOIN cite ON author.authorId = cite.citedPaperId JOIN paper ON cite.citedPaperId = paper.paperId WHERE author.authorName = "michael" AND author.authorName = "klein" AND author.authorName = "klein"
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE paper.title = "Ameet" AND paper.title = "Bodik"
+SELECT paper.title FROM paper WHERE paper.year = 2014 AND paper.year = 2014
+SELECT journal.journalName FROM journal JOIN paper ON journal.journalId = paper.journalId WHERE paper.title = "Takashi" AND paper.title = "Matsumoto"
+SELECT journal.journalName FROM journal JOIN paper ON journal.journalId = paper.journalId WHERE paper.title = "Takashi" AND paper.title = "Matsumoto"
+SELECT journal.journalName FROM journal JOIN paper ON journal.journalId = paper.journalId WHERE journal.journalName = "Takashi" INTERSECT SELECT journal.journalName FROM journal JOIN paper ON journal.journalId = paper.journalId WHERE paper.title = "Takashi"
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE paper.year = 2016
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.paperId = paper.paperId WHERE paper.year = 2016 AND paper.year = 2016
+SELECT paper.year FROM author JOIN paper ON author.authorId = paper.journalId WHERE author.authorName = "Luke" AND paper.title = "Zettlemoyer"
+SELECT paper.title FROM paper WHERE paper.year = 2016
+SELECT paper.title FROM paper JOIN writes ON paper.paperId = writes.paperId WHERE paper.year = 2016
+SELECT keyphrase.keyphraseName FROM keyphrase GROUP BY keyphrase.keyphraseName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT journal.journalName FROM journal WHERE journal.journalId = "VALUE"
+SELECT journal.journalName FROM journal WHERE journal.journalId = "VALUE"
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2014 AND paper.year = 2014 INTERSECT SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2014
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2014 AND paper.year = 2014
+SELECT paper.title FROM paper WHERE paper.year = 2014 INTERSECT SELECT paper.title FROM paper WHERE paper.year = 2014
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2014 INTERSECT SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2014
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2014 INTERSECT SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = 2014
+SELECT journal.journalName FROM journal JOIN paper ON journal.journalId = paper.journalId WHERE journal.journalName = "linda" AND journal.journalName = "shapiro"
+SELECT journal.journalName FROM journal JOIN paper ON journal.journalId = paper.journalId WHERE paper.title = "linda" AND paper.title = "shapiro"
+SELECT author.authorName FROM author WHERE author.authorName = "NIPS"
+SELECT author.authorName FROM author WHERE author.authorName = "NIPS"
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE paper.title = "NIPS"
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.venueId WHERE paper.title = "NIPS"
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.venueId WHERE paper.title = "NIPS"
+SELECT venue.venueName FROM venue JOIN paper ON venue.venueId = paper.venueId GROUP BY venue.venueId ORDER BY COUNT(*) DESC LIMIT 1
+SELECT COUNT(*) FROM journal WHERE journal.journalName = "Cell"
+SELECT COUNT(*) FROM journal JOIN paper ON journal.journalId = paper.journalId WHERE paper.year = 2015 AND journal.journalName = "Cell"
+SELECT author.authorName FROM author WHERE author.authorName = "Donald E"
+SELECT paper.title FROM paper WHERE paper.year = 2016 AND paper.year = 2016 AND paper.title = "ali farhadi"
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.year = 2016 AND paper.year = 2016
+SELECT paper.title FROM paper WHERE paper.year = "echadi" AND paper.year = 2016
+SELECT paper.title FROM paper JOIN paperDataset ON paper.paperId = paperDataset.paperId JOIN dataset ON paperDataset.datasetId = dataset.datasetId WHERE dataset.datasetName = "YAGO"
+SELECT COUNT(*) FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.title = "chi"
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.paperId = paper.journalId WHERE paper.title = "chi" GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorName FROM author WHERE author.authorName = "chi" GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.venueId = paper.paperId WHERE paper.title = "chi" GROUP BY author.authorName ORDER BY COUNT(*) DESC LIMIT 1
+SELECT paper.year FROM paper GROUP BY paper.year ORDER BY COUNT(*) DESC LIMIT 1
+SELECT paper.year FROM paper GROUP BY paper.year ORDER BY COUNT(*) DESC LIMIT 1
+SELECT venue.venueName FROM venue WHERE venue.venueName = "ImageNet"
+SELECT paper.title FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId WHERE paper.year = "VALUE"
+SELECT paper.title FROM paper JOIN writes ON paper.paperId = writes.paperId WHERE writes.authorId = 1 ORDER BY paper.title DESC LIMIT 1
+SELECT paper.year FROM keyphrase JOIN paper ON keyphrase.keyphraseId = paper.venueId WHERE keyphrase.keyphraseName = "deep VALUE"
+SELECT paper.year FROM paper WHERE paper.year = (SELECT MAX(paper.year) FROM paper)
+SELECT paper.title FROM paper WHERE paper.year = 1995 AND paper.year = 1995
+SELECT paper.title FROM cite JOIN paper ON cite.citedPaperId = paper.paperId WHERE cite.citedPaperId = 1
+SELECT paper.title FROM cite JOIN paper ON cite.citedPaperId = paper.paperId ORDER BY paper.numCiting DESC LIMIT 1
+SELECT venue.venueName FROM venue WHERE venue.venueName = "VALUE VALUE VALUE VALUE"
+SELECT venue.venueName FROM venue WHERE venue.venueName = "Trop"
+SELECT venue.venueName FROM venue WHERE venue.venueName = "Trop"
+SELECT keyphrase.keyphraseName FROM keyphrase WHERE keyphrase.keyphraseName = "VALUE VALUE VALUE VALUE VALUE"
+SELECT COUNT(*) FROM paper WHERE paper.year = 2011 AND paper.year = 2016
+SELECT venue.venueName FROM venue WHERE venue.venueName = "VALUE" ORDER BY venue.venueName DESC LIMIT 1
+SELECT author.authorId FROM author WHERE author.authorName = "L"
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId WHERE paper.numCiting > 10
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.year = 2015
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.paperId = paper.journalId WHERE paper.year = 2015
+SELECT COUNT(*) FROM author JOIN writes ON author.authorId = writes.authorId WHERE author.authorName = "Brian" AND author.authorName = "DeRenzi"
+SELECT author.authorId FROM author WHERE author.authorName = "Brian" AND author.authorName = "DeRenzi"
+SELECT author.authorName FROM author GROUP BY author.authorId HAVING COUNT(*) >= 5
+SELECT paper.title FROM paper WHERE paper.paperId NOT IN (SELECT paper.year FROM paper)
+SELECT author.authorName FROM author WHERE author.authorName = "Michael" AND author.authorName = "Stonebraker"
+SELECT paper.year FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE author.authorName = "Michael" AND paper.title = "Stonebraker" AND paper.title = "Stonebraker"
+SELECT paper.year FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE paper.title = "Michael" AND paper.title = "GIS Database"
+SELECT journal.journalName FROM journal WHERE journal.journalId = 2010 INTERSECT SELECT journal.journalName FROM journal WHERE journal.journalName = 2010
+SELECT paper.title FROM paper GROUP BY paper.year ORDER BY COUNT(*) DESC LIMIT 1
+SELECT COUNT(*) FROM author WHERE author.authorName = "luke" AND author.authorName = "zettlemoyer"
+SELECT author.authorName FROM author WHERE author.authorName = "ImageNet"
+SELECT paper.title FROM paper WHERE paper.year = 2006 INTERSECT SELECT paper.title FROM paper WHERE paper.year = 2006
+SELECT author.authorName FROM author JOIN paperKeyphrase ON author.authorId = paperKeyphrase.paperId JOIN paper ON paperKeyphrase.paperId = paper.paperId WHERE paper.title = "Eric" AND paper.title = "Liquid Automatica"
+SELECT venue.venueName FROM venue JOIN paper ON venue.venueId = paper.venueId WHERE paper.year = "sergey" AND paper.year = "levine"
+SELECT keyphrase.keyphraseName FROM keyphrase JOIN paperKeyphrase ON keyphrase.keyphraseId = paperKeyphrase.keyphraseId JOIN paper ON paperKeyphrase.paperId = paper.paperId WHERE paper.title = "dan" AND paper.title = "emnlp"
+SELECT author.authorName FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.year = 2012 AND paper.year = 2012
+SELECT paper.title FROM paper JOIN paperDataset ON paper.paperId = paperDataset.paperId WHERE paper.year = 2014 AND paper.year = 2014 INTERSECT SELECT paper.title FROM paper JOIN paperDataset ON paper.paperId = paperDataset.paperId WHERE paper.year = 2014
+SELECT paper.title FROM paper WHERE paper.year = 2014 AND paper.year = 2014
+SELECT paper.title FROM paper WHERE paper.year = 2014 AND paper.year = 2014
+SELECT paper.title FROM cite JOIN paper ON cite.citedPaperId = paper.paperId JOIN paper ON cite.citedPaperId = paper.paperId WHERE paper.numCiting = "NIPS"
+SELECT author.authorName FROM author WHERE author.authorName = "ImageNet"
+SELECT COUNT(*) FROM paper JOIN cite ON paper.paperId = cite.citedPaperId WHERE paper.year > 7 AND paper.year > 7
+SELECT paper.title FROM paper WHERE paper.year = 2012 AND paper.year = 2012 ORDER BY paper.title DESC LIMIT 1
+SELECT COUNT(*) FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE paper.year = 2009 AND author.authorName = "Noah"
+SELECT COUNT(*) FROM paper JOIN cite ON paper.paperId = cite.citedPaperId WHERE cite.citedPaperId > 2
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE paper.title = "Eric" AND paper.title = "Liquid Kerrigan"
+SELECT COUNT(*) FROM dataset JOIN paperDataset ON dataset.datasetId = paperDataset.paperId WHERE dataset.datasetName = "ImageNet"
+SELECT venue.venueName FROM venue WHERE venue.venueId = "Neuroscience"
+SELECT paper.year FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE author.authorName = "Mary" AND paper.title = "Crainie"
+SELECT author.authorName FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE paper.title = "Philipp" AND paper.title = "Philipp" AND paper.title = "Philipp"
+SELECT COUNT(*) FROM paper WHERE paper.venueId = "Samuel" AND paper.venueId = "Samuel"
+SELECT journal.journalName FROM journal JOIN paper ON journal.journalId = paper.journalId WHERE paper.year = "Donald E" INTERSECT SELECT journal.journalName FROM journal JOIN paper ON journal.journalId = paper.journalId WHERE paper.year = "VALUE"
+SELECT venue.venueName FROM venue WHERE venue.venueId IN (SELECT paper.venueId FROM paper)
+SELECT COUNT(*) FROM author JOIN paper ON author.authorId = paper.journalId WHERE paper.year = 2010 AND paper.title = "sigcse"
+SELECT paper.year FROM keyphrase JOIN paper ON keyphrase.keyphraseId = paper.venueId WHERE keyphrase.keyphraseName = "A" INTERSECT SELECT paper.year FROM keyphrase JOIN paper ON keyphrase.keyphraseId = paper.venueId WHERE keyphrase.keyphraseName = "A"
+SELECT keyphrase.keyphraseName FROM keyphrase JOIN paper ON keyphrase.keyphraseId = paper.venueId WHERE paper.title = "uist"
+SELECT paper.title FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON paper.journalId = paper.paperId WHERE paper.year > 2012
+SELECT paper.year, COUNT(*) FROM paper GROUP BY paper.year
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId GROUP BY paper.paperId HAVING COUNT(*) >= 5
+SELECT * FROM cite GROUP BY cite.citedPaperId HAVING COUNT(*) >= 5
+SELECT paper.title FROM paper JOIN cite ON paper.paperId = cite.citedPaperId WHERE paper.year = "sigcomm" ORDER BY paper.title DESC LIMIT 1
+SELECT author.authorName FROM author JOIN paperKeyphrase ON author.authorId = paperKeyphrase.paperId JOIN paper ON paperKeyphrase.paperId = paper.paperId WHERE paper.title = "Ranjit" AND paper.title = "Haskell"
+SELECT organization.homepage FROM organization WHERE organization.name = "PVLDB"
+SELECT author.homepage FROM author WHERE author.name = "H.V.Jagadish"
+SELECT publication.abstract FROM publication WHERE publication.title = "Making database"
+SELECT publication.year FROM publication WHERE publication.abstract = "Making database"
+SELECT publication.year FROM publication WHERE publication.title = "Making database"
+SELECT * FROM publication WHERE publication.year > 2000
+SELECT conference.homepage FROM conference WHERE conference.name = "VLDB"
+SELECT keyword.keyword FROM keyword
+SELECT organization.name FROM organization
+SELECT organization.name FROM organization WHERE organization.name = "North America"
+SELECT organization.homepage FROM organization WHERE organization.name = "University of Michigan"
+SELECT COUNT(*) FROM cite WHERE cite.citing = "Making database systems"
+SELECT cite.citing FROM cite WHERE cite.citing = "Making database VALUE"
+SELECT cite.cited FROM cite WHERE cite.citing = "Making database systems"
+SELECT cite.cited FROM cite WHERE cite.citing = "Making database systems"
+SELECT * FROM cite WHERE cite.citing > 200
+SELECT author.name FROM author WHERE author.name = "PVLDB 2010"
+SELECT * FROM author
+SELECT author.name FROM author JOIN domain_conference ON author.aid = domain_conference.did JOIN conference ON conference.cid = domain_conference.cid WHERE conference.name = "VLDB" AND conference.name = 2002
+SELECT * FROM author
+SELECT * FROM author
+SELECT * FROM domain WHERE domain.name = "PVLDB"
+SELECT author.name FROM author WHERE author.name = "PVLDB"
+SELECT organization.name FROM organization WHERE organization.name = "H.V.Jagadish"
+SELECT conference.name FROM conference WHERE conference.name = "H.V.Jagadish"
+SELECT journal.name FROM journal WHERE journal.name = "H.V.Jagadish"
+SELECT domain.name FROM domain WHERE domain.name = "H.V.Jagadish"
+SELECT author.name FROM author WHERE author.name = "Making database"
+SELECT conference.name FROM conference WHERE conference.name = "Making database systems"
+SELECT author.aid FROM author WHERE author.name = "H.V.Jagadish"
+SELECT conference.name FROM conference WHERE conference.name = "VLDB"
+SELECT journal.name FROM journal WHERE journal.name = "PVLDB"
+SELECT * FROM publication WHERE publication.year > 2000
+SELECT * FROM conference WHERE conference.name = "VLDB" AND conference.name = 2000
+SELECT author.name FROM author WHERE author.name = "H.V.Jagadish"
+SELECT * FROM author
+SELECT author.name FROM author WHERE author.name = "H.V.Jagadish"
+SELECT * FROM author
+SELECT * FROM author
+SELECT domain.name FROM domain JOIN domain_conference ON domain.did = domain_conference.did JOIN conference ON conference.cid = domain_conference.cid WHERE conference.name = "VLDB"
+SELECT author.name FROM author JOIN domain_conference ON author.aid = domain_conference.did JOIN conference ON conference.cid = domain_conference.cid WHERE conference.name = "VLDB"
+SELECT keyword.keyword FROM keyword WHERE keyword.keyword = "Databases"
+SELECT * FROM keyword WHERE keyword.keyword = "Natural Language"
+SELECT keyword.keyword FROM keyword WHERE keyword.keyword = "Making database VALUE"
+SELECT keyword.keyword FROM keyword WHERE keyword.keyword = "H.V.Jagadish"
+SELECT keyword.keyword FROM keyword JOIN domain_conference ON keyword.kid = domain_conference.did JOIN conference ON conference.cid = domain_conference.cid WHERE conference.name = "VLDB"
+SELECT keyword.keyword FROM keyword WHERE keyword.keyword = "PVLDB"
+SELECT keyword.keyword FROM keyword WHERE keyword.keyword LIKE "% University of Michigan %"
+SELECT * FROM keyword WHERE keyword.keyword = "H.V .gadish" AND keyword.keyword = "Userdish"
+SELECT * FROM keyword WHERE keyword.keyword = "keyword search"
+SELECT conference.name FROM conference WHERE conference.name = "VLD" AND conference.name = "Information Retrieval"
+SELECT author.name FROM author WHERE author.name LIKE "% Relational Database %"
+SELECT organization.name FROM organization WHERE organization.name = "Databases"
+SELECT organization.name FROM organization WHERE organization.continent = "North America"
+SELECT author.aid FROM author WHERE author.name = "University of Michigan"
+SELECT * FROM domain WHERE domain.name = "University of Michigan"
+SELECT publication.title FROM publication JOIN domain ON domain.did = publication.jid WHERE domain.name = "University of Michigan"
+SELECT publication.title FROM publication WHERE publication.year > 2000 AND publication.title = "University of Michigan"
+SELECT * FROM conference WHERE conference.name = "VLDB" AND conference.name = "University of Michigan"
+SELECT publication.title FROM publication JOIN domain ON domain.did = publication.jid WHERE domain.name = "PVLD" AND domain.name = "University of Michigan"
+SELECT publication.title FROM publication WHERE publication.year > 2000 AND publication.title = "University of Michigan"
+SELECT * FROM cite WHERE cite.cited > 200
+SELECT * FROM cite WHERE cite.cited > 200
+SELECT conference.name FROM cite JOIN conference ON cite.citing = conference.cid WHERE cite.cited > 200 AND conference.name = "VLDB"
+SELECT author.aid FROM author JOIN cite ON author.aid = cite.cited WHERE author.name = "H.V .gadish" AND cite.citing > 200
+SELECT author.aid FROM author JOIN cite ON author.aid = cite.citing WHERE author.name = "H.V .gadish" AND cite.citing > 200
+SELECT * FROM author
+SELECT * FROM cite WHERE cite.cited > 2000 AND cite.cited > 200
+SELECT * FROM cite WHERE cite.cited > 2000 AND cite.cited > 200
+SELECT * FROM cite WHERE cite.cited > 2000 AND cite.cited > 200
+SELECT * FROM cite WHERE cite.cited > 2000 AND cite.cited > 200
+SELECT COUNT(DISTINCT conference.name) FROM conference WHERE conference.name = "H.V.Jagadish"
+SELECT COUNT(DISTINCT journal.name) FROM journal WHERE journal.name = "H.V.Jagadish"
+SELECT COUNT(*) FROM author JOIN writes ON author.aid = writes.pid WHERE author.name = "H.V .gadish"
+SELECT COUNT(*) FROM author JOIN domain_author ON author.aid = domain_author.aid WHERE author.name = "Making database systems"
+SELECT COUNT(*) FROM publication WHERE publication.title = "Making database systems usable"
+SELECT COUNT(*) FROM cite WHERE cite.cited > 2010
+SELECT COUNT(*) FROM author WHERE author.name = "H.V.Jagadish"
+SELECT COUNT(*) FROM conference WHERE conference.name = "VLDB"
+SELECT COUNT(*) FROM journal WHERE journal.name = "PVLDB"
+SELECT COUNT(*) FROM publication WHERE publication.year > 2000
+SELECT COUNT(*) FROM publication WHERE publication.year > 2000
+SELECT COUNT(*) FROM conference WHERE conference.name = "VLDB" AND conference.name = 2000
+SELECT COUNT(*) FROM author WHERE author.name = "H.V .gadish"
+SELECT COUNT(*) FROM author WHERE author.name = "H.V .gadish"
+SELECT COUNT(*) FROM author WHERE author.name = "H.V .gadish"
+SELECT * FROM author
+SELECT * FROM author
+SELECT COUNT(DISTINCT keyword.keyword) FROM keyword
+SELECT COUNT(*) FROM keyword WHERE keyword.keyword = "Databases"
+SELECT COUNT(*) FROM keyword WHERE keyword.keyword = "Natural Language"
+SELECT keyword.keyword FROM keyword WHERE keyword.keyword LIKE "% Making database %"
+SELECT COUNT(*) FROM keyword WHERE keyword.keyword = "H.V.Jagadish"
+SELECT COUNT(*) FROM conference WHERE conference.name = "VLDB"
+SELECT COUNT(*) FROM keyword WHERE keyword.keyword = "PVLDB"
+SELECT COUNT(*) FROM keyword WHERE keyword.keyword = "University of Michigan"
+SELECT COUNT(*) FROM author JOIN publication_keyword ON author.aid = publication_keyword.pid WHERE author.name = "H.V .gadish" AND author.name = "Userdish"
+SELECT COUNT(*) FROM keyword WHERE keyword.keyword = "keyword search"
+SELECT COUNT(*) FROM conference WHERE conference.name = "VLDB" AND conference.name = "Information Retrieval"
+SELECT COUNT(*) FROM author WHERE author.name LIKE "% Relational Database %"
+SELECT SUM(cite.citing) FROM cite WHERE * = "Natural Language"
+SELECT COUNT(*) FROM organization
+SELECT COUNT(*) FROM organization WHERE organization.name = "North America"
+SELECT COUNT(*) FROM organization WHERE organization.name = "Databases"
+SELECT COUNT(*) FROM organization WHERE organization.continent = "North America"
+SELECT COUNT(*) FROM journal WHERE journal.name = "University of Michigan"
+SELECT COUNT(*) FROM domain WHERE domain.name = "University of Michigan"
+SELECT COUNT(*) FROM publication WHERE publication.year > 2000 AND publication.title = "University of Michigan"
+SELECT COUNT(*) FROM conference WHERE conference.name = "VLDB" AND conference.name = "University of Michigan"
+SELECT COUNT(*) FROM journal WHERE journal.name = "PVLD" AND journal.name = "University of Michigan"
+SELECT COUNT(*) FROM publication WHERE publication.year > 2000 AND publication.title = "University of Michigan"
+SELECT SUM(cite.citing) FROM cite WHERE * = "University of Michigan"
+SELECT COUNT(*) FROM domain WHERE domain.name = "University of Michigan"
+SELECT COUNT(*) FROM domain WHERE domain.name = "Databases" AND domain.name = "University of Michigan"
+SELECT COUNT(*) FROM author WHERE author.name = "PVLDB"
+SELECT COUNT(*) FROM author JOIN domain_conference ON author.aid = domain_conference.did JOIN conference ON conference.cid = domain_conference.cid WHERE conference.name = "VLDB"
+SELECT COUNT(*) FROM publication WHERE publication.year > 2000
+SELECT COUNT(*) FROM publication WHERE publication.year > 2000
+SELECT SUM(cite.citing) FROM cite WHERE * = "PVLDB"
+SELECT cite.cited FROM cite WHERE cite.cited = "PVLDB"
+SELECT SUM(cite.cited) FROM cite WHERE cite.citing = 2005
+SELECT SUM(cite.citing) FROM cite GROUP BY cite.citing HAVING COUNT(*) > 2005
+SELECT * FROM author
+SELECT publication.year, COUNT(*) FROM publication WHERE publication.title = "PVLDB" GROUP BY publication.year
+SELECT * FROM author
+SELECT cite.citing FROM cite JOIN domain_conference ON cite.cited = domain_conference.did JOIN conference ON conference.cid = domain_conference.cid WHERE conference.name = "VLDB"
+SELECT * FROM author
+SELECT * FROM author
+SELECT * FROM author
+SELECT COUNT(*) FROM conference WHERE conference.name = "VLDB" AND conference.name = "VLDB"
+SELECT author.name FROM author WHERE author.name LIKE "% H V.Jagadish" INTERSECT SELECT author.name FROM author WHERE author.name = "Divesh Srivastava"
+SELECT author.name FROM author WHERE author.name = "H.V.Jagadish" INTERSECT SELECT author.name FROM author WHERE author.name = "H.. Jagadish"
+SELECT author.name FROM author JOIN writes ON author.aid = writes.pid WHERE author.name = "H.V.Jagadish" INTERSECT SELECT author.name FROM author JOIN writes ON author.aid = writes.pid WHERE author.name = "Divesh Srivastava"
+SELECT author.name FROM author JOIN writes ON author.aid = writes.pid WHERE author.name = "H.. .o Li" INTERSECT SELECT author.name FROM author JOIN writes ON author.aid = writes.pid WHERE author.name = "Yunyao Li"
+SELECT author.name FROM author JOIN writes ON author.aid = writes.pid WHERE author.name = "H.. .o Li" INTERSECT SELECT author.name FROM author JOIN writes ON author.aid = writes.pid WHERE author.name = "Yunyao Li"
+SELECT author.name FROM author JOIN writes ON author.aid = writes.pid WHERE author.name = "H.V.Jagadish" INTERSECT SELECT author.name FROM author JOIN writes ON author.aid = writes.pid WHERE author.name = "Yunyaoh"
+SELECT author.name FROM author WHERE author.name = "H.V.Jagadish"
+SELECT author.name FROM author JOIN writes ON author.aid = writes.pid WHERE author.name = "H.V.Javastava" INTERSECT SELECT author.name FROM author JOIN writes ON author.aid = writes.pid WHERE author.name = "Divesh Srivastava"
+SELECT author.name FROM author JOIN cite ON author.aid = cite.cited WHERE author.name = "H.V.Jagadish"
+SELECT COUNT(*) FROM author JOIN writes ON author.aid = writes.pid WHERE author.name = "H.V.Srivastava"
+SELECT COUNT(*) FROM author JOIN writes ON author.aid = writes.pid WHERE author.name = "H .sh Srivastava"
+SELECT COUNT(*) FROM author JOIN writes ON author.aid = writes.pid WHERE author.name = "H.V .oh" AND author.name = "Yunyaoh"
+SELECT COUNT(*) FROM author WHERE author.name = "H.V.Jagadish"
+SELECT COUNT(*) FROM author JOIN cite ON author.aid = cite.cited WHERE author.name = "H.V.Jagadish"
+SELECT author.aid FROM author JOIN cite ON author.aid = cite.citing WHERE author.name = "H.V.Jagatava" AND cite.citing > 200
+SELECT author.name FROM author WHERE author.name = "Relational Database" GROUP BY author.name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT conference.name FROM conference WHERE conference.name = "Relational Database" GROUP BY conference.name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT conference.name FROM conference WHERE conference.name = "Relational Database" GROUP BY conference.name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT journal.name FROM journal WHERE journal.name = "Relational Database" GROUP BY journal.name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT journal.name FROM journal WHERE journal.name = "Relational Database" GROUP BY journal.name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT keyword.keyword FROM keyword GROUP BY keyword.keyword ORDER BY COUNT(*) DESC LIMIT 1
+SELECT keyword.keyword FROM keyword GROUP BY keyword.keyword ORDER BY COUNT(*) DESC LIMIT 1
+SELECT keyword.keyword FROM keyword JOIN author ON keyword.kid = author.aid WHERE author.name = "H.V.Jagadish" GROUP BY keyword.keyword ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.name FROM author WHERE author.name = "University of Michigan" GROUP BY author.name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.name FROM author WHERE author.name = "University of Michigan" GROUP BY author.name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT cite.cited FROM author JOIN cite ON author.aid = cite.citing WHERE author.name = "H .sh Srivastava" ORDER BY cite.cited DESC LIMIT 1
+SELECT conference.name FROM conference WHERE conference.name > "H.V.Jagadish"
+SELECT conference.name FROM conference WHERE conference.name = "H.V.Jagadish" GROUP BY conference.name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT journal.name FROM journal WHERE journal.name > "H.V.Jagadish"
+SELECT journal.name FROM journal WHERE journal.name = "H.V.Jagadish" GROUP BY journal.name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT cite.cited FROM cite GROUP BY cite.cited ORDER BY COUNT(*) DESC LIMIT 1
+SELECT cite.citing FROM cite GROUP BY cite.citing ORDER BY COUNT(*) DESC LIMIT 1
+SELECT cite.citing FROM cite GROUP BY cite.citing ORDER BY COUNT(*) DESC LIMIT 1
+SELECT conference.name FROM cite JOIN conference ON cite.citing = conference.cid WHERE conference.name = "VLDB" GROUP BY conference.name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT cite.citing FROM author JOIN cite ON author.aid = cite.cited WHERE author.name = "H.V.Jagadish" ORDER BY cite.citing DESC LIMIT 1
+SELECT cite.cited FROM cite WHERE cite.cited > 2000 ORDER BY cite.cited DESC LIMIT 1
+SELECT cite.cited FROM cite WHERE cite.citing > 2000 ORDER BY cite.cited DESC LIMIT 1
+SELECT cite.cited FROM cite WHERE cite.citing = 2000 ORDER BY cite.cited DESC LIMIT 1
+SELECT conference.name FROM cite JOIN conference ON cite.citing = conference.cid WHERE conference.name = "VLDB" AND conference.name = "VLDB"
+SELECT author.name FROM author GROUP BY author.name HAVING COUNT(*) > 10
+SELECT author.name FROM author GROUP BY author.name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.name FROM author GROUP BY author.name HAVING COUNT(*) > 10
+SELECT conference.name FROM conference WHERE conference.cid IN (SELECT keyword.kid FROM keyword WHERE keyword.keyword = "Relational Database")
+SELECT * FROM author
+SELECT keyword.keyword FROM keyword WHERE keyword.keyword > 100 INTERSECT SELECT keyword.keyword FROM keyword JOIN domain_conference ON keyword.kid = domain_conference.cid JOIN conference ON conference.cid = domain_conference.cid WHERE conference.name = "VLDB"
+SELECT keyword.keyword FROM keyword GROUP BY keyword.keyword HAVING COUNT(*) > 100
+SELECT keyword.keyword FROM keyword WHERE keyword.keyword > "H.V.Jagadish"
+SELECT author.name FROM author JOIN domain_conference ON author.aid = domain_conference.did JOIN conference ON conference.cid = domain_conference.cid WHERE conference.name > "VLDB"
+SELECT author.name FROM author JOIN domain_conference ON author.aid = domain_conference.did JOIN conference ON conference.cid = domain_conference.cid WHERE conference.name = "VLDB" GROUP BY author.name ORDER BY COUNT(*) DESC LIMIT 1
+SELECT author.name FROM author WHERE author.name = "University of Michigan" AND 5000
+SELECT author.name FROM author WHERE author.name = "University of Michigan" INTERSECT SELECT author.name FROM author WHERE author.name = "University of Michigan"

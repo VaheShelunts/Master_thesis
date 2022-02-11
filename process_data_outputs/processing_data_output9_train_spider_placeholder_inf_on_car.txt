@@ -1,0 +1,195 @@
+run python3 -m src.experiments     --process_data     --data_dir data/spider     --db_dir data/spider/database     --dataset_name spider     --question_split          --question_only               --denormalize_sql               --table_shuffling     --use_lstm_encoder     --use_meta_data_encoding          --sql_consistency_check          --use_picklist     --anchor_text_match_threshold 0.85               --top_k_picklist_matches 2     --process_sql_in_execution_order               --num_random_tables_added 0                         --save_best_model_only     --schema_augmentation_factor 1          --data_augmentation_factor 1          --vocab_min_freq 0     --text_vocab_min_freq 0     --program_vocab_min_freq 0     --num_values_per_field 0     --max_in_seq_len 512     --max_out_seq_len 60     --model bridge     --num_steps 100000     --curriculum_interval 0     --num_peek_steps 1000     --num_accumulation_steps 2     --train_batch_size 8     --dev_batch_size 8     --encoder_input_dim 1024     --encoder_hidden_dim 400     --decoder_input_dim 400     --num_rnn_layers 1     --num_const_attn_layers 0     --emb_dropout_rate 0.3     --pretrained_lm_dropout_rate 0     --rnn_layer_dropout_rate 0     --rnn_weight_dropout_rate 0     --cross_attn_dropout_rate 0     --cross_attn_num_heads 8     --res_input_dropout_rate 0.2     --res_layer_dropout_rate 0     --ff_input_dropout_rate 0.4     --ff_hidden_dropout_rate 0.0     --pretrained_transformer bert-large-uncased          --bert_finetune_rate 0.00006     --learning_rate 0.0005     --learning_rate_scheduler inverse-square     --trans_learning_rate_scheduler inverse-square     --warmup_init_lr 0.0005     --warmup_init_ft_lr 0.00003     --num_warmup_steps 4000     --grad_norm 0.3     --decoding_algorithm beam-search     --beam_size 16     --bs_alpha 1.05     --gpu 0     
+2022-01-22 15:11:53.282385: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 35.15it/s]
+  0%|          | 0/92 [00:00<?, ?it/s]  4%|▍         | 4/92 [00:00<00:02, 39.50it/s] 10%|▉         | 9/92 [00:00<00:02, 40.14it/s] 13%|█▎        | 12/92 [00:00<00:04, 19.70it/s] 16%|█▋        | 15/92 [00:00<00:03, 21.22it/s] 20%|█▉        | 18/92 [00:00<00:03, 22.91it/s] 23%|██▎       | 21/92 [00:00<00:02, 24.19it/s] 26%|██▌       | 24/92 [00:00<00:02, 25.51it/s] 30%|███       | 28/92 [00:01<00:02, 28.18it/s] 34%|███▎      | 31/92 [00:01<00:03, 15.33it/s] 38%|███▊      | 35/92 [00:01<00:03, 18.57it/s] 42%|████▏     | 39/92 [00:01<00:02, 21.80it/s] 47%|████▋     | 43/92 [00:01<00:01, 25.07it/s] 51%|█████     | 47/92 [00:01<00:01, 25.12it/s] 55%|█████▌    | 51/92 [00:02<00:01, 27.96it/s] 60%|█████▉    | 55/92 [00:02<00:01, 30.67it/s] 65%|██████▌   | 60/92 [00:02<00:00, 34.44it/s] 70%|██████▉   | 64/92 [00:02<00:01, 16.98it/s] 73%|███████▎  | 67/92 [00:02<00:01, 18.37it/s]167 schema graphs loaded
+1 train examples loaded
+92 dev examples loaded
+Warning: file data/spider/fine-tune.json not found.
+5398 parsed SQL queries loaded
+* text vocab size = 30522
+* program vocab size = 99
+
+processing 1 examples from train...
+--------------------
+text:  what is the biggest city in wyoming
+sql:  SELECT city_name FROM city WHERE population  =  ( SELECT MAX ( population ) FROM city WHERE state_name  =  "wyoming" ) AND state_name  =  "wyoming"
+ground truth values:  [('city.state_name', 'wyoming'), ('city.state_name', 'wyoming')]
+matched values OrderedDict()
+--------------------
+********** train Data Statistics ***********
+OOV observed in 0/1 examples
+Denormalization skipped for 0/1 examples
+Schema truncated for 0/1 examples
+Token restored for 1/1 examples
++ text sizes
+# text tokens (avg) = 7.0
+# text tokens (min) = 7
+# text tokens (max) = 7
++ input sizes
+input size (avg) = 105.0
+input size (min) = 105 
+input size (max) = 105
++ program sizes
+# program tokens (avg) = 30.0	# program whole field tokens = 30.0 (avg)	
+# program tokens (min) = 30	# program whole field tokens = 30 (min)	
+# program tokens (max) = 30	# program whole field tokens = 30 (max)	
+max pointer span size = 1
+---  value extraction performance ---
+micro precision = 0.0
+micro recall = 0.0
+micro F1 = 0.0
+processing 92 examples from dev...
+Picklist: What is the accelerate of the car make amc hornet sportabout (sw)?, car_makers, Maker, [amc]
+Picklist: What is the accelerate of the car make amc hornet sportabout (sw)?, model_list, Model, [amc]
+Picklist: What is the accelerate of the car make amc hornet sportabout (sw)?, car_names, Model, [amc]
+Picklist: What is the accelerate of the car make amc hornet sportabout (sw)?, car_names, Make, [amc hornet]
+Picklist: What is the accelerate of the car make amc hornet sportabout (sw)?, car_names, Make, [amc hornet sportabout (sw)]
+--------------------
+text:  What is the accelerate of the car make amc hornet sportabout (sw)?
+sql:  SELECT T1.Accelerate FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T2.Make  =  'amc hornet sportabout (sw)'
+ground truth values:  [('car_names.Make', 'amc hornet sportabout (sw)')]
+matched values OrderedDict([(27, ('car_makers.Maker', 'amc')), (44, ('model_list.Model', 'amc')), (54, ('car_names.Model', 'amc')), (58, ('car_names.Make', 'amc hornet')), (61, ('car_names.Make', 'amc hornet sportabout (sw)'))])
+--------------------
+Picklist: How much does the car accelerate that makes amc hornet sportabout (sw)?, car_makers, Maker, [amc]
+Picklist: How much does the car accelerate that makes amc hornet sportabout (sw)?, model_list, Model, [amc]
+Picklist: How much does the car accelerate that makes amc hornet sportabout (sw)?, car_names, Model, [amc]
+Picklist: How much does the car accelerate that makes amc hornet sportabout (sw)?, car_names, Make, [amc hornet]
+Picklist: How much does the car accelerate that makes amc hornet sportabout (sw)?, car_names, Make, [amc hornet sportabout (sw)]
+--------------------
+text:  How much does the car accelerate that makes amc hornet sportabout (sw)?
+sql:  SELECT T1.Accelerate FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T2.Make  =  'amc hornet sportabout (sw)'
+ground truth values:  [('car_names.Make', 'amc hornet sportabout (sw)')]
+matched values OrderedDict([(27, ('car_makers.Maker', 'amc')), (44, ('model_list.Model', 'amc')), (54, ('car_names.Model', 'amc')), (58, ('car_names.Make', 'amc hornet')), (61, ('car_names.Make', 'amc hornet sportabout (sw)'))])
+--------------------
+Picklist: How many car makers are there in france?, countries, CountryName, [france]
+Picklist: What is the number of makers of care in France?, countries, CountryName, [france]
+Picklist: How many car models are produced in the usa?, countries, CountryName, [usa]
+--------------------
+text:  What is the count of the car models produced in the United States?
+sql:  SELECT count(*) FROM MODEL_LIST AS T1 JOIN CAR_MAKERS AS T2 ON T1.Maker  =  T2.Id JOIN COUNTRIES AS T3 ON T2.Country  =  T3.CountryId WHERE T3.CountryName  =  'usa'
+ground truth values:  [('countries.CountryName', 'usa')]
+matched values OrderedDict()
+--------------------
+Picklist: Which countries in europe have at least 3 car manufacturers?, continents, Continent, [europe]
+Picklist: What are the names of all European countries with at least 3 manufacturers?, continents, Continent, [europe]
+Picklist: What is the average edispl of the cars of model volvo?, car_makers, Maker, [volvo]
+Picklist: What is the average edispl of the cars of model volvo?, car_makers, FullName, [Volvo]
+Picklist: What is the average edispl of the cars of model volvo?, model_list, Model, [volvo]
+Picklist: What is the average edispl of the cars of model volvo?, car_names, Model, [volvo]
+--------------------
+text:  What is the average edispl of the cars of model volvo?
+sql:  SELECT avg(T2.edispl) FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id WHERE T1.Model  =  'volvo'
+ground truth values:  [('car_names.Model', 'volvo')]
+matched values OrderedDict([(27, ('car_makers.Maker', 'volvo')), (32, ('car_makers.FullName', 'Volvo')), (46, ('model_list.Model', 'volvo')), (56, ('car_names.Model', 'volvo'))])
+--------------------
+Picklist: What is the average edispl for all volvos?, car_makers, Maker, [volvo]
+Picklist: What is the average edispl for all volvos?, model_list, Model, [volvo]
+Picklist: What is the average edispl for all volvos?, car_names, Model, [volvo]
+--------------------
+text:  What is the average edispl for all volvos?
+sql:  SELECT avg(T2.edispl) FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id WHERE T1.Model  =  'volvo'
+ground truth values:  [('car_names.Model', 'volvo')]
+matched values OrderedDict([(27, ('car_makers.Maker', 'volvo')), (44, ('model_list.Model', 'volvo')), (54, ('car_names.Model', 'volvo'))])
+--------------------
+Picklist: How many car models were produced by the maker with full name American Motor Company?, continents, Continent, [america]
+Picklist: How many car models were produced by the maker with full name American Motor Company?, car_makers, FullName, [American Motor Company]
+--------------------
+text:  How many car models were produced by the maker with full name American Motor Company?
+sql:  SELECT count(*) FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker WHERE T1.FullName  =  'American Motor Company'
+ground truth values:  [('car_makers.FullName', 'American Motor Company')]
+matched values OrderedDict([(10, ('continents.Continent', 'america')), (32, ('car_makers.FullName', 'American Motor Company'))])
+--------------------
+Picklist: What is the number of car models created by the car maker American Motor Company?, continents, Continent, [america]
+Picklist: What is the number of car models created by the car maker American Motor Company?, car_makers, FullName, [American Motor Company]
+--------------------
+text:  What is the number of car models created by the car maker American Motor Company?
+sql:  SELECT count(*) FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker WHERE T1.FullName  =  'American Motor Company'
+ground truth values:  [('car_makers.FullName', 'American Motor Company')]
+matched values OrderedDict([(10, ('continents.Continent', 'america')), (32, ('car_makers.FullName', 'American Motor Company'))])
+--------------------
+Picklist: Which distinctive models are produced by maker with the full name General Motors or weighing more than 3500?, car_makers, FullName, [General Motors]
+Picklist: What are the different models created by either the car maker General Motors or weighed more than 3500?, car_makers, FullName, [General Motors]
+Picklist: For model volvo, how many cylinders does the car with the least accelerate have?, car_makers, Maker, [volvo]
+Picklist: For model volvo, how many cylinders does the car with the least accelerate have?, car_makers, FullName, [Volvo]
+Picklist: For model volvo, how many cylinders does the car with the least accelerate have?, model_list, Model, [volvo]
+Picklist: For model volvo, how many cylinders does the car with the least accelerate have?, car_names, Model, [volvo]
+--------------------
+ 77%|███████▋  | 71/92 [00:03<00:01, 20.87it/s] 80%|████████  | 74/92 [00:03<00:00, 22.83it/s] 86%|████████▌ | 79/92 [00:03<00:00, 25.85it/s] 90%|█████████ | 83/92 [00:03<00:00, 25.09it/s] 93%|█████████▎| 86/92 [00:03<00:00, 24.31it/s] 97%|█████████▋| 89/92 [00:04<00:00, 10.93it/s]100%|██████████| 92/92 [00:04<00:00, 12.22it/s]
+text:  For model volvo, how many cylinders does the car with the least accelerate have?
+sql:  SELECT T1.cylinders FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T2.Model  =  'volvo' ORDER BY T1.accelerate ASC LIMIT 1
+ground truth values:  [('car_names.Model', 'volvo')]
+matched values OrderedDict([(27, ('car_makers.Maker', 'volvo')), (32, ('car_makers.FullName', 'Volvo')), (46, ('model_list.Model', 'volvo')), (56, ('car_names.Model', 'volvo'))])
+--------------------
+Picklist: For a volvo model, how many cylinders does the version with least accelerate have?, car_makers, Maker, [volvo]
+Picklist: For a volvo model, how many cylinders does the version with least accelerate have?, car_makers, FullName, [Volvo]
+Picklist: For a volvo model, how many cylinders does the version with least accelerate have?, model_list, Model, [volvo]
+Picklist: For a volvo model, how many cylinders does the version with least accelerate have?, car_names, Model, [volvo]
+--------------------
+text:  For a volvo model, how many cylinders does the version with least accelerate have?
+sql:  SELECT T1.cylinders FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T2.Model  =  'volvo' ORDER BY T1.accelerate ASC LIMIT 1
+ground truth values:  [('car_names.Model', 'volvo')]
+matched values OrderedDict([(27, ('car_makers.Maker', 'volvo')), (32, ('car_makers.FullName', 'Volvo')), (46, ('model_list.Model', 'volvo')), (56, ('car_names.Model', 'volvo'))])
+--------------------
+Picklist: Which models are lighter than 3500 but not built by the 'Ford Motor Company'?, car_makers, Maker, [ford]
+Picklist: Which models are lighter than 3500 but not built by the 'Ford Motor Company'?, car_makers, FullName, [Ford Motor Company]
+Picklist: Which models are lighter than 3500 but not built by the 'Ford Motor Company'?, model_list, Model, [ford]
+Picklist: Which models are lighter than 3500 but not built by the 'Ford Motor Company'?, car_names, Model, [ford]
+--------------------
+text:  Which models are lighter than 3500 but not built by the 'Ford Motor Company'?
+sql:  SELECT DISTINCT T1.model FROM MODEL_LIST AS T1 JOIN CAR_NAMES AS T2 ON T1.Model  =  T2.Model JOIN CARS_DATA AS T3 ON T2.MakeId  =  T3.Id JOIN CAR_MAKERS AS T4 ON T1.Maker  =  T4.Id WHERE T3.weight  <  3500 AND T4.FullName != 'Ford Motor Company'
+ground truth values:  [('car_makers.FullName', 'Ford Motor Company')]
+matched values OrderedDict([(27, ('car_makers.Maker', 'ford')), (32, ('car_makers.FullName', 'Ford Motor Company')), (48, ('model_list.Model', 'ford')), (58, ('car_names.Model', 'ford'))])
+--------------------
+Picklist: What are the different models wthat are lighter than 3500 but were not built by the Ford Motor Company?, car_makers, Maker, [ford]
+Picklist: What are the different models wthat are lighter than 3500 but were not built by the Ford Motor Company?, car_makers, FullName, [Ford Motor Company]
+Picklist: What are the different models wthat are lighter than 3500 but were not built by the Ford Motor Company?, model_list, Model, [ford]
+Picklist: What are the different models wthat are lighter than 3500 but were not built by the Ford Motor Company?, car_names, Model, [ford]
+--------------------
+text:  What are the different models wthat are lighter than 3500 but were not built by the Ford Motor Company?
+sql:  SELECT DISTINCT T1.model FROM MODEL_LIST AS T1 JOIN CAR_NAMES AS T2 ON T1.Model  =  T2.Model JOIN CARS_DATA AS T3 ON T2.MakeId  =  T3.Id JOIN CAR_MAKERS AS T4 ON T1.Maker  =  T4.Id WHERE T3.weight  <  3500 AND T4.FullName != 'Ford Motor Company'
+ground truth values:  [('car_makers.FullName', 'Ford Motor Company')]
+matched values OrderedDict([(27, ('car_makers.Maker', 'ford')), (32, ('car_makers.FullName', 'Ford Motor Company')), (48, ('model_list.Model', 'ford')), (58, ('car_names.Model', 'ford'))])
+--------------------
+Picklist: What are the id and names of the countries which have more than 3 car makers or produce the 'fiat' model?, car_makers, Maker, [fiat]
+Picklist: What are the id and names of the countries which have more than 3 car makers or produce the 'fiat' model?, car_makers, FullName, [Fiat]
+Picklist: What are the id and names of the countries which have more than 3 car makers or produce the 'fiat' model?, model_list, Model, [fiat]
+Picklist: What are the id and names of the countries which have more than 3 car makers or produce the 'fiat' model?, car_names, Model, [fiat]
+--------------------
+text:  What are the id and names of the countries which have more than 3 car makers or produce the 'fiat' model?
+sql:  SELECT T1.countryId ,  T1.CountryName FROM Countries AS T1 JOIN CAR_MAKERS AS T2 ON T1.CountryId  =  T2.Country GROUP BY T1.countryId HAVING count(*)  >  3 UNION SELECT T1.countryId ,  T1.CountryName FROM Countries AS T1 JOIN CAR_MAKERS AS T2 ON T1.CountryId  =  T2.Country JOIN MODEL_LIST AS T3 ON T2.Id  =  T3.Maker WHERE T3.Model  =  'fiat'
+ground truth values:  [('model_list.Model', 'fiat')]
+matched values OrderedDict([(27, ('car_makers.Maker', 'fiat')), (32, ('car_makers.FullName', 'Fiat')), (46, ('model_list.Model', 'fiat')), (56, ('car_names.Model', 'fiat'))])
+--------------------
+Picklist: What are the ids and names of all countries that either have more than 3 car makers or produce fiat model ?, car_makers, Maker, [fiat]
+Picklist: What are the ids and names of all countries that either have more than 3 car makers or produce fiat model ?, car_makers, FullName, [Fiat]
+Picklist: What are the ids and names of all countries that either have more than 3 car makers or produce fiat model ?, model_list, Model, [fiat]
+Picklist: What are the ids and names of all countries that either have more than 3 car makers or produce fiat model ?, car_names, Model, [fiat]
+--------------------
+text:  What are the ids and names of all countries that either have more than 3 car makers or produce fiat model ?
+sql:  select t1.countryid ,  t1.countryname from countries as t1 join car_makers as t2 on t1.countryid  =  t2.country group by t1.countryid having count(*)  >  3 union select t1.countryid ,  t1.countryname from countries as t1 join car_makers as t2 on t1.countryid  =  t2.country join model_list as t3 on t2.id  =  t3.maker where t3.model  =  'fiat'
+ground truth values:  [('model_list.Model', 'fiat')]
+matched values OrderedDict([(27, ('car_makers.Maker', 'fiat')), (32, ('car_makers.FullName', 'Fiat')), (46, ('model_list.Model', 'fiat')), (56, ('car_names.Model', 'fiat'))])
+--------------------
+********** dev Data Statistics ***********
+OOV observed in 0/92 examples
+Denormalization skipped for 0/92 examples
+Schema truncated for 0/92 examples
+Token restored for 92/92 examples
++ text sizes
+# text tokens (avg) = 14.945652173913043
+# text tokens (min) = 5
+# text tokens (max) = 28
++ input sizes
+input size (avg) = 92.3586956521739
+input size (min) = 81 
+input size (max) = 111
++ program sizes
+# program tokens (avg) = 21.347826086956523	# program whole field tokens = 21.347826086956523 (avg)	
+# program tokens (min) = 8	# program whole field tokens = 8 (min)	
+# program tokens (max) = 51	# program whole field tokens = 51 (max)	
+max pointer span size = 0
+---  value extraction performance ---
+micro precision = 0.8965579710144927
+micro recall = 0.9891304347826086
+micro F1 = 0.916304347826087
+Processed data dumped to data/spider/spider.bridge.question-split.ppl-0.85.2.dn.eo.bert.pkl

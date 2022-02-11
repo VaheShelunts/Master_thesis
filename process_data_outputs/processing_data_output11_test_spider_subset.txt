@@ -1,0 +1,177 @@
+run python3 -m src.experiments     --process_data     --data_dir data/spider     --db_dir data/spider/database     --dataset_name spider     --question_split          --question_only               --denormalize_sql               --table_shuffling     --use_lstm_encoder     --use_meta_data_encoding          --sql_consistency_check          --use_picklist     --anchor_text_match_threshold 0.85               --top_k_picklist_matches 2     --process_sql_in_execution_order               --num_random_tables_added 0                         --save_best_model_only     --schema_augmentation_factor 1          --data_augmentation_factor 1          --vocab_min_freq 0     --text_vocab_min_freq 0     --program_vocab_min_freq 0     --num_values_per_field 0     --max_in_seq_len 512     --max_out_seq_len 60     --model bridge     --num_steps 100000     --curriculum_interval 0     --num_peek_steps 1000     --num_accumulation_steps 2     --train_batch_size 8     --dev_batch_size 8     --encoder_input_dim 1024     --encoder_hidden_dim 400     --decoder_input_dim 400     --num_rnn_layers 1     --num_const_attn_layers 0     --emb_dropout_rate 0.3     --pretrained_lm_dropout_rate 0     --rnn_layer_dropout_rate 0     --rnn_weight_dropout_rate 0     --cross_attn_dropout_rate 0     --cross_attn_num_heads 8     --res_input_dropout_rate 0.2     --res_layer_dropout_rate 0     --ff_input_dropout_rate 0.4     --ff_hidden_dropout_rate 0.0     --pretrained_transformer bert-large-uncased          --bert_finetune_rate 0.00006     --learning_rate 0.0005     --learning_rate_scheduler inverse-square     --trans_learning_rate_scheduler inverse-square     --warmup_init_lr 0.0005     --warmup_init_ft_lr 0.00003     --num_warmup_steps 4000     --grad_norm 0.3     --decoding_algorithm beam-search     --beam_size 16     --bs_alpha 1.05     --gpu 0     
+2022-01-24 13:17:04.544309: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 33.38it/s]
+  0%|          | 0/100 [00:00<?, ?it/s]  8%|▊         | 8/100 [00:00<00:01, 78.29it/s] 11%|█         | 11/100 [00:00<00:04, 20.33it/s] 13%|█▎        | 13/100 [00:00<00:06, 13.01it/s] 15%|█▌        | 15/100 [00:02<00:32,  2.65it/s] 22%|██▏       | 22/100 [00:03<00:20,  3.72it/s] 25%|██▌       | 25/100 [00:03<00:15,  4.75it/s] 31%|███       | 31/100 [00:03<00:10,  6.55it/s] 35%|███▌      | 35/100 [00:03<00:08,  7.97it/s] 38%|███▊      | 38/100 [00:03<00:07,  8.33it/s] 42%|████▏     | 42/100 [00:04<00:05, 10.17it/s] 45%|████▌     | 45/100 [00:04<00:06,  8.43it/s] 49%|████▉     | 49/100 [00:04<00:04, 10.94it/s] 52%|█████▏    | 52/100 [00:05<00:04, 10.81it/s] 54%|█████▍    | 54/100 [00:05<00:06,  7.55it/s] 60%|██████    | 60/100 [00:05<00:03, 10.20it/s] 65%|██████▌   | 65/100 [00:05<00:02, 13.14it/s] 69%|██████▉   | 69/100 [00:06<00:02, 12.04it/s] 72%|███████▏  | 72/100 [00:06<00:02, 12.23it/s] 75%|███████▌  | 75/100 [00:06<00:02, 10.03it/s] 82%|████████▏ | 82/100 [00:06<00:01, 13.48it/s]167 schema graphs loaded
+1 train examples loaded
+100 dev examples loaded
+Warning: file data/spider/fine-tune.json not found.
+5398 parsed SQL queries loaded
+* text vocab size = 30522
+* program vocab size = 99
+
+processing 1 examples from train...
+--------------------
+text:  what is the biggest city in wyoming
+sql:  SELECT city_name FROM city WHERE population  =  ( SELECT MAX ( population ) FROM city WHERE state_name  =  "wyoming" ) AND state_name  =  "wyoming"
+ground truth values:  [('city.state_name', 'wyoming'), ('city.state_name', 'wyoming')]
+matched values OrderedDict()
+--------------------
+********** train Data Statistics ***********
+OOV observed in 0/1 examples
+Denormalization skipped for 0/1 examples
+Schema truncated for 0/1 examples
+Token restored for 1/1 examples
++ text sizes
+# text tokens (avg) = 7.0
+# text tokens (min) = 7
+# text tokens (max) = 7
++ input sizes
+input size (avg) = 105.0
+input size (min) = 105 
+input size (max) = 105
++ program sizes
+# program tokens (avg) = 30.0	# program whole field tokens = 30.0 (avg)	
+# program tokens (min) = 30	# program whole field tokens = 30 (min)	
+# program tokens (max) = 30	# program whole field tokens = 30 (max)	
+max pointer span size = 1
+---  value extraction performance ---
+micro precision = 0.0
+micro recall = 0.0
+micro F1 = 0.0
+processing 100 examples from dev...
+Picklist: What are flight numbers of flights departing from Airport "APG"?, airports, AirportCode, [APG]
+Picklist: What are flight numbers of flights departing from Airport "APG"?, flights, SourceAirport, [ APG]
+Picklist: What are flight numbers of flights departing from Airport "APG"?, flights, DestAirport, [ APG]
+--------------------
+text:  What are flight numbers of flights departing from Airport "APG"?
+sql:  SELECT FlightNo FROM FLIGHTS WHERE SourceAirport  =  "APG"
+ground truth values:  [('flights.SourceAirport', 'APG')]
+matched values OrderedDict([(21, ('airports.AirportCode', 'APG')), (44, ('flights.SourceAirport', ' APG')), (50, ('flights.DestAirport', ' APG'))])
+--------------------
+Picklist: What is the weekly rank for the episode "A Love of a Lifetime"?, TV_series, Episode, [A Love of a Lifetime]
+Picklist: How many countries have governments that are republics?, country, GovernmentForm, [Republic]
+Picklist: What is the total surface area of the countries in the Caribbean region?, country, Region, [Caribbean]
+Picklist: What is the total surface area of the countries in the Caribbean region?, countrylanguage, Language, [Caribbean]
+--------------------
+text:  What is the total surface area of the countries in the Caribbean region?
+sql:  SELECT sum(SurfaceArea) FROM country WHERE Region  =  "Caribbean"
+ground truth values:  [('country.Region', 'Caribbean')]
+matched values OrderedDict([(34, ('country.Region', 'Caribbean')), (82, ('countrylanguage.Language', 'Caribbean'))])
+--------------------
+Picklist: What is Weekly Rank of TV series with Episode "A Love of a Lifetime"?, TV_series, Episode, [A Love of a Lifetime]
+Picklist: What is the number of cartoones written by Joseph Kuhr?, Cartoon, Written_by, [Joseph Kuhr]
+Picklist: What is the phone number of the man with the first name Timmothy and the last name Ward?, Students, first_name, [Timmothy]
+Picklist: What is the phone number of the man with the first name Timmothy and the last name Ward?, Students, last_name, [Ward]
+Picklist: What are the template ids with template type description "Presentation"., Ref_Template_Types, Template_Type_Description, [Presentation]
+Picklist: find the pixel aspect ratio and nation of the tv channels that do not use English., TV_Channel, Language, [English]
+Picklist: What are the maximum and minimum share of performances whose type is not "Live final"., performance, Type, [Live final]
+Picklist: How many likes does Kyle have?, Highschooler, name, [Kyle]
+Picklist: How many continents speak Chinese?, countrylanguage, Language, [Chinese]
+Picklist: Which flight numbers correspond to United Airlines flights?, airlines, Airline, [United Airlines]
+Picklist: What are the name, independence year, and surface area of the country with the smallest population?, city, Name, [Independence]
+--------------------
+text:  What are the name, independence year, and surface area of the country with the smallest population?
+sql:  SELECT Name ,  SurfaceArea ,  IndepYear FROM country ORDER BY Population LIMIT 1
+ground truth values:  []
+matched values OrderedDict([(8, ('city.Name', 'Independence'))])
+--------------------
+--------------------
+text:  What are the death and injury situations caused by the ship with tonnage 't'?
+sql:  SELECT T1.killed ,  T1.injured FROM death AS T1 JOIN ship AS t2 ON T1.caused_by_ship_id  =  T2.id WHERE T2.tonnage  =  't'
+ground truth values:  [('ship.tonnage', 't')]
+matched values OrderedDict()
+--------------------
+--------------------
+text:  What is the average, minimum, and maximum age for all French singers?
+sql:  SELECT avg(age) ,  min(age) ,  max(age) FROM singer WHERE country  =  'France'
+ground truth values:  [('singer.Country', 'France')]
+matched values OrderedDict()
+--------------------
+Picklist: Show all paragraph texts for the document "Customer reviews"., Documents, Document_Name, [Customer reviews]
+Picklist: What are flight numbers of flights departing from City "Aberdeen "?, airports, City, [Aberdeen ]
+--------------------
+text:  What are flight numbers of flights departing from City "Aberdeen "?
+sql:  SELECT T1.FlightNo FROM FLIGHTS AS T1 JOIN AIRPORTS AS T2 ON T1.SourceAirport   =  T2.AirportCode WHERE T2.City  =  "Aberdeen"
+ground truth values:  [('airports.City', 'Aberdeen')]
+matched values OrderedDict([(18, ('airports.City', 'Aberdeen '))])
+--------------------
+--------------------
+text:  How many degrees does the engineering department offer?
+sql:  SELECT count(*) FROM Departments AS T1 JOIN Degree_Programs AS T2 ON T1.department_id  =  T2.department_id WHERE T1.department_name  =  'engineer'
+ground truth values:  [('Departments.department_name', 'engineer')]
+matched values OrderedDict()
+--------------------
+Picklist: which countries' tv channels are not playing any cartoon written by Todd Casey?, Cartoon, Written_by, [Todd Casey]
+Picklist: Which countries have greater area than that of any country in Europe?, country, Continent, [Europe]
+Picklist: Find the number of flights landing in the city of Aberdeen or Abilene., airports, City, [Abilene ]
+Picklist: Find the number of flights landing in the city of Aberdeen or Abilene., airports, City, [Aberdeen ]
+--------------------
+text:  Find the number of flights landing in the city of Aberdeen or Abilene.
+sql:  SELECT count(*) FROM Flights AS T1 JOIN Airports AS T2 ON T1.DestAirport  =  T2.AirportCode WHERE T2.city  =  "Aberdeen" OR T2.city  =  "Abilene"
+ground truth values:  [('airports.City', 'Aberdeen'), ('airports.City', 'Abilene')]
+matched values OrderedDict([(18, ('airports.City', 'Abilene ')), (22, ('airports.City', 'Aberdeen '))])
+--------------------
+Picklist: find the id of tv channels that do not play any cartoon directed by Ben Jones., Cartoon, Directed_by, [Ben Jones]
+Picklist: What is the total population and average area of countries in the continent of North America whose area is bigger than 3000 ?, country, Continent, [North America]
+Picklist: What is the total population and average area of countries in the continent of North America whose area is bigger than 3000 ?, country, Region, [North America]
+--------------------
+text:  What is the total population and average area of countries in the continent of North America whose area is bigger than 3000 ?
+sql:  select sum(population) ,  avg(surfacearea) from country where continent  =  "north america" and surfacearea  >  3000
+ground truth values:  [('country.Continent', 'north america')]
+matched values OrderedDict([(32, ('country.Continent', 'North America')), (37, ('country.Region', 'North America'))])
+--------------------
+--------------------
+text:  What are the last name of the students who live in North Carolina but have not registered in any degree programs?
+sql:   86%|████████▌ | 86/100 [00:07<00:01, 12.19it/s] 90%|█████████ | 90/100 [00:08<00:01,  8.03it/s] 92%|█████████▏| 92/100 [00:08<00:01,  6.43it/s] 94%|█████████▍| 94/100 [00:08<00:00,  6.85it/s] 97%|█████████▋| 97/100 [00:09<00:00,  8.69it/s]100%|██████████| 100/100 [00:09<00:00, 11.01it/s]
+SELECT T1.last_name FROM Students AS T1 JOIN Addresses AS T2 ON T1.current_address_id  =  T2.address_id WHERE T2.state_province_county  =  'NorthCarolina' EXCEPT SELECT DISTINCT T3.last_name FROM Students AS T3 JOIN Student_Enrolment AS T4 ON T3.student_id  =  T4.student_id
+ground truth values:  [('Addresses.state_province_county', 'NorthCarolina')]
+matched values OrderedDict()
+--------------------
+Picklist: What is the series name and country of all TV channels that are playing cartoons directed by Ben Jones and cartoons directed by Michael Chang?, Cartoon, Directed_by, [Michael Chang]
+Picklist: What is the series name and country of all TV channels that are playing cartoons directed by Ben Jones and cartoons directed by Michael Chang?, Cartoon, Directed_by, [Ben Jones]
+Picklist: What are the country code and first name of the players who won in both tourney WTA Championships and Australian Open?, matches, tourney_name, [WTA Championships]
+Picklist: What are the country code and first name of the players who won in both tourney WTA Championships and Australian Open?, matches, tourney_name, [Australian Open]
+Picklist: Which Asian countries have a population that is larger than any country in Africa?, country, Continent, [Africa]
+Picklist: Which Asian countries have a population that is larger than any country in Africa?, country, Continent, [Asia]
+Picklist: What are the names of cities in Europe for which English is not the official language?, country, Continent, [Europe]
+Picklist: What are the names of cities in Europe for which English is not the official language?, countrylanguage, Language, [English]
+--------------------
+text:  What are the names of cities in Europe for which English is not the official language?
+sql:  SELECT DISTINCT T2.Name FROM country AS T1 JOIN city AS T2 ON T2.CountryCode  =  T1.Code WHERE T1.Continent  =  'Europe' AND T1.Name NOT IN (SELECT T3.Name FROM country AS T3 JOIN countrylanguage AS T4 ON T3.Code  =  T4.CountryCode WHERE T4.IsOfficial  =  'T' AND T4.Language  =  'English')
+ground truth values:  [('country.Continent', 'Europe'), ('countrylanguage.IsOfficial', 'T'), ('countrylanguage.Language', 'English')]
+matched values OrderedDict([(32, ('country.Continent', 'Europe')), (82, ('countrylanguage.Language', 'English'))])
+--------------------
+Picklist: What is the total number of people living in the nations that do not use English?, countrylanguage, Language, [English]
+Picklist: What are the ids and names of all countries that either have more than 3 car makers or produce fiat model ?, car_makers, Maker, [fiat]
+Picklist: What are the ids and names of all countries that either have more than 3 car makers or produce fiat model ?, car_makers, FullName, [Fiat]
+Picklist: What are the ids and names of all countries that either have more than 3 car makers or produce fiat model ?, model_list, Model, [fiat]
+Picklist: What are the ids and names of all countries that either have more than 3 car makers or produce fiat model ?, car_names, Model, [fiat]
+--------------------
+text:  What are the ids and names of all countries that either have more than 3 car makers or produce fiat model ?
+sql:  select t1.countryid ,  t1.countryname from countries as t1 join car_makers as t2 on t1.countryid  =  t2.country group by t1.countryid having count(*)  >  3 union select t1.countryid ,  t1.countryname from countries as t1 join car_makers as t2 on t1.countryid  =  t2.country join model_list as t3 on t2.id  =  t3.maker where t3.model  =  'fiat'
+ground truth values:  [('model_list.Model', 'fiat')]
+matched values OrderedDict([(27, ('car_makers.Maker', 'fiat')), (32, ('car_makers.FullName', 'Fiat')), (46, ('model_list.Model', 'fiat')), (56, ('car_names.Model', 'fiat'))])
+--------------------
+********** dev Data Statistics ***********
+OOV observed in 0/100 examples
+Denormalization skipped for 0/100 examples
+Schema truncated for 0/100 examples
+Token restored for 100/100 examples
++ text sizes
+# text tokens (avg) = 14.58
+# text tokens (min) = 6
+# text tokens (max) = 32
++ input sizes
+input size (avg) = 105.64
+input size (min) = 39 
+input size (max) = 250
++ program sizes
+# program tokens (avg) = 18.36	# program whole field tokens = 18.36 (avg)	
+# program tokens (min) = 6	# program whole field tokens = 6 (min)	
+# program tokens (max) = 48	# program whole field tokens = 48 (max)	
+max pointer span size = 0
+---  value extraction performance ---
+micro precision = 0.9025
+micro recall = 0.9266666666666665
+micro F1 = 0.9053333333333333
+Processed data dumped to data/spider/spider.bridge.question-split.ppl-0.85.2.dn.eo.bert.pkl

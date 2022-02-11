@@ -1,0 +1,229 @@
+run python3 -m src.experiments     --process_data     --data_dir data/spider     --db_dir data/spider/database     --dataset_name spider     --question_split          --question_only               --denormalize_sql               --table_shuffling     --use_lstm_encoder     --use_meta_data_encoding          --sql_consistency_check          --use_picklist     --anchor_text_match_threshold 0.85               --top_k_picklist_matches 2     --process_sql_in_execution_order               --num_random_tables_added 0                         --save_best_model_only     --schema_augmentation_factor 1          --data_augmentation_factor 1          --vocab_min_freq 0     --text_vocab_min_freq 0     --program_vocab_min_freq 0     --num_values_per_field 0     --max_in_seq_len 512     --max_out_seq_len 60     --model bridge     --num_steps 100000     --curriculum_interval 0     --num_peek_steps 1000     --num_accumulation_steps 2     --train_batch_size 8     --dev_batch_size 8     --encoder_input_dim 1024     --encoder_hidden_dim 400     --decoder_input_dim 400     --num_rnn_layers 1     --num_const_attn_layers 0     --emb_dropout_rate 0.3     --pretrained_lm_dropout_rate 0     --rnn_layer_dropout_rate 0     --rnn_weight_dropout_rate 0     --cross_attn_dropout_rate 0     --cross_attn_num_heads 8     --res_input_dropout_rate 0.2     --res_layer_dropout_rate 0     --ff_input_dropout_rate 0.4     --ff_hidden_dropout_rate 0.0     --pretrained_transformer bert-large-uncased          --bert_finetune_rate 0.00006     --learning_rate 0.0005     --learning_rate_scheduler inverse-square     --trans_learning_rate_scheduler inverse-square     --warmup_init_lr 0.0005     --warmup_init_ft_lr 0.00003     --num_warmup_steps 4000     --grad_norm 0.3     --decoding_algorithm beam-search     --beam_size 16     --bs_alpha 1.05     --gpu 0     
+2022-01-24 13:32:49.243737: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 34.07it/s]
+  0%|          | 0/100 [00:00<?, ?it/s]  1%|          | 1/100 [00:00<00:22,  4.43it/s]  6%|▌         | 6/100 [00:00<00:15,  6.10it/s]  9%|▉         | 9/100 [00:00<00:12,  7.43it/s] 11%|█         | 11/100 [00:00<00:12,  7.26it/s] 17%|█▋        | 17/100 [00:03<00:17,  4.86it/s] 22%|██▏       | 22/100 [00:03<00:12,  6.30it/s] 27%|██▋       | 27/100 [00:03<00:09,  7.68it/s] 33%|███▎      | 33/100 [00:03<00:06, 10.30it/s] 39%|███▉      | 39/100 [00:04<00:06,  9.95it/s] 45%|████▌     | 45/100 [00:04<00:04, 12.21it/s]167 schema graphs loaded
+1 train examples loaded
+100 dev examples loaded
+Warning: file data/spider/fine-tune.json not found.
+5398 parsed SQL queries loaded
+* text vocab size = 30522
+* program vocab size = 99
+
+processing 1 examples from train...
+--------------------
+text:  what is the biggest city in wyoming
+sql:  SELECT city_name FROM city WHERE population  =  ( SELECT MAX ( population ) FROM city WHERE state_name  =  "wyoming" ) AND state_name  =  "wyoming"
+ground truth values:  [('city.state_name', 'wyoming'), ('city.state_name', 'wyoming')]
+matched values OrderedDict()
+--------------------
+********** train Data Statistics ***********
+OOV observed in 0/1 examples
+Denormalization skipped for 0/1 examples
+Schema truncated for 0/1 examples
+Token restored for 1/1 examples
++ text sizes
+# text tokens (avg) = 7.0
+# text tokens (min) = 7
+# text tokens (max) = 7
++ input sizes
+input size (avg) = 105.0
+input size (min) = 105 
+input size (max) = 105
++ program sizes
+# program tokens (avg) = 30.0	# program whole field tokens = 30.0 (avg)	
+# program tokens (min) = 30	# program whole field tokens = 30 (min)	
+# program tokens (max) = 30	# program whole field tokens = 30 (max)	
+max pointer span size = 1
+---  value extraction performance ---
+micro precision = 0.0
+micro recall = 0.0
+micro F1 = 0.0
+processing 100 examples from dev...
+Picklist: What is the total surface area of the countries in the Caribbean region?, country, Region, [Caribbean]
+Picklist: What is the total surface area of the countries in the Caribbean region?, countrylanguage, Language, [Caribbean]
+--------------------
+text:  What is the total surface area of the countries in the Caribbean region?
+sql:  SELECT sum(SurfaceArea) FROM country WHERE Region  =  "Caribbean"
+ground truth values:  [('country.Region', 'Caribbean')]
+matched values OrderedDict([(34, ('country.Region', 'Caribbean')), (82, ('countrylanguage.Language', 'Caribbean'))])
+--------------------
+Picklist: What are the names of all cartoons directed by Ben Jones?, Cartoon, Directed_by, [Ben Jones]
+Picklist: Return the name of the airport with code 'AKO'., airports, AirportCode, [AKO]
+Picklist: Return the name of the airport with code 'AKO'., flights, SourceAirport, [ AKO]
+Picklist: Return the name of the airport with code 'AKO'., flights, DestAirport, [ AKO]
+--------------------
+text:  Return the name of the airport with code 'AKO'.
+sql:  SELECT AirportName FROM AIRPORTS WHERE AirportCode  =  "AKO"
+ground truth values:  [('airports.AirportCode', 'AKO')]
+matched values OrderedDict([(21, ('airports.AirportCode', 'AKO')), (44, ('flights.SourceAirport', ' AKO')), (50, ('flights.DestAirport', ' AKO'))])
+--------------------
+Picklist: What are flight numbers of flights arriving at Airport "APG"?, airports, AirportCode, [APG]
+Picklist: What are flight numbers of flights arriving at Airport "APG"?, flights, SourceAirport, [ APG]
+Picklist: What are flight numbers of flights arriving at Airport "APG"?, flights, DestAirport, [ APG]
+--------------------
+text:  What are flight numbers of flights arriving at Airport "APG"?
+sql:  SELECT FlightNo FROM FLIGHTS WHERE DestAirport  =  "APG"
+ground truth values:  [('flights.DestAirport', 'APG')]
+matched values OrderedDict([(21, ('airports.AirportCode', 'APG')), (44, ('flights.SourceAirport', ' APG')), (50, ('flights.DestAirport', ' APG'))])
+--------------------
+--------------------
+text:  What is the description for the section named h?
+sql:  SELECT section_description FROM Sections WHERE section_name  =  'h'
+ground truth values:  [('Sections.section_name', 'h')]
+matched values OrderedDict()
+--------------------
+Picklist: What is the template type code for template type description "Book"., Ref_Template_Types, Template_Type_Description, [Book]
+Picklist: What is the abbreviation of Airline "JetBlue Airways"?, airlines, Airline, [JetBlue Airways]
+Picklist: What is the abbreviation of Airline "JetBlue Airways"?, airlines, Abbreviation, [JetBlue]
+--------------------
+text:  What is the abbreviation of Airline "JetBlue Airways"?
+sql:  SELECT Abbreviation FROM AIRLINES WHERE Airline  =  "JetBlue Airways"
+ground truth values:  [('airlines.Airline', 'JetBlue Airways')]
+matched values OrderedDict([(10, ('airlines.Airline', 'JetBlue Airways')), (17, ('airlines.Abbreviation', 'JetBlue'))])
+--------------------
+Picklist: What are the countries that have cartoons on TV that were written by Todd Casey?, Cartoon, Written_by, [Todd Casey]
+Picklist: What are the population and life expectancies in Brazil?, country, Name, [Brazil]
+Picklist: Return the template type code of the template that is used by a document named Data base., Documents, Document_Name, [Data base]
+--------------------
+text:  For the countries founded before 1930, what is the total number of distinct official languages?
+sql:  SELECT count(DISTINCT T2.Language) FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE  IndepYear  <  1930 AND T2.IsOfficial  =  "T"
+ground truth values:  [('countrylanguage.IsOfficial', 'T')]
+matched values OrderedDict()
+--------------------
+--------------------
+text:  Find the id of the pet owned by student whose last name is ‘Smith'.
+sql:  SELECT T2.petid FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid  =  T2.stuid WHERE T1.Lname  =  'Smith'
+ground truth values:  [('Student.LName', 'Smith')]
+matched values OrderedDict()
+--------------------
+Picklist: Show all document names using templates with template type code BK., Ref_Template_Types, Template_Type_Code, [BK]
+Picklist: Show all document names using templates with template type code BK., Templates, Template_Type_Code, [BK]
+--------------------
+text:  Show all document names using templates with template type code BK.
+sql:  SELECT T2.document_name FROM Templates AS T1 JOIN Documents AS T2 ON T1.template_id  =  T2.template_id WHERE T1.template_type_code  =  "BK"
+ground truth values:  [('Templates.Template_Type_Code', 'BK')]
+matched values OrderedDict([(10, ('Ref_Template_Types.Template_Type_Code', 'BK')), (29, ('Templates.Template_Type_Code', 'BK'))])
+--------------------
+Picklist: find the pixel aspect ratio and nation of the tv channels that do not use English., TV_Channel, Language, [English]
+Picklist: Count the number of documents that use the PPT template type., Ref_Template_Types, Template_Type_Code, [PPT]
+Picklist: Count the number of documents that use the PPT template type., Templates, Template_Type_Code, [PPT]
+--------------------
+text:  Count the number of documents that use the PPT template type.
+sql:  SELECT count(*) FROM Documents AS T1 JOIN Templates AS T2 ON T1.Template_ID  =  T2.Template_ID WHERE T2.Template_Type_Code  =  'PPT'
+ground truth values:  [('Templates.Template_Type_Code', 'PPT')]
+matched values OrderedDict([(10, ('Ref_Template_Types.Template_Type_Code', 'PPT')), (30, ('Templates.Template_Type_Code', 'PPT'))])
+--------------------
+Picklist: How many continents speak Chinese?, countrylanguage, Language, [Chinese]
+Picklist: List the title of all  Cartoons showed on TV Channel with series name "Sky Radio"., TV_Channel, series_name, [Sky Radio]
+Picklist: What is the number of car models created by the car maker American Motor Company?, continents, Continent, [america]
+Picklist: What is the number of car models created by the car maker American Motor Company?, car_makers, FullName, [American Motor Company]
+--------------------
+text:  What is the number of car models created by the car maker American Motor Company?
+sql:  SELECT count(*) FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker WHERE T1.FullName  =  'American Motor Company'
+ground truth values:  [('car_makers.FullName', 'American Motor Company')]
+matched values OrderedDict([(10, ('continents.Continent', 'america')), (32, ('car_makers.FullName', 'American Motor Company'))])
+--------------------
+Picklist: What are the emails of the professionals living in either the state of Hawaii or the state of Wisconsin?, Owners, state, [Wisconsin]
+Picklist: What are the emails of the professionals living in either the state of Hawaii or the state of Wisconsin?, Professionals, state, [Wisconsin]
+ 51%|█████     | 51/100 [00:04<00:03, 15.78it/s] 56%|█████▌    | 56/100 [00:04<00:02, 16.90it/s] 63%|██████▎   | 63/100 [00:05<00:02, 16.11it/s] 69%|██████▉   | 69/100 [00:05<00:01, 20.17it/s] 73%|███████▎  | 73/100 [00:06<00:02,  9.82it/s] 76%|███████▌  | 76/100 [00:06<00:02,  9.65it/s] 83%|████████▎ | 83/100 [00:06<00:01, 12.96it/s] 87%|████████▋ | 87/100 [00:06<00:00, 15.86it/s] 91%|█████████ | 91/100 [00:07<00:00, 18.72it/s] 95%|█████████▌| 95/100 [00:07<00:00, 22.01it/s]100%|██████████| 100/100 [00:07<00:00, 25.49it/s]Picklist: What are the emails of the professionals living in either the state of Hawaii or the state of Wisconsin?, Professionals, state, [Hawaii]
+--------------------
+text:  What are the emails of the professionals living in either the state of Hawaii or the state of Wisconsin?
+sql:  SELECT email_address FROM Professionals WHERE state  =  'Hawaii' OR state  =  'Wisconsin'
+ground truth values:  [('Professionals.state', 'Hawaii'), ('Professionals.state', 'Wisconsin')]
+matched values OrderedDict([(57, ('Owners.state', 'Wisconsin')), (128, ('Professionals.state', 'Wisconsin')), (130, ('Professionals.state', 'Hawaii'))])
+--------------------
+Picklist: which countries' tv channels are playing some cartoon written by Todd Casey?, Cartoon, Written_by, [Todd Casey]
+Picklist: Return the ids corresponding to templates with the description 'Presentation'., Ref_Template_Types, Template_Type_Description, [Presentation]
+Picklist: How many official languages are spoken in Afghanistan?, country, Name, [Afghanistan]
+--------------------
+text:  How many official languages are spoken in Afghanistan?
+sql:  SELECT COUNT(*) FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T1.Name  =  "Afghanistan" AND IsOfficial  =  "T"
+ground truth values:  [('country.Name', 'Afghanistan'), ('countrylanguage.IsOfficial', 'T')]
+matched values OrderedDict([(30, ('country.Name', 'Afghanistan'))])
+--------------------
+Picklist: How many paragraphs for the document with name 'Summer Show'?, Documents, Document_Name, [Summer Show]
+Picklist: What is the average edispl for all volvos?, car_makers, Maker, [volvo]
+Picklist: What is the average edispl for all volvos?, model_list, Model, [volvo]
+Picklist: What is the average edispl for all volvos?, car_names, Model, [volvo]
+--------------------
+text:  What is the average edispl for all volvos?
+sql:  SELECT avg(T2.edispl) FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id WHERE T1.Model  =  'volvo'
+ground truth values:  [('car_names.Model', 'volvo')]
+matched values OrderedDict([(27, ('car_makers.Maker', 'volvo')), (44, ('model_list.Model', 'volvo')), (54, ('car_names.Model', 'volvo'))])
+--------------------
+Picklist: What are the names of documents that use templates with the code BK?, Ref_Template_Types, Template_Type_Code, [BK]
+Picklist: What are the names of documents that use templates with the code BK?, Templates, Template_Type_Code, [BK]
+--------------------
+text:  What are the names of documents that use templates with the code BK?
+sql:  SELECT T2.document_name FROM Templates AS T1 JOIN Documents AS T2 ON T1.template_id  =  T2.template_id WHERE T1.template_type_code  =  "BK"
+ground truth values:  [('Templates.Template_Type_Code', 'BK')]
+matched values OrderedDict([(10, ('Ref_Template_Types.Template_Type_Code', 'BK')), (29, ('Templates.Template_Type_Code', 'BK'))])
+--------------------
+Picklist: What are the countries that are not playing cartoons written by Todd Casey?, Cartoon, Written_by, [Todd Casey]
+Picklist: What are the countries that have greater surface area than any country in Europe?, country, Continent, [Europe]
+Picklist: Which languages are spoken by only one country in republic governments?, country, GovernmentForm, [Republic]
+Picklist: What is the total population and average area of countries in the continent of North America whose area is bigger than 3000 ?, country, Continent, [North America]
+Picklist: What is the total population and average area of countries in the continent of North America whose area is bigger than 3000 ?, country, Region, [North America]
+--------------------
+text:  What is the total population and average area of countries in the continent of North America whose area is bigger than 3000 ?
+sql:  select sum(population) ,  avg(surfacearea) from country where continent  =  "north america" and surfacearea  >  3000
+ground truth values:  [('country.Continent', 'north america')]
+matched values OrderedDict([(32, ('country.Continent', 'North America')), (37, ('country.Region', 'North America'))])
+--------------------
+Picklist: What are the ids of the TV channels that do not have any cartoons directed by Ben Jones?, Cartoon, Directed_by, [Ben Jones]
+Picklist: Find all airlines that have flights from both airports 'APG' and 'CVO'., airports, AirportCode, [APG]
+Picklist: Find all airlines that have flights from both airports 'APG' and 'CVO'., airports, AirportCode, [CVO]
+Picklist: Find all airlines that have flights from both airports 'APG' and 'CVO'., flights, SourceAirport, [ CVO]
+Picklist: Find all airlines that have flights from both airports 'APG' and 'CVO'., flights, SourceAirport, [ APG]
+Picklist: Find all airlines that have flights from both airports 'APG' and 'CVO'., flights, DestAirport, [ CVO]
+Picklist: Find all airlines that have flights from both airports 'APG' and 'CVO'., flights, DestAirport, [ APG]
+--------------------
+text:  Find all airlines that have flights from both airports 'APG' and 'CVO'.
+sql:  SELECT T1.Airline FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid  =  T2.Airline WHERE T2.SourceAirport  =  "APG" INTERSECT SELECT T1.Airline FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid  =  T2.Airline WHERE T2.SourceAirport  =  "CVO"
+ground truth values:  [('flights.SourceAirport', 'APG'), ('flights.SourceAirport', 'CVO')]
+matched values OrderedDict([(21, ('airports.AirportCode', 'APG')), (24, ('airports.AirportCode', 'CVO')), (47, ('flights.SourceAirport', ' CVO')), (50, ('flights.SourceAirport', ' APG')), (56, ('flights.DestAirport', ' CVO')), (59, ('flights.DestAirport', ' APG'))])
+--------------------
+Picklist: For a volvo model, how many cylinders does the version with least accelerate have?, car_makers, Maker, [volvo]
+Picklist: For a volvo model, how many cylinders does the version with least accelerate have?, car_makers, FullName, [Volvo]
+Picklist: For a volvo model, how many cylinders does the version with least accelerate have?, model_list, Model, [volvo]
+Picklist: For a volvo model, how many cylinders does the version with least accelerate have?, car_names, Model, [volvo]
+--------------------
+text:  For a volvo model, how many cylinders does the version with least accelerate have?
+sql:  SELECT T1.cylinders FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T2.Model  =  'volvo' ORDER BY T1.accelerate ASC LIMIT 1
+ground truth values:  [('car_names.Model', 'volvo')]
+matched values OrderedDict([(27, ('car_makers.Maker', 'volvo')), (32, ('car_makers.FullName', 'Volvo')), (46, ('model_list.Model', 'volvo')), (56, ('car_names.Model', 'volvo'))])
+--------------------
+Picklist: For model volvo, how many cylinders does the car with the least accelerate have?, car_makers, Maker, [volvo]
+Picklist: For model volvo, how many cylinders does the car with the least accelerate have?, car_makers, FullName, [Volvo]
+Picklist: For model volvo, how many cylinders does the car with the least accelerate have?, model_list, Model, [volvo]
+Picklist: For model volvo, how many cylinders does the car with the least accelerate have?, car_names, Model, [volvo]
+--------------------
+text:  For model volvo, how many cylinders does the car with the least accelerate have?
+sql:  SELECT T1.cylinders FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T2.Model  =  'volvo' ORDER BY T1.accelerate ASC LIMIT 1
+ground truth values:  [('car_names.Model', 'volvo')]
+matched values OrderedDict([(27, ('car_makers.Maker', 'volvo')), (32, ('car_makers.FullName', 'Volvo')), (46, ('model_list.Model', 'volvo')), (56, ('car_names.Model', 'volvo'))])
+--------------------
+********** dev Data Statistics ***********
+OOV observed in 0/100 examples
+Denormalization skipped for 0/100 examples
+Schema truncated for 0/100 examples
+Token restored for 100/100 examples
++ text sizes
+# text tokens (avg) = 13.87
+# text tokens (min) = 5
+# text tokens (max) = 34
++ input sizes
+input size (avg) = 112.22
+input size (min) = 38 
+input size (max) = 257
++ program sizes
+# program tokens (avg) = 17.76	# program whole field tokens = 17.76 (avg)	
+# program tokens (min) = 8	# program whole field tokens = 8 (min)	
+
+# program tokens (max) = 37	# program whole field tokens = 37 (max)	
+max pointer span size = 0
+---  value extraction performance ---
+micro precision = 0.8833333333333333
+micro recall = 0.945
+micro F1 = 0.8993333333333333
+Processed data dumped to data/spider/spider.bridge.question-split.ppl-0.85.2.dn.eo.bert.pkl

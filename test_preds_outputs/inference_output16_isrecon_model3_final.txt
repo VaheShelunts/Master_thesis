@@ -1,0 +1,1357 @@
+run python3 -m src.experiments     --inference     --data_dir data/spider     --db_dir data/spider/database     --dataset_name spider     --question_split          --question_only               --denormalize_sql               --table_shuffling     --use_lstm_encoder     --use_meta_data_encoding          --sql_consistency_check          --use_picklist     --anchor_text_match_threshold 0.85               --top_k_picklist_matches 2     --process_sql_in_execution_order               --num_random_tables_added 0                         --save_best_model_only     --schema_augmentation_factor 1          --data_augmentation_factor 1          --vocab_min_freq 0     --text_vocab_min_freq 0     --program_vocab_min_freq 0     --num_values_per_field 0     --max_in_seq_len 512     --max_out_seq_len 60     --model bridge     --num_steps 100000     --curriculum_interval 0     --num_peek_steps 1000     --num_accumulation_steps 2     --train_batch_size 8     --dev_batch_size 8     --encoder_input_dim 1024     --encoder_hidden_dim 400     --decoder_input_dim 400     --num_rnn_layers 1     --num_const_attn_layers 0     --emb_dropout_rate 0.3     --pretrained_lm_dropout_rate 0     --rnn_layer_dropout_rate 0     --rnn_weight_dropout_rate 0     --cross_attn_dropout_rate 0     --cross_attn_num_heads 8     --res_input_dropout_rate 0.2     --res_layer_dropout_rate 0     --ff_input_dropout_rate 0.4     --ff_hidden_dropout_rate 0.0     --pretrained_transformer bert-large-uncased          --bert_finetune_rate 0.00006     --learning_rate 0.0005     --learning_rate_scheduler inverse-square     --trans_learning_rate_scheduler inverse-square     --warmup_init_lr 0.0005     --warmup_init_ft_lr 0.00003     --num_warmup_steps 4000     --grad_norm 0.3     --decoding_algorithm beam-search     --beam_size 16     --bs_alpha 1.05     --gpu 0     --checkpoint_path /home/shelunts/thesis/TabularSemantingParsing/model/model3_irecon_and_spider/model-best.16.tar
+2022-02-07 16:28:03.381739: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
+  0%|          | 0/13 [00:00<?, ?it/s]Model directory exists: /home/shelunts/thesis/TabularSemantingParsing/model/spider.bridge.lstm.meta.ts.ppl-0.85.2.dn.eo.feat.bert-large-uncased.xavier-1024-400-400-8-2-0.0005-inv-sqr-0.0005-4000-6e-05-inv-sqr-3e-05-4000-0.3-0.3-0.0-0.0-1-8-0.0-0.0-res-0.2-0.0-ff-0.4-0.0
+Visualization directory exists: /home/shelunts/thesis/TabularSemantingParsing/viz/spider.bridge.lstm.meta.ts.ppl-0.85.2.dn.eo.feat.bert-large-uncased.xavier-1024-400-400-8-2-0.0005-inv-sqr-0.0005-4000-6e-05-inv-sqr-3e-05-4000-0.3-0.3-0.0-0.0-1-8-0.0-0.0-res-0.2-0.0-ff-0.4-0.0
+* text vocab size = 30522
+* program vocab size = 99
+
+pretrained_transformer = bert-large-uncased
+fix_pretrained_transformer_parameters = False
+
+bridge module created
+loading preprocessed data: data/spider/spider.bridge.question-split.ppl-0.85.2.dn.eo.bert.pkl
+100 dev examples loaded
+=> loading checkpoint '/home/shelunts/thesis/TabularSemantingParsing/model/model3_irecon_and_spider/model-best.16.tar'
+0 pre-computed prediction order reconstruction cached
+Example 1
+isrecon
+ +-- dsr_count (dsr count)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- count_dsr_all (count dsr all)
+ |   +-- count_ml (count ml)
+ |   +-- count_dsr (count dsr)
+ |   +-- count_dsr_citations (count dsr citations)
+ +-- papers (papers)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- citekey (citekey) [FOREIGN]
+ |   +-- journal_akronym (journal akronym)
+ |   +-- journal (journal)
+ |   +-- year (year)
+ |   +-- authors (authors)
+ |   +-- title (title)
+ |   +-- abstract (abstract)
+ |   +-- keywords (keywords)
+ +-- authors (authors)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- author_position (author position)
+ |   +-- fullname (fullname)
+ |   +-- surname (surname)
+ |   +-- firstname (firstname)
+ |   +-- middlename (middlename)
+ |   +-- email (email)
+ |   +-- departments (departments)
+ |   +-- institutions (institutions)
+ |   +-- countries (countries)
+ +-- citations (citations)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- paper_citekey (paper citekey)
+ |   +-- sentence_id (sentence id)
+ |   +-- para_id (para id)
+ |   +-- bibkey (bibkey)
+ |   +-- reference_citekey (reference citekey)
+ +-- reference_citations (reference citations)
+ |   +-- citekey (citekey) [PRIMARY] [FOREIGN]
+ |   +-- authors (authors)
+ |   +-- year (year)
+ |   +-- title (title)
+ |   +-- journal (journal)
+ |   +-- volume (volume)
+ |   +-- issue (issue)
+ |   +-- pages (pages)
+ |   +-- source_type (source type)
+ |   +-- publisher (publisher)
+ |   +-- place (place)
+ |   +-- editor (editor)
+ |   +-- monograph_title (monograph title)
+ |   +-- note (note)
+ +-- papers_keywords (papers keywords)
+     +-- article_id (article id) [FOREIGN]
+     +-- keywords (keywords)
+NL: b'How many papers did Dorothy Leidner write?'
+NL tokens: [b'how', b'many', b'papers', b'did', b'dorothy', b'lei', b'##dner', b'write', b'?']
+NL tokens (original): [b'How', b'many', b'papers', b'did', b'Dorothy', b'Lei', b'##dner', b'write', b'?']
+['[CLS]', 'how', 'many', 'papers', 'did', 'dorothy', 'lei', '##dner', 'write', '?', '[SEP]', '*', '[unused50]', 'ds', '##r', 'count', '[unused51]', 'article', 'id', '[unused51]', 'count', 'ds', '##r', 'all', '[unused51]', 'count', 'ml', '[unused51]', 'count', 'ds', '##r', '[unused51]', 'count', 'ds', '##r', 'citations', '[unused50]', 'papers', '[unused51]', 'article', 'id', '[unused51]', 'cite', '##key', '[unused51]', 'journal', 'akron', '##ym', '[unused51]', 'journal', '[unused51]', 'year', '[unused51]', 'authors', '[unused51]', 'title', '[unused51]', 'abstract', '[unused51]', 'key', '##words', '[unused50]', 'authors', '[unused51]', 'article', 'id', '[unused51]', 'author', 'position', '[unused51]', 'full', '##name', '[unused51]', 'surname', '[unused49]', 'lei', '##dner', '[unused49]', 'papers', '[unused51]', 'first', '##name', '[unused49]', 'dorothy', '[unused51]', 'middle', '##name', '[unused51]', 'email', '[unused51]', 'departments', '[unused51]', 'institutions', '[unused51]', 'countries', '[unused50]', 'citations', '[unused51]', 'article', 'id', '[unused51]', 'paper', 'cite', '##key', '[unused51]', 'sentence', 'id', '[unused51]', 'para', 'id', '[unused51]', 'bi', '##b', '##key', '[unused51]', 'reference', 'cite', '##key', '[unused50]', 'reference', 'citations', '[unused51]', 'cite', '##key', '[unused51]', 'authors', '[unused51]', 'year', '[unused51]', 'title', '[unused51]', 'journal', '[unused49]', 'papers', '[unused51]', 'volume', '[unused51]', 'issue', '[unused51]', 'pages', '[unused51]', 'source', 'type', '[unused51]', 'publisher', '[unused49]', 'writer', '[unused49]', 'paper', '[unused51]', 'place', '[unused51]', 'editor', '[unused51]', 'monograph', 'title', '[unused51]', 'note', '[unused49]', 'paper', '[unused50]', 'papers', 'key', '##words', '[unused51]', 'article', 'id', '[unused51]', 'key', '##words', '[SEP]']
+Target 0: b'SELECT COUNT(distinct papers.title) from papers join authors on authors.article_id = papers.article_id where authors.firstname = "Dorothy" and authors.surname = "Leidner"'
+Target TF-P tokens: from papers join authors on authors.article_id = papers.article_id where authors.firstname = "Dorothy" and authors.surname = "Leidner" select count (distinct papers.title)
+
+[WRONG] [medium] Pred 0:	b'SELECT COUNT(*) FROM papers JOIN authors ON authors.article_id = papers.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-0.012) (length=27)
+[WRONG] [medium] Pred 1:	b'SELECT COUNT(*) FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-0.472) (length=27)
+[CORRE] [medium] Pred 2:	b'SELECT COUNT(DISTINCT papers.title) FROM papers JOIN authors ON authors.article_id = papers.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-2.024) (length=28)
+Error Case 1
+
+Parsing error: from papers join authors on authors.article_id = papers.article_id where papers.year = 2020 group by authors.firstname , authors.surname select authors.firstname = "2020" select authors.firstname
+Parsing error: from papers join authors on authors.article_id = papers.article_id where papers.year = 2020 group by authors.firstname , authors.surname select authors.firstname count (*) order by count (*) desc limit 1
+Parsing error: from papers join authors on authors.article_id = papers.article_id where papers.year = 2020 group by authors.firstname , authors.surname select authors.firstname = "2020" select authors.firstname , authors.surname
+Parsing error: from papers join authors on authors.article_id = papers.article_id where papers.year = 2020 group by authors.firstname select authors.firstname count (*) order by count (*) desc limit 1
+Parsing error: from papers join authors on authors.article_id = papers.article_id where papers.year = 2020 group by authors.firstname order by count (*) desc limit 1) select authors.firstname , authors.surname
+Parsing error: from papers join authors on authors.article_id = papers.article_id where papers.year = 2020 group by authors.firstname order by count (*) desc limit 1) select authors.firstname
+Parsing error: from papers join authors on authors.article_id = papers.article_id where papers.year = 2020 group by authors.firstname , authors.surname select authors.firstname limit (from papers where papers.year = 2020 group by authors.firstname = "authors on Who" select papers.article_id) select authors.firstname
+Parsing error: from papers join authors on authors.article_id = papers.article_id where papers.year = 2020 group by authors.firstname , authors.surname select authors.firstname limit (from papers where papers.year = 2020 group by authors.firstname = "authors select authors.firstname"
+Example 2
+isrecon
+ +-- dsr_count (dsr count)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- count_dsr_all (count dsr all)
+ |   +-- count_ml (count ml)
+ |   +-- count_dsr (count dsr)
+ |   +-- count_dsr_citations (count dsr citations)
+ +-- papers (papers)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- citekey (citekey) [FOREIGN]
+ |   +-- journal_akronym (journal akronym)
+ |   +-- journal (journal)
+ |   +-- year (year)
+ |   +-- authors (authors)
+ |   +-- title (title)
+ |   +-- abstract (abstract)
+ |   +-- keywords (keywords)
+ +-- authors (authors)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- author_position (author position)
+ |   +-- fullname (fullname)
+ |   +-- surname (surname)
+ |   +-- firstname (firstname)
+ |   +-- middlename (middlename)
+ |   +-- email (email)
+ |   +-- departments (departments)
+ |   +-- institutions (institutions)
+ |   +-- countries (countries)
+ +-- citations (citations)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- paper_citekey (paper citekey)
+ |   +-- sentence_id (sentence id)
+ |   +-- para_id (para id)
+ |   +-- bibkey (bibkey)
+ |   +-- reference_citekey (reference citekey)
+ +-- reference_citations (reference citations)
+ |   +-- citekey (citekey) [PRIMARY] [FOREIGN]
+ |   +-- authors (authors)
+ |   +-- year (year)
+ |   +-- title (title)
+ |   +-- journal (journal)
+ |   +-- volume (volume)
+ |   +-- issue (issue)
+ |   +-- pages (pages)
+ |   +-- source_type (source type)
+ |   +-- publisher (publisher)
+ |   +-- place (place)
+ |   +-- editor (editor)
+ |   +-- monograph_title (monograph title)
+ |   +-- note (note)
+ +-- papers_keywords (papers keywords)
+     +-- article_id (article id) [FOREIGN]
+     +-- keywords (keywords)
+NL: b'Who published the most papers in 2020?'
+NL tokens: [b'who', b'published', b'the', b'most', b'papers', b'in', b'2020', b'?']
+NL tokens (original): [b'Who', b'published', b'the', b'most', b'papers', b'in', b'2020', b'?']
+['[CLS]', 'who', 'published', 'the', 'most', 'papers', 'in', '2020', '?', '[SEP]', '*', '[unused50]', 'ds', '##r', 'count', '[unused51]', 'article', 'id', '[unused51]', 'count', 'ds', '##r', 'all', '[unused51]', 'count', 'ml', '[unused51]', 'count', 'ds', '##r', '[unused51]', 'count', 'ds', '##r', 'citations', '[unused50]', 'papers', '[unused51]', 'article', 'id', '[unused51]', 'cite', '##key', '[unused51]', 'journal', 'akron', '##ym', '[unused51]', 'journal', '[unused51]', 'year', '[unused51]', 'authors', '[unused51]', 'title', '[unused51]', 'abstract', '[unused51]', 'key', '##words', '[unused50]', 'authors', '[unused51]', 'article', 'id', '[unused51]', 'author', 'position', '[unused51]', 'full', '##name', '[unused51]', 'surname', '[unused49]', 'published', '[unused49]', 'papers', '[unused51]', 'first', '##name', '[unused51]', 'middle', '##name', '[unused51]', 'email', '[unused51]', 'departments', '[unused51]', 'institutions', '[unused51]', 'countries', '[unused50]', 'citations', '[unused51]', 'article', 'id', '[unused51]', 'paper', 'cite', '##key', '[unused51]', 'sentence', 'id', '[unused51]', 'para', 'id', '[unused51]', 'bi', '##b', '##key', '[unused51]', 'reference', 'cite', '##key', '[unused50]', 'reference', 'citations', '[unused51]', 'cite', '##key', '[unused51]', 'authors', '[unused51]', 'year', '[unused51]', 'title', '[unused51]', 'journal', '[unused49]', 'papers', '[unused49]', 'the', 'mon', '##ist', '[unused51]', 'volume', '[unused51]', 'issue', '[unused51]', 'pages', '[unused51]', 'source', 'type', '[unused51]', 'publisher', '[unused49]', 'paper', '[unused51]', 'place', '[unused51]', 'editor', '[unused51]', 'monograph', 'title', '[unused51]', 'note', '[unused49]', 'paper', '[unused50]', 'papers', 'key', '##words', '[unused51]', 'article', 'id', '[unused51]', 'key', '##words', '[SEP]']
+Target 0: b'select authors.firstname, authors.surname from authors join papers on papers.article_id = authors.article_id GROUP by authors.firstname, authors.surname ORDER by count(papers.article_id) DESC LIMIT 1'
+Target TF-P tokens: from authors join papers on papers.article_id = authors.article_id group by authors.firstname , authors.surname select authors.firstname , authors.surname order by count (papers.article_id) desc limit 1
+
+[WRONG] [extra] Pred 0:	b'SELECT authors.firstname FROM papers JOIN authors ON authors.article_id = papers.article_id WHERE papers.year = 2020 GROUP BY authors.firstname ORDER BY COUNT(*) DESC LIMIT 1' (-0.082) (length=25)
+[WRONG] [extra] Pred 1:	b'SELECT authors.firstname, authors.surname FROM papers JOIN authors ON authors.article_id = papers.article_id WHERE papers.year = 2020 GROUP BY authors.firstname ORDER BY COUNT(papers.article_id) DESC LIMIT 1' (-0.469) (length=27)
+[WRONG] [extra] Pred 2:	b'SELECT authors.firstname, authors.surname FROM papers JOIN authors ON authors.article_id = papers.article_id WHERE papers.year = 2020 GROUP BY authors.firstname, authors.surname ORDER BY COUNT(papers.article_id) DESC LIMIT 1' (-0.552) (length=29)
+[WRONG] [extra] Pred 3:	b'SELECT authors.firstname FROM papers JOIN authors ON authors.article_id = papers.article_id WHERE papers.year = 2020 GROUP BY authors.firstname, authors.surname ORDER BY COUNT(*) DESC LIMIT 1' (-0.939) (length=27)
+[WRONG] [extra] Pred 4:	b'SELECT authors.firstname, authors.surname FROM papers JOIN authors ON authors.article_id = papers.article_id WHERE papers.year = 2020 GROUP BY authors.firstname ORDER BY COUNT(*) DESC LIMIT 1' (-0.956) (length=27)
+[WRONG] [extra] Pred 5:	b'SELECT papers.authors FROM papers JOIN authors ON authors.article_id = papers.article_id WHERE papers.year = 2020 GROUP BY authors.firstname, authors.surname ORDER BY COUNT(*) DESC LIMIT 1' (-0.994) (length=27)
+[WRONG] [extra] Pred 6:	b'SELECT authors.firstname FROM papers JOIN authors ON authors.article_id = papers.article_id WHERE papers.year = 2020 GROUP BY authors.firstname ORDER BY COUNT(papers.article_id) DESC LIMIT 1' (-1.022) (length=25)
+[WRONG] [extra] Pred 7:	b'SELECT authors.firstname FROM papers JOIN authors ON authors.article_id = papers.article_id WHERE papers.year = 2020 GROUP BY authors.firstname, authors.surname ORDER BY COUNT(papers.article_id) DESC LIMIT 1' (-1.104) (length=27)
+Error Case 2
+
+Parsing error: from papers join authors on authors.article_id = papers.article_id where papers.year = 2020 and authors.firstname = "Dorothy" Lei "and authors.surname =" Leidner "select count (distinct papers.title)"
+Example 3
+isrecon
+ +-- dsr_count (dsr count)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- count_dsr_all (count dsr all)
+ |   +-- count_ml (count ml)
+ |   +-- count_dsr (count dsr)
+ |   +-- count_dsr_citations (count dsr citations)
+ +-- papers (papers)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- citekey (citekey) [FOREIGN]
+ |   +-- journal_akronym (journal akronym)
+ |   +-- journal (journal)
+ |   +-- year (year)
+ |   +-- authors (authors)
+ |   +-- title (title)
+ |   +-- abstract (abstract)
+ |   +-- keywords (keywords)
+ +-- authors (authors)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- author_position (author position)
+ |   +-- fullname (fullname)
+ |   +-- surname (surname)
+ |   +-- firstname (firstname)
+ |   +-- middlename (middlename)
+ |   +-- email (email)
+ |   +-- departments (departments)
+ |   +-- institutions (institutions)
+ |   +-- countries (countries)
+ +-- citations (citations)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- paper_citekey (paper citekey)
+ |   +-- sentence_id (sentence id)
+ |   +-- para_id (para id)
+ |   +-- bibkey (bibkey)
+ |   +-- reference_citekey (reference citekey)
+ +-- reference_citations (reference citations)
+ |   +-- citekey (citekey) [PRIMARY] [FOREIGN]
+ |   +-- authors (authors)
+ |   +-- year (year)
+ |   +-- title (title)
+ |   +-- journal (journal)
+ |   +-- volume (volume)
+ |   +-- issue (issue)
+ |   +-- pages (pages)
+ |   +-- source_type (source type)
+ |   +-- publisher (publisher)
+ |   +-- place (place)
+ |   +-- editor (editor)
+ |   +-- monograph_title (monograph title)
+ |   +-- note (note)
+ +-- papers_keywords (papers keywords)
+     +-- article_id (article id) [FOREIGN]
+     +-- keywords (keywords)
+NL: b'How many papers were published by Dorothy Leidner in 2020?'
+/usr/lib/python3/dist-packages/torch/_tensor.py:575: UserWarning: floor_divide is deprecated, and will be removed in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values.
+To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor'). (Triggered internally at  ../aten/src/ATen/native/BinaryOps.cpp:461.)
+  return torch.floor_divide(self, other)
+  8%|▊         | 1/13 [00:16<03:21, 16.80s/it]NL tokens: [b'how', b'many', b'papers', b'were', b'published', b'by', b'dorothy', b'lei', b'##dner', b'in', b'2020', b'?']
+NL tokens (original): [b'How', b'many', b'papers', b'were', b'published', b'by', b'Dorothy', b'Lei', b'##dner', b'in', b'2020', b'?']
+['[CLS]', 'how', 'many', 'papers', 'were', 'published', 'by', 'dorothy', 'lei', '##dner', 'in', '2020', '?', '[SEP]', '*', '[unused50]', 'ds', '##r', 'count', '[unused51]', 'article', 'id', '[unused51]', 'count', 'ds', '##r', 'all', '[unused51]', 'count', 'ml', '[unused51]', 'count', 'ds', '##r', '[unused51]', 'count', 'ds', '##r', 'citations', '[unused50]', 'papers', '[unused51]', 'article', 'id', '[unused51]', 'cite', '##key', '[unused51]', 'journal', 'akron', '##ym', '[unused51]', 'journal', '[unused51]', 'year', '[unused51]', 'authors', '[unused51]', 'title', '[unused51]', 'abstract', '[unused51]', 'key', '##words', '[unused50]', 'authors', '[unused51]', 'article', 'id', '[unused51]', 'author', 'position', '[unused51]', 'full', '##name', '[unused51]', 'surname', '[unused49]', 'lei', '##dner', '[unused49]', 'published', '[unused51]', 'first', '##name', '[unused49]', 'dorothy', '[unused51]', 'middle', '##name', '[unused51]', 'email', '[unused51]', 'departments', '[unused51]', 'institutions', '[unused51]', 'countries', '[unused50]', 'citations', '[unused51]', 'article', 'id', '[unused51]', 'paper', 'cite', '##key', '[unused51]', 'sentence', 'id', '[unused51]', 'para', 'id', '[unused51]', 'bi', '##b', '##key', '[unused51]', 'reference', 'cite', '##key', '[unused50]', 'reference', 'citations', '[unused51]', 'cite', '##key', '[unused51]', 'authors', '[unused51]', 'year', '[unused51]', 'title', '[unused51]', 'journal', '[unused49]', 'papers', '[unused51]', 'volume', '[unused51]', 'issue', '[unused51]', 'pages', '[unused51]', 'source', 'type', '[unused51]', 'publisher', '[unused49]', 'paper', '[unused51]', 'place', '[unused51]', 'editor', '[unused51]', 'monograph', 'title', '[unused51]', 'note', '[unused49]', 'paper', '[unused50]', 'papers', 'key', '##words', '[unused51]', 'article', 'id', '[unused51]', 'key', '##words', '[SEP]']
+Target 0: b'SELECT count(distinct papers.article_id) from papers join authors on authors.article_id = papers.article_id where  papers.year = 2020 and authors.firstname = "Dorothy" and authors.surname = "Leidner"'
+Target TF-P tokens: from papers join authors on authors.article_id = papers.article_id where papers.year = 2020 and authors.firstname = "Dorothy" and authors.surname = "Leidner" select count (distinct papers.article_id)
+
+[WRONG] [medium] Pred 0:	b'SELECT COUNT(DISTINCT papers.title) FROM papers JOIN authors ON authors.article_id = papers.article_id WHERE papers.year = 2020 AND authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-0.000) (length=32)
+[WRONG] [medium] Pred 1:	b'SELECT COUNT(DISTINCT papers.title) FROM papers JOIN authors ON authors.article_id = papers.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner" AND papers.journal_akronym = 2020' (-1.414) (length=34)
+[WRONG] [medium] Pred 2:	b'SELECT COUNT(DISTINCT papers.title) FROM papers JOIN authors ON authors.article_id = papers.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner" AND papers.article_id = 2020' (-1.664) (length=32)
+[CORRE] [medium] Pred 3:	b'SELECT COUNT(DISTINCT papers.article_id) FROM papers JOIN authors ON authors.article_id = papers.article_id WHERE papers.year = 2020 AND authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-1.911) (length=32)
+Error Case 3
+
+ERROR: Join condition does not match with table: ['authors', {'join': 'papers', 'on': {'eq': ['papers.article_id', 'authors.article_id']}}, {'join': 'papers_keywords', 'on': {'eq': ['authors.article_id', 'papers.article_id']}}]
+ERROR: Join condition does not match with table: ['authors', {'join': 'papers', 'on': {'eq': ['papers.article_id', 'papers.article_id']}}, {'join': 'papers_keywords', 'on': {'eq': ['authors.article_id', 'papers.article_id']}}]
+ERROR: Join condition does not match with table: ['authors', {'join': 'papers', 'on': {'eq': ['authors.author_position', 'authors.article_id']}}]
+ERROR: invalid JOIN field "papers_keywords": ['authors', {'join': 'papers', 'on': {'eq': ['papers.article_id', 'papers_keywords']}}]
+ERROR: Join condition does not match with table: ['authors', {'join': 'papers', 'on': {'eq': ['authors.author_position', 'authors.author_position']}}]
+ERROR: invalid JOIN field "authors": ['authors', {'join': 'papers', 'on': {'eq': ['authors.author_position', 'authors']}}]
+Example 8
+isrecon
+ +-- dsr_count (dsr count)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- count_dsr_all (count dsr all)
+ |   +-- count_ml (count ml)
+ |   +-- count_dsr (count dsr)
+ |   +-- count_dsr_citations (count dsr citations)
+ +-- papers (papers)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- citekey (citekey) [FOREIGN]
+ |   +-- journal_akronym (journal akronym)
+ |   +-- journal (journal)
+ |   +-- year (year)
+ |   +-- authors (authors)
+ |   +-- title (title)
+ |   +-- abstract (abstract)
+ |   +-- keywords (keywords)
+ +-- authors (authors)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- author_position (author position)
+ |   +-- fullname (fullname)
+ |   +-- surname (surname)
+ |   +-- firstname (firstname)
+ |   +-- middlename (middlename)
+ |   +-- email (email)
+ |   +-- departments (departments)
+ |   +-- institutions (institutions)
+ |   +-- countries (countries)
+ +-- citations (citations)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- paper_citekey (paper citekey)
+ |   +-- sentence_id (sentence id)
+ |   +-- para_id (para id)
+ |   +-- bibkey (bibkey)
+ |   +-- reference_citekey (reference citekey)
+ +-- reference_citations (reference citations)
+ |   +-- citekey (citekey) [PRIMARY] [FOREIGN]
+ |   +-- authors (authors)
+ |   +-- year (year)
+ |   +-- title (title)
+ |   +-- journal (journal)
+ |   +-- volume (volume)
+ |   +-- issue (issue)
+ |   +-- pages (pages)
+ |   +-- source_type (source type)
+ |   +-- publisher (publisher)
+ |   +-- place (place)
+ |   +-- editor (editor)
+ |   +-- monograph_title (monograph title)
+ |   +-- note (note)
+ +-- papers_keywords (papers keywords)
+     +-- article_id (article id) [FOREIGN]
+     +-- keywords (keywords)
+NL: b'In which institutions  does Dorothy Leidner work?'
+NL tokens: [b'in', b'which', b'institutions', b'does', b'dorothy', b'lei', b'##dner', b'work', b'?']
+NL tokens (original): [b'In', b'which', b'institutions', b'does', b'Dorothy', b'Lei', b'##dner', b'work', b'?']
+['[CLS]', 'in', 'which', 'institutions', 'does', 'dorothy', 'lei', '##dner', 'work', '?', '[SEP]', '*', '[unused50]', 'ds', '##r', 'count', '[unused51]', 'article', 'id', '[unused51]', 'count', 'ds', '##r', 'all', '[unused51]', 'count', 'ml', '[unused51]', 'count', 'ds', '##r', '[unused51]', 'count', 'ds', '##r', 'citations', '[unused50]', 'papers', '[unused51]', 'article', 'id', '[unused51]', 'cite', '##key', '[unused51]', 'journal', 'akron', '##ym', '[unused51]', 'journal', '[unused51]', 'year', '[unused51]', 'authors', '[unused51]', 'title', '[unused51]', 'abstract', '[unused51]', 'key', '##words', '[unused50]', 'authors', '[unused51]', 'article', 'id', '[unused51]', 'author', 'position', '[unused51]', 'full', '##name', '[unused51]', 'surname', '[unused49]', 'lei', '##dner', '[unused49]', 'work', '[unused51]', 'first', '##name', '[unused49]', 'dorothy', '[unused51]', 'middle', '##name', '[unused51]', 'email', '[unused51]', 'departments', '[unused51]', 'institutions', '[unused51]', 'countries', '[unused50]', 'citations', '[unused51]', 'article', 'id', '[unused51]', 'paper', 'cite', '##key', '[unused51]', 'sentence', 'id', '[unused51]', 'para', 'id', '[unused51]', 'bi', '##b', '##key', '[unused51]', 'reference', 'cite', '##key', '[unused50]', 'reference', 'citations', '[unused51]', 'cite', '##key', '[unused51]', 'authors', '[unused51]', 'year', '[unused51]', 'title', '[unused51]', 'journal', '[unused49]', 'work', '[unused51]', 'volume', '[unused51]', 'issue', '[unused51]', 'pages', '[unused51]', 'source', 'type', '[unused51]', 'publisher', '[unused51]', 'place', '[unused51]', 'editor', '[unused51]', 'monograph', 'title', '[unused49]', 'work', '[unused51]', 'note', '[unused50]', 'papers', 'key', '##words', '[unused51]', 'article', 'id', '[unused51]', 'key', '##words', '[unused49]', 'institutions', '[unused49]', 'institutions', '[SEP]']
+Target 0: b'SELECT DISTINCT authors.institutions  from authors  where authors.firstname = "Dorothy" and authors.surname = "Leidner"'
+Target TF-P tokens: from authors where authors.firstname = "Dorothy" and authors.surname = "Leidner" select distinct authors.institutions
+
+[WRONG] [medium] Pred 0:	b'SELECT DISTINCT authors.institutions FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-0.001) (length=25)
+[WRONG] [medium] Pred 1:	b'SELECT DISTINCT authors.institutions FROM authors JOIN papers ON papers.article_id = authors.article_id JOIN authors ON authors.article_id = papers.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-1.846) (length=31)
+[WRONG] [medium] Pred 2:	b'SELECT DISTINCT authors.institutions FROM papers_keywords JOIN papers ON papers.article_id = papers_keywords.article_id JOIN authors ON authors.article_id = papers.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-2.103) (length=31)
+[WRONG] [medium] Pred 3:	b'SELECT DISTINCT authors.institutions FROM authors JOIN papers ON papers.article_id = authors.author_position WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-2.199) (length=25)
+[WRONG] [medium] Pred 4:	b'SELECT DISTINCT authors.institutions FROM authors JOIN papers_keywords ON authors.article_id = papers_keywords.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-2.275) (length=25)
+[WRONG] [medium] Pred 5:	b'SELECT DISTINCT authors.departments FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-2.416) (length=25)
+[WRONG] [medium] Pred 6:	b'SELECT DISTINCT authors.institutions FROM authors JOIN papers ON authors.author_position = papers.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-2.429) (length=25)
+[WRONG] [medium] Pred 7:	b'SELECT authors.institutions FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-2.540) (length=24)
+[WRONG] [medium] Pred 8:	b'SELECT DISTINCT authors.institutions FROM authors JOIN papers ON authors.article_id = papers.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-2.543) (length=25)
+[CORRE] [medium] Pred 9:	b'SELECT DISTINCT authors.institutions FROM authors WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-2.690) (length=19)
+Error Case 4
+
+ERROR: invalid JOIN field "for": ['dsr_count', {'join': 'papers', 'on': {'eq': ['dsr_count.article_id', 'papers.article_id']}}, {'join': 'authors', 'on': {'eq': ['authors.article_id', 'for']}}]
+ERROR: invalid JOIN field "authors": ['dsr_count', {'join': 'papers', 'on': {'eq': ['dsr_count.article_id', 'papers.article_id']}}, {'join': 'authors', 'on': {'eq': ['authors.article_id', 'authors']}}]
+ERROR: invalid JOIN field "for": ['dsr_count', {'join': 'papers', 'on': {'eq': ['dsr_count.article_id', 'papers.article_id']}}, {'join': 'authors', 'on': {'eq': ['authors.article_id', 'for']}}]
+ERROR: invalid JOIN field "authors": ['dsr_count', {'join': 'papers', 'on': {'eq': ['dsr_count.article_id', 'papers.article_id']}}, {'join': 'authors', 'on': {'eq': ['authors.article_id', 'authors']}}]
+Parsing error: from dsr_count join papers on dsr_count.article_id = papers.article_id join authors on authors.article_id = ? where authors.firstname = "Dorothy" and authors.surname = "Leidner" select count (*)
+ERROR: invalid JOIN field "r": ['dsr_count', {'join': 'papers', 'on': {'eq': ['dsr_count.article_id', 'papers.article_id']}}, {'join': 'authors', 'on': {'eq': ['authors.article_id', 'r']}}]
+Example 10
+isrecon
+ +-- dsr_count (dsr count)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- count_dsr_all (count dsr all)
+ |   +-- count_ml (count ml)
+ |   +-- count_dsr (count dsr)
+ |   +-- count_dsr_citations (count dsr citations)
+ +-- papers (papers)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- citekey (citekey) [FOREIGN]
+ |   +-- journal_akronym (journal akronym)
+ |   +-- journal (journal)
+ |   +-- year (year)
+ |   +-- authors (authors)
+ |   +-- title (title)
+ |   +-- abstract (abstract)
+ |   +-- keywords (keywords)
+ +-- authors (authors)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- author_position (author position)
+ |   +-- fullname (fullname)
+ |   +-- surname (surname)
+ |   +-- firstname (firstname)
+ |   +-- middlename (middlename)
+ |   +-- email (email)
+ |   +-- departments (departments)
+ |   +-- institutions (institutions)
+ |   +-- countries (countries)
+ +-- citations (citations)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- paper_citekey (paper citekey)
+ |   +-- sentence_id (sentence id)
+ |   +-- para_id (para id)
+ |   +-- bibkey (bibkey)
+ |   +-- reference_citekey (reference citekey)
+ +-- reference_citations (reference citations)
+ |   +-- citekey (citekey) [PRIMARY] [FOREIGN]
+ |   +-- authors (authors)
+ |   +-- year (year)
+ |   +-- title (title)
+ |   +-- journal (journal)
+ |   +-- volume (volume)
+ |   +-- issue (issue)
+ |   +-- pages (pages)
+ |   +-- source_type (source type)
+ |   +-- publisher (publisher)
+ |   +-- place (place)
+ |   +-- editor (editor)
+ |   +-- monograph_title (monograph title)
+ |   +-- note (note)
+ +-- papers_keywords (papers keywords)
+     +-- article_id (article id) [FOREIGN]
+     +-- keywords (keywords)
+NL: b'What is the number of dsr entities for Dorothy Leidner papers?'
+NL tokens: [b'what', b'is', b'the', b'number', b'of', b'ds', b'##r', b'entities', b'for', b'dorothy', b'lei', b'##dner', b'papers', b'?']
+NL tokens (original): [b'What', b'is', b'the', b'number', b'of', b'ds', b'##r', b'entities', b'for', b'Dorothy', b'Lei', b'##dner', b'papers', b'?']
+['[CLS]', 'what', 'is', 'the', 'number', 'of', 'ds', '##r', 'entities', 'for', 'dorothy', 'lei', '##dner', 'papers', '?', '[SEP]', '*', '[unused50]', 'ds', '##r', 'count', '[unused51]', 'article', 'id', '[unused51]', 'count', 'ds', '##r', 'all', '[unused51]', 'count', 'ml', '[unused51]', 'count', 'ds', '##r', '[unused51]', 'count', 'ds', '##r', 'citations', '[unused50]', 'papers', '[unused51]', 'article', 'id', '[unused51]', 'cite', '##key', '[unused51]', 'journal', 'akron', '##ym', '[unused51]', 'journal', '[unused51]', 'year', '[unused51]', 'authors', '[unused51]', 'title', '[unused51]', 'abstract', '[unused51]', 'key', '##words', '[unused50]', 'authors', '[unused51]', 'article', 'id', '[unused51]', 'author', 'position', '[unused51]', 'full', '##name', '[unused51]', 'surname', '[unused49]', 'lei', '##dner', '[unused49]', 'papers', '[unused51]', 'first', '##name', '[unused49]', 'dorothy', '[unused51]', 'middle', '##name', '[unused51]', 'email', '[unused51]', 'departments', '[unused51]', 'institutions', '[unused51]', 'countries', '[unused50]', 'citations', '[unused51]', 'article', 'id', '[unused51]', 'paper', 'cite', '##key', '[unused51]', 'sentence', 'id', '[unused51]', 'para', 'id', '[unused51]', 'bi', '##b', '##key', '[unused51]', 'reference', 'cite', '##key', '[unused50]', 'reference', 'citations', '[unused51]', 'cite', '##key', '[unused51]', 'authors', '[unused51]', 'year', '[unused51]', 'title', '[unused49]', 'what', 'is', '[unused51]', 'journal', '[unused49]', 'number', '[unused49]', 'papers', '[unused51]', 'volume', '[unused49]', 'number', '[unused51]', 'issue', '[unused51]', 'pages', '[unused51]', 'source', 'type', '[unused51]', 'publisher', '[unused49]', 'paper', '[unused51]', 'place', '[unused51]', 'editor', '[unused51]', 'monograph', 'title', '[unused51]', 'note', '[unused49]', 'paper', '[unused50]', 'papers', 'key', '##words', '[unused51]', 'article', 'id', '[unused51]', 'key', '##words', '[unused49]', 'entities', '[unused49]', 'ds', '##r', '[SEP]']
+Target 0: b'SELECT distinct papers.title from papers join authors on authors.article_id = papers.article_id join dsr_count on dsr_count.article_id = papers.article_id where authors.firstname = "Dorothy" and authors.surname = "Leidner"'
+Target TF-P tokens: from papers join authors on authors.article_id = papers.article_id join dsr_count on dsr_count.article_id = papers.article_id where authors.firstname = "Dorothy" and authors.surname = "Leidner" select distinct papers.title
+
+[WRONG] [hard] Pred 0:	b'SELECT COUNT(*) FROM dsr_count JOIN papers ON dsr_count.article_id = papers.article_id JOIN authors ON authors.article_id = papers.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-0.013) (length=33)
+[WRONG] [hard] Pred 1:	b'SELECT COUNT(DISTINCT dsr_count.count_dsr_all) FROM dsr_count JOIN papers ON dsr_count.article_id = papers.article_id JOIN authors ON authors.article_id = papers.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-0.356) (length=34)
+[WRONG] [hard] Pred 2:	b'SELECT COUNT(*) FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-0.951) (length=27)
+[WRONG] [hard] Pred 3:	b'SELECT COUNT(DISTINCT papers.article_id) FROM dsr_count JOIN papers ON dsr_count.article_id = papers.article_id JOIN authors ON authors.article_id = papers.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-0.962) (length=34)
+[WRONG] [hard] Pred 4:	b'SELECT COUNT(*) FROM dsr_count JOIN papers ON dsr_count.article_id = papers.article_id JOIN authors ON authors.article_id = authors.fullname WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-1.397) (length=33)
+[WRONG] [hard] Pred 5:	b'SELECT COUNT(*) FROM dsr_count JOIN papers ON dsr_count.article_id = papers.article_id JOIN authors ON authors.article_id = authors.author_position WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-1.606) (length=33)
+[WRONG] [hard] Pred 6:	b'SELECT COUNT(DISTINCT dsr_count.count_dsr_all) FROM dsr_count JOIN papers ON dsr_count.article_id = papers.article_id JOIN authors ON authors.article_id = authors.fullname WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-1.698) (length=34)
+[WRONG] [hard] Pred 7:	b'SELECT COUNT(*) FROM dsr_count JOIN papers ON dsr_count.article_id = papers.article_id JOIN authors ON authors.article_id = papers.citekey WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-1.770) (length=33)
+[WRONG] [hard] Pred 8:	b'SELECT COUNT(*) FROM dsr_count JOIN papers ON papers.article_id = dsr_count.article_id JOIN authors ON authors.article_id = papers.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-1.846) (length=33)
+[WRONG] [hard] Pred 9:	b'SELECT COUNT(DISTINCT papers.article_id) FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE authors.firstname = "Dorothy" AND authors.surname = "Leidner"' (-1.910) (length=28)
+Error Case 5
+
+Example 12
+isrecon
+ +-- dsr_count (dsr count)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- count_dsr_all (count dsr all)
+ |   +-- count_ml (count ml)
+ |   +-- count_dsr (count dsr)
+ |   +-- count_dsr_citations (count dsr citations)
+ +-- papers (papers)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- citekey (citekey) [FOREIGN]
+ |   +-- journal_akronym (journal akronym)
+ |   +-- journal (journal)
+ |   +-- year (year)
+ |   +-- authors (authors)
+ |   +-- title (title)
+ |   +-- abstract (abstract)
+ |   +-- keywords (keywords)
+ +-- authors (authors)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- author_position (author position)
+ |   +-- fullname (fullname)
+ |   +-- surname (surname)
+ |   +-- firstname (firstname)
+ |   +-- middlename (middlename)
+ |   +-- email (email)
+ |   +-- departments (departments)
+ |   +-- institutions (institutions)
+ |   +-- countries (countries)
+ +-- citations (citations)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- paper_citekey (paper citekey)
+ |   +-- sentence_id (sentence id)
+ |   +-- para_id (para id)
+ |   +-- bibkey (bibkey)
+ |   +-- reference_citekey (reference citekey)
+ +-- reference_citations (reference citations)
+ |   +-- citekey (citekey) [PRIMARY] [FOREIGN]
+ |   +-- authors (authors)
+ |   +-- year (year)
+ |   +-- title (title)
+ |   +-- journal (journal)
+ |   +-- volume (volume)
+ |   +-- issue (issue)
+ |   +-- pages (pages)
+ |   +-- source_type (source type)
+ |   +-- publisher (publisher)
+ |   +-- place (place)
+ |   +-- editor (editor)
+ |   +-- monograph_title (monograph title)
+ |   +-- note (note)
+ +-- papers_keywords (papers keywords)
+     +-- article_id (article id) [FOREIGN]
+     +-- keywords (keywords)
+NL: b'List papers published in JIT journal.'
+NL tokens: [b'list', b'papers', b'published', b'in', b'ji', b'##t', b'journal', b'.']
+NL tokens (original): [b'List', b'papers', b'published', b'in', b'JI', b'##T', b'journal', b'.']
+['[CLS]', 'list', 'papers', 'published', 'in', 'ji', '##t', 'journal', '.', '[SEP]', '*', '[unused50]', 'ds', '##r', 'count', '[unused51]', 'article', 'id', '[unused51]', 'count', 'ds', '##r', 'all', '[unused51]', 'count', 'ml', '[unused51]', 'count', 'ds', '##r', '[unused51]', 'count', 'ds', '##r', 'citations', '[unused50]', 'papers', '[unused51]', 'article', 'id', '[unused51]', 'cite', '##key', '[unused51]', 'journal', 'akron', '##ym', '[unused49]', 'ji', '##t', '[unused51]', 'journal', '[unused51]', 'year', '[unused51]', 'authors', '[unused51]', 'title', '[unused51]', 'abstract', '[unused51]', 'key', '##words', '[unused50]', 'authors', '[unused51]', 'article', 'id', '[unused51]', 'author', 'position', '[unused51]', 'full', '##name', '[unused51]', 'surname', '[unused49]', 'published', '[unused49]', 'papers', '[unused51]', 'first', '##name', '[unused51]', 'middle', '##name', '[unused51]', 'email', '[unused51]', 'departments', '[unused51]', 'institutions', '[unused51]', 'countries', '[unused50]', 'citations', '[unused51]', 'article', 'id', '[unused51]', 'paper', 'cite', '##key', '[unused51]', 'sentence', 'id', '[unused51]', 'para', 'id', '[unused51]', 'bi', '##b', '##key', '[unused51]', 'reference', 'cite', '##key', '[unused50]', 'reference', 'citations', '[unused51]', 'cite', '##key', '[unused51]', 'authors', '[unused51]', 'year', '[unused51]', 'title', '[unused51]', 'journal', '[unused49]', 'journal', '[unused49]', 'papers', '[unused51]', 'volume', '[unused51]', 'issue', '[unused51]', 'pages', '[unused51]', 'source', 'type', '[unused51]', 'publisher', '[unused49]', 'paper', '[unused51]', 'place', '[unused51]', 'editor', '[unused51]', 'monograph', 'title', '[unused51]', 'note', '[unused49]', 'journal', '[unused49]', 'paper', '[unused50]', 'papers', 'key', '##words', '[unused51]', 'article', 'id', '[unused51]', 'key', '##words', '[unused49]', 'journals', '[SEP]']
+Target 0: b'SELECT papers.title FROM papers WHERE papers.journal_akronym = "JIT"'
+Target TF-P tokens: from papers where papers.journal_akronym = "JIT" select papers.title
+
+[WRONG] [easy] Pred 0:	b'SELECT papers.title FROM papers WHERE papers.journal = "JIT"' (-0.000) (length=12)
+[CORRE] [easy] Pred 1:	b'SELECT papers.title FROM papers WHERE papers.journal_akronym = "JIT"' (-3.354) (length=12)
+Error Case 6
+
+Example 13
+isrecon
+ +-- dsr_count (dsr count)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- count_dsr_all (count dsr all)
+ |   +-- count_ml (count ml)
+ |   +-- count_dsr (count dsr)
+ |   +-- count_dsr_citations (count dsr citations)
+ +-- papers (papers)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- citekey (citekey) [FOREIGN]
+ |   +-- journal_akronym (journal akronym)
+ |   +-- journal (journal)
+ |   +-- year (year)
+ |   +-- authors (authors)
+ |   +-- title (title)
+ |   +-- abstract (abstract)
+ |   +-- keywords (keywords)
+ +-- authors (authors)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- author_position (author position)
+ |   +-- fullname (fullname)
+ |   +-- surname (surname)
+ |   +-- firstname (firstname)
+ |   +-- middlename (middlename)
+ |   +-- email (email)
+ |   +-- departments (departments)
+ |   +-- institutions (institutions)
+ |   +-- countries (countries)
+ +-- citations (citations)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- paper_citekey (paper citekey)
+ |   +-- sentence_id (sentence id)
+ |   +-- para_id (para id)
+ |   +-- bibkey (bibkey)
+ |   +-- reference_citekey (reference citekey)
+ +-- reference_citations (reference citations)
+ |   +-- citekey (citekey) [PRIMARY] [FOREIGN]
+ |   +-- authors (authors)
+ |   +-- year (year)
+ |   +-- title (title)
+ |   +-- journal (journal)
+ |   +-- volume (volume)
+ |   +-- issue (issue)
+ |   +-- pages (pages)
+ |   +-- source_type (source type)
+ |   +-- publisher (publisher)
+ |   +-- place (place)
+ |   +-- editor (editor)
+ |   +-- monograph_title (monograph title)
+ |   +-- note (note)
+ +-- papers_keywords (papers keywords)
+     +-- article_id (article id) [FOREIGN]
+     +-- keywords (keywords)
+NL: b'How many papers are published in journal with acronym "JIT"?'
+NL tokens: [b'how', b'many', b'papers', b'are', b'published', b'in', b'journal', b'with', b'acronym', b'"', b'ji', b'##t', b'"', b'?']
+NL tokens (original): [b'How', b'many', b'papers', b'are', b'published', b'in', b'journal', b'with', b'acronym', b'"', b'JI', b'##T', b'"', b'?']
+['[CLS]', 'how', 'many', 'papers', 'are', 'published', 'in', 'journal', 'with', 'acronym', '"', 'ji', '##t', '"', '?', '[SEP]', '*', '[unused50]', 'ds', '##r', 'count', '[unused51]', 'article', 'id', '[unused51]', 'count', 'ds', '##r', 'all', '[unused51]', 'count', 'ml', '[unused51]', 'count', 'ds', '##r', '[unused51]', 'count', 'ds', '##r', 'citations', '[unused50]', 'papers', '[unused51]', 'article', 'id', '[unused51]', 'cite', '##key', '[unused51]', 'journal', 'akron', '##ym', '[unused49]', 'ji', '##t', '[unused51]', 'journal', '[unused51]', 'year', '[unused51]', 'authors', '[unused51]', 'title', '[unused51]', 'abstract', '[unused51]', 'key', '##words', '[unused50]', 'authors', '[unused51]', 'article', 'id', '[unused51]', 'author', 'position', '[unused51]', 'full', '##name', '[unused51]', 'surname', '[unused49]', 'published', '[unused49]', 'papers', '[unused51]', 'first', '##name', '[unused51]', 'middle', '##name', '[unused51]', 'email', '[unused51]', 'departments', '[unused51]', 'institutions', '[unused51]', 'countries', '[unused50]', 'citations', '[unused51]', 'article', 'id', '[unused51]', 'paper', 'cite', '##key', '[unused51]', 'sentence', 'id', '[unused51]', 'para', 'id', '[unused51]', 'bi', '##b', '##key', '[unused51]', 'reference', 'cite', '##key', '[unused50]', 'reference', 'citations', '[unused51]', 'cite', '##key', '[unused51]', 'authors', '[unused51]', 'year', '[unused51]', 'title', '[unused51]', 'journal', '[unused49]', 'journal', '[unused49]', 'papers', '[unused51]', 'volume', '[unused51]', 'issue', '[unused51]', 'pages', '[unused51]', 'source', 'type', '[unused51]', 'publisher', '[unused49]', 'paper', '[unused51]', 'place', '[unused51]', 'editor', '[unused51]', 'monograph', 'title', '[unused51]', 'note', '[unused49]', 'journal', '[unused49]', 'paper', '[unused50]', 'papers', 'key', '##words', '[unused51]', 'article', 'id', '[unused51]', 'key', '##words', '[unused49]', 'journals', '[SEP]']
+Target 0: b'SELECT COUNT(*) FROM papers WHERE papers.journal_akronym = "JIT"'
+Target TF-P tokens: from papers where papers.journal_akronym = "JIT" select count (*)
+
+[WRONG] [easy] Pred 0:	b'SELECT COUNT(*) FROM papers WHERE papers.journal = "JIT"' (-0.053) (length=15)
+[CORRE] [easy] Pred 1:	b'SELECT COUNT(*) FROM papers WHERE papers.journal_akronym = "JIT"' (-0.501) (length=15)
+Error Case 7
+
+Parsing error: from papers join JIT "select count (*)"
+Parsing error: from papers and papers.journal_akronym = "JIT" select count (*)
+Parsing error: from papers on papers.journal_akronym = "JIT" select count (*)
+Parsing error: from papers where papers.journal = "JIT"0 count (*)
+Example 15
+ 15%|█▌        | 2/13 [00:46<03:47, 20.65s/it]isrecon
+ +-- dsr_count (dsr count)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- count_dsr_all (count dsr all)
+ |   +-- count_ml (count ml)
+ |   +-- count_dsr (count dsr)
+ |   +-- count_dsr_citations (count dsr citations)
+ +-- papers (papers)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- citekey (citekey) [FOREIGN]
+ |   +-- journal_akronym (journal akronym)
+ |   +-- journal (journal)
+ |   +-- year (year)
+ |   +-- authors (authors)
+ |   +-- title (title)
+ |   +-- abstract (abstract)
+ |   +-- keywords (keywords)
+ +-- authors (authors)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- author_position (author position)
+ |   +-- fullname (fullname)
+ |   +-- surname (surname)
+ |   +-- firstname (firstname)
+ |   +-- middlename (middlename)
+ |   +-- email (email)
+ |   +-- departments (departments)
+ |   +-- institutions (institutions)
+ |   +-- countries (countries)
+ +-- citations (citations)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- paper_citekey (paper citekey)
+ |   +-- sentence_id (sentence id)
+ |   +-- para_id (para id)
+ |   +-- bibkey (bibkey)
+ |   +-- reference_citekey (reference citekey)
+ +-- reference_citations (reference citations)
+ |   +-- citekey (citekey) [PRIMARY] [FOREIGN]
+ |   +-- authors (authors)
+ |   +-- year (year)
+ |   +-- title (title)
+ |   +-- journal (journal)
+ |   +-- volume (volume)
+ |   +-- issue (issue)
+ |   +-- pages (pages)
+ |   +-- source_type (source type)
+ |   +-- publisher (publisher)
+ |   +-- place (place)
+ |   +-- editor (editor)
+ |   +-- monograph_title (monograph title)
+ |   +-- note (note)
+ +-- papers_keywords (papers keywords)
+     +-- article_id (article id) [FOREIGN]
+     +-- keywords (keywords)
+NL: b'How many papers were published in JIT journal this year?'
+NL tokens: [b'how', b'many', b'papers', b'were', b'published', b'in', b'ji', b'##t', b'journal', b'this', b'year', b'?']
+NL tokens (original): [b'How', b'many', b'papers', b'were', b'published', b'in', b'JI', b'##T', b'journal', b'this', b'year', b'?']
+['[CLS]', 'how', 'many', 'papers', 'were', 'published', 'in', 'ji', '##t', 'journal', 'this', 'year', '?', '[SEP]', '*', '[unused50]', 'ds', '##r', 'count', '[unused51]', 'article', 'id', '[unused51]', 'count', 'ds', '##r', 'all', '[unused51]', 'count', 'ml', '[unused51]', 'count', 'ds', '##r', '[unused51]', 'count', 'ds', '##r', 'citations', '[unused50]', 'papers', '[unused51]', 'article', 'id', '[unused51]', 'cite', '##key', '[unused51]', 'journal', 'akron', '##ym', '[unused49]', 'ji', '##t', '[unused51]', 'journal', '[unused51]', 'year', '[unused51]', 'authors', '[unused51]', 'title', '[unused51]', 'abstract', '[unused51]', 'key', '##words', '[unused50]', 'authors', '[unused51]', 'article', 'id', '[unused51]', 'author', 'position', '[unused51]', 'full', '##name', '[unused51]', 'surname', '[unused49]', 'published', '[unused49]', 'papers', '[unused51]', 'first', '##name', '[unused51]', 'middle', '##name', '[unused51]', 'email', '[unused51]', 'departments', '[unused51]', 'institutions', '[unused51]', 'countries', '[unused50]', 'citations', '[unused51]', 'article', 'id', '[unused51]', 'paper', 'cite', '##key', '[unused51]', 'sentence', 'id', '[unused51]', 'para', 'id', '[unused51]', 'bi', '##b', '##key', '[unused51]', 'reference', 'cite', '##key', '[unused50]', 'reference', 'citations', '[unused51]', 'cite', '##key', '[unused51]', 'authors', '[unused51]', 'year', '[unused51]', 'title', '[unused51]', 'journal', '[unused49]', 'journal', '[unused49]', 'papers', '[unused51]', 'volume', '[unused51]', 'issue', '[unused51]', 'pages', '[unused51]', 'source', 'type', '[unused51]', 'publisher', '[unused49]', 'paper', '[unused51]', 'place', '[unused51]', 'editor', '[unused51]', 'monograph', 'title', '[unused51]', 'note', '[unused49]', 'journal', '[unused49]', 'paper', '[unused50]', 'papers', 'key', '##words', '[unused51]', 'article', 'id', '[unused51]', 'key', '##words', '[unused49]', 'journals', '[SEP]']
+Target 0: b'SELECT COUNT(*) FROM papers WHERE papers.journal_akronym = "JIT" AND papers.year = 2021'
+Target TF-P tokens: from papers where papers.journal_akronym = "JIT" and papers.year = VALUE select count (*)
+
+[WRONG] [medium] Pred 0:	b'SELECT COUNT(*) FROM papers WHERE papers.journal = "JIT"' (-0.000) (length=15)
+[WRONG] [medium] Pred 1:	b'SELECT COUNT(*) FROM papers WHERE papers.journal_akronym = "JIT"' (-1.953) (length=15)
+[WRONG] [medium] Pred 2:	b'SELECT COUNT(*) FROM papers WHERE papers.journal = "JIT" AND papers.year = "JIT"' (-3.224) (length=22)
+[WRONG] [medium] Pred 3:	b'SELECT COUNT(*) FROM papers JOIN papers ON papers.article_id = papers.article_id WHERE papers.journal = "JIT"' (-3.300) (length=21)
+[WRONG] [medium] Pred 4:	b'SELECT COUNT(DISTINCT papers.year) FROM papers WHERE papers.journal = "JIT"' (-3.404) (length=16)
+[WRONG] [medium] Pred 5:	b'SELECT COUNT(*) FROM papers JOIN papers ON papers.journal_akronym = papers.article_id WHERE papers.journal = "JIT"' (-3.884) (length=21)
+[WRONG] [medium] Pred 6:	b'SELECT COUNT(*) FROM papers WHERE papers.journal = "JIT" GROUP BY papers.year' (-4.298) (length=17)
+[WRONG] [medium] Pred 7:	b'SELECT COUNT(*), papers.year FROM papers WHERE papers.journal = "JIT"' (-4.914) (length=17)
+[WRONG] [medium] Pred 8:	b'SELECT COUNT(*) AS papers.year FROM papers WHERE papers.journal = "JIT"' (-4.941) (length=16)
+[WRONG] [medium] Pred 9:	b'SELECT COUNT(DISTINCT papers.year) FROM papers WHERE papers.journal_akronym = "JIT"' (-5.390) (length=16)
+[WRONG] [medium] Pred 10:	b'SELECT COUNT(*) FROM papers AS null WHERE papers.journal = "JIT"' (-5.531) (length=16)
+[WRONG] [medium] Pred 11:	b'SELECT COUNT(*) FROM papers WHERE papers.journal = "JI journal"' (-5.552) (length=15)
+Error Case 8
+
+Example 16
+isrecon
+ +-- dsr_count (dsr count)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- count_dsr_all (count dsr all)
+ |   +-- count_ml (count ml)
+ |   +-- count_dsr (count dsr)
+ |   +-- count_dsr_citations (count dsr citations)
+ +-- papers (papers)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- citekey (citekey) [FOREIGN]
+ |   +-- journal_akronym (journal akronym)
+ |   +-- journal (journal)
+ |   +-- year (year)
+ |   +-- authors (authors)
+ |   +-- title (title)
+ |   +-- abstract (abstract)
+ |   +-- keywords (keywords)
+ +-- authors (authors)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- author_position (author position)
+ |   +-- fullname (fullname)
+ |   +-- surname (surname)
+ |   +-- firstname (firstname)
+ |   +-- middlename (middlename)
+ |   +-- email (email)
+ |   +-- departments (departments)
+ |   +-- institutions (institutions)
+ |   +-- countries (countries)
+ +-- citations (citations)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- paper_citekey (paper citekey)
+ |   +-- sentence_id (sentence id)
+ |   +-- para_id (para id)
+ |   +-- bibkey (bibkey)
+ |   +-- reference_citekey (reference citekey)
+ +-- reference_citations (reference citations)
+ |   +-- citekey (citekey) [PRIMARY] [FOREIGN]
+ |   +-- authors (authors)
+ |   +-- year (year)
+ |   +-- title (title)
+ |   +-- journal (journal)
+ |   +-- volume (volume)
+ |   +-- issue (issue)
+ |   +-- pages (pages)
+ |   +-- source_type (source type)
+ |   +-- publisher (publisher)
+ |   +-- place (place)
+ |   +-- editor (editor)
+ |   +-- monograph_title (monograph title)
+ |   +-- note (note)
+ +-- papers_keywords (papers keywords)
+     +-- article_id (article id) [FOREIGN]
+     +-- keywords (keywords)
+NL: b'How many papers were published in JIT journal last year?'
+NL tokens: [b'how', b'many', b'papers', b'were', b'published', b'in', b'ji', b'##t', b'journal', b'last', b'year', b'?']
+NL tokens (original): [b'How', b'many', b'papers', b'were', b'published', b'in', b'JI', b'##T', b'journal', b'last', b'year', b'?']
+ 23%|██▎       | 3/13 [01:05<03:22, 20.24s/it]['[CLS]', 'how', 'many', 'papers', 'were', 'published', 'in', 'ji', '##t', 'journal', 'last', 'year', '?', '[SEP]', '*', '[unused50]', 'ds', '##r', 'count', '[unused51]', 'article', 'id', '[unused51]', 'count', 'ds', '##r', 'all', '[unused51]', 'count', 'ml', '[unused51]', 'count', 'ds', '##r', '[unused51]', 'count', 'ds', '##r', 'citations', '[unused50]', 'papers', '[unused51]', 'article', 'id', '[unused51]', 'cite', '##key', '[unused51]', 'journal', 'akron', '##ym', '[unused49]', 'ji', '##t', '[unused51]', 'journal', '[unused51]', 'year', '[unused51]', 'authors', '[unused51]', 'title', '[unused51]', 'abstract', '[unused51]', 'key', '##words', '[unused50]', 'authors', '[unused51]', 'article', 'id', '[unused51]', 'author', 'position', '[unused51]', 'full', '##name', '[unused51]', 'surname', '[unused49]', 'published', '[unused49]', 'papers', '[unused51]', 'first', '##name', '[unused51]', 'middle', '##name', '[unused51]', 'email', '[unused51]', 'departments', '[unused51]', 'institutions', '[unused51]', 'countries', '[unused50]', 'citations', '[unused51]', 'article', 'id', '[unused51]', 'paper', 'cite', '##key', '[unused51]', 'sentence', 'id', '[unused51]', 'para', 'id', '[unused51]', 'bi', '##b', '##key', '[unused51]', 'reference', 'cite', '##key', '[unused50]', 'reference', 'citations', '[unused51]', 'cite', '##key', '[unused51]', 'authors', '[unused51]', 'year', '[unused51]', 'title', '[unused51]', 'journal', '[unused49]', 'journal', '[unused49]', 'papers', '[unused51]', 'volume', '[unused51]', 'issue', '[unused51]', 'pages', '[unused51]', 'source', 'type', '[unused51]', 'publisher', '[unused49]', 'paper', '[unused51]', 'place', '[unused51]', 'editor', '[unused51]', 'monograph', 'title', '[unused51]', 'note', '[unused49]', 'journal', '[unused49]', 'paper', '[unused50]', 'papers', 'key', '##words', '[unused51]', 'article', 'id', '[unused51]', 'key', '##words', '[unused49]', 'journals', '[SEP]']
+Target 0: b'SELECT COUNT(*) FROM papers WHERE papers.journal_akronym = "JIT" AND papers.year = 2020'
+Target TF-P tokens: from papers where papers.journal_akronym = "JIT" and papers.year = VALUE select count (*)
+
+[WRONG] [medium] Pred 0:	b'SELECT COUNT(*) FROM papers WHERE papers.journal = "JIT"' (-0.008) (length=15)
+[WRONG] [medium] Pred 1:	b'SELECT COUNT(*) FROM papers WHERE papers.journal_akronym = "JIT"' (-1.023) (length=15)
+[WRONG] [medium] Pred 2:	b'SELECT COUNT(*) FROM papers WHERE papers.journal = "JIT" AND papers.year <= (SELECT MAX(papers.year) FROM papers WHERE papers.journal = "JIT")' (-1.657) (length=34)
+[WRONG] [medium] Pred 3:	b'SELECT COUNT(*) FROM papers WHERE papers.journal = "JIT" AND papers.year <= (SELECT MAX(papers.year) FROM papers WHERE papers.journal_akronym = "JIT")' (-1.839) (length=34)
+[WRONG] [medium] Pred 4:	b'SELECT COUNT(*) FROM papers WHERE papers.journal = "JIT" AND papers.year <= (SELECT COUNT(*) FROM papers WHERE papers.journal = "JIT")' (-1.867) (length=34)
+[WRONG] [medium] Pred 5:	b'SELECT COUNT(*) FROM papers WHERE papers.journal = "JIT" AND papers.year <= (SELECT COUNT(*) FROM papers WHERE papers.journal_akronym = "JIT")' (-1.963) (length=34)
+[WRONG] [medium] Pred 6:	b'SELECT COUNT(*) FROM papers WHERE papers.journal = "JIT" AND papers.year >= (SELECT MAX(papers.year) FROM papers WHERE papers.journal = "JIT")' (-2.191) (length=34)
+[WRONG] [medium] Pred 7:	b'SELECT COUNT(*) FROM papers WHERE papers.year <= (SELECT MAX(papers.year) FROM papers WHERE papers.journal = "JIT")' (-2.210) (length=27)
+[WRONG] [medium] Pred 8:	b'SELECT COUNT(*) FROM papers WHERE papers.journal = "JIT" AND papers.year <= (SELECT SUM(papers.year) FROM papers WHERE papers.journal = "JIT")' (-2.302) (length=34)
+[WRONG] [medium] Pred 9:	b'SELECT COUNT(*) FROM papers WHERE papers.year = (SELECT MAX(papers.year) FROM papers WHERE papers.journal = "JIT")' (-2.335) (length=27)
+[WRONG] [medium] Pred 10:	b'SELECT COUNT(*) FROM papers WHERE papers.journal = "JIT" AND papers.year <= (SELECT DISTINCT papers.journal_akronym FROM papers WHERE papers.journal = "JIT")' (-2.367) (length=32)
+[WRONG] [medium] Pred 11:	b'SELECT COUNT(*) FROM papers WHERE papers.journal = "JIT" AND papers.year <= (SELECT DISTINCT papers.journal_akronym FROM papers WHERE papers.journal_akronym = "JIT")' (-2.534) (length=32)
+[WRONG] [medium] Pred 12:	b'SELECT COUNT(*) FROM papers WHERE papers.journal = "JIT" GROUP BY papers.journal_akronym' (-2.596) (length=17)
+[WRONG] [medium] Pred 13:	b'SELECT COUNT(*) FROM papers WHERE papers.year <= (SELECT MAX(papers.year) FROM papers WHERE papers.journal_akronym = "JIT")' (-2.710) (length=27)
+[WRONG] [medium] Pred 14:	b'SELECT COUNT(*) FROM papers WHERE papers.journal = "JIT" GROUP BY papers.year' (-2.962) (length=17)
+[WRONG] [medium] Pred 15:	b'SELECT COUNT(*) FROM papers JOIN papers ON papers.article_id = papers.article_id WHERE papers.journal = "JIT"' (-3.132) (length=21)
+Error Case 9
+
+Example 31
+isrecon
+ +-- dsr_count (dsr count)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- count_dsr_all (count dsr all)
+ |   +-- count_ml (count ml)
+ |   +-- count_dsr (count dsr)
+ |   +-- count_dsr_citations (count dsr citations)
+ +-- papers (papers)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- citekey (citekey) [FOREIGN]
+ |   +-- journal_akronym (journal akronym)
+ |   +-- journal (journal)
+ |   +-- year (year)
+ |   +-- authors (authors)
+ |   +-- title (title)
+ |   +-- abstract (abstract)
+ |   +-- keywords (keywords)
+ +-- authors (authors)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- author_position (author position)
+ |   +-- fullname (fullname)
+ |   +-- surname (surname)
+ |   +-- firstname (firstname)
+ |   +-- middlename (middlename)
+ |   +-- email (email)
+ |   +-- departments (departments)
+ |   +-- institutions (institutions)
+ |   +-- countries (countries)
+ +-- citations (citations)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- paper_citekey (paper citekey)
+ |   +-- sentence_id (sentence id)
+ |   +-- para_id (para id)
+ |   +-- bibkey (bibkey)
+ |   +-- reference_citekey (reference citekey)
+ +-- reference_citations (reference citations)
+ |   +-- citekey (citekey) [PRIMARY] [FOREIGN]
+ |   +-- authors (authors)
+ |   +-- year (year)
+ |   +-- title (title)
+ |   +-- journal (journal)
+ |   +-- volume (volume)
+ |   +-- issue (issue)
+ |   +-- pages (pages)
+ |   +-- source_type (source type)
+ |   +-- publisher (publisher)
+ |   +-- place (place)
+ |   +-- editor (editor)
+ |   +-- monograph_title (monograph title)
+ |   +-- note (note)
+ +-- papers_keywords (papers keywords)
+     +-- article_id (article id) [FOREIGN]
+     +-- keywords (keywords)
+NL: b'Show titles and abstracts of papers published in 2020 in Information Systems Research journal.'
+NL tokens: [b'show', b'titles', b'and', b'abstracts', b'of', b'papers', b'published', b'in', b'2020', b'in', b'information', b'systems', b'research', b'journal', b'.']
+NL tokens (original): [b'Show', b'titles', b'and', b'abstracts', b'of', b'papers', b'published', b'in', b'2020', b'in', b'Information', b'Systems', b'Research', b'journal', b'.']
+ 31%|███       | 4/13 [01:08<02:15, 15.05s/it]['[CLS]', 'show', 'titles', 'and', 'abstracts', 'of', 'papers', 'published', 'in', '2020', 'in', 'information', 'systems', 'research', 'journal', '.', '[SEP]', '*', '[unused50]', 'ds', '##r', 'count', '[unused51]', 'article', 'id', '[unused51]', 'count', 'ds', '##r', 'all', '[unused51]', 'count', 'ml', '[unused51]', 'count', 'ds', '##r', '[unused51]', 'count', 'ds', '##r', 'citations', '[unused50]', 'papers', '[unused51]', 'article', 'id', '[unused51]', 'cite', '##key', '[unused51]', 'journal', 'akron', '##ym', '[unused51]', 'journal', '[unused49]', 'information', 'systems', 'research', '[unused51]', 'year', '[unused51]', 'authors', '[unused51]', 'title', '[unused49]', 'information', 'systems', 'research', '[unused51]', 'abstract', '[unused51]', 'key', '##words', '[unused50]', 'authors', '[unused51]', 'article', 'id', '[unused51]', 'author', 'position', '[unused51]', 'full', '##name', '[unused51]', 'surname', '[unused49]', 'information', '[unused49]', 'research', '[unused51]', 'first', '##name', '[unused49]', 'research', '[unused51]', 'middle', '##name', '[unused51]', 'email', '[unused51]', 'departments', '[unused49]', 'information', 'systems', 'research', '[unused49]', 'information', 'systems', '[unused51]', 'institutions', '[unused49]', 'information', 'systems', '[unused51]', 'countries', '[unused50]', 'citations', '[unused51]', 'article', 'id', '[unused51]', 'paper', 'cite', '##key', '[unused51]', 'sentence', 'id', '[unused51]', 'para', 'id', '[unused51]', 'bi', '##b', '##key', '[unused51]', 'reference', 'cite', '##key', '[unused50]', 'reference', 'citations', '[unused51]', 'cite', '##key', '[unused51]', 'authors', '[unused51]', 'year', '[unused51]', 'title', '[unused49]', 'information', 'systems', 'research', '[unused49]', 'information', 'systems', '[unused51]', 'journal', '[unused49]', 'information', 'systems', 'research', '[unused49]', 'information', 'systems', 'research', '[unused51]', 'volume', '[unused51]', 'issue', '[unused51]', 'pages', '[unused51]', 'source', 'type', '[unused51]', 'publisher', '[unused49]', 'information', '[unused49]', 'research', '[unused51]', 'place', '[unused51]', 'editor', '[unused51]', 'monograph', 'title', '[unused49]', 'information', 'systems', 'research', '[unused49]', 'information', 'systems', 'research', '[unused51]', 'note', '[unused49]', 'information', 'systems', 'research', '[unused49]', 'information', 'systems', '[unused50]', 'papers', 'key', '##words', '[unused51]', 'article', 'id', '[unused51]', 'key', '##words', '[unused49]', 'information', 'systems', 'research', '[unused49]', 'information', 'systems', 'research', '[SEP]']
+Target 0: b'select papers.title, papers.abstract from papers  where papers.journal = "Information Systems Research" and  papers.year = 2020'
+Target TF-P tokens: from papers where papers.journal = "Information Systems Research" and papers.year = 2020 select papers.title , papers.abstract
+
+[WRONG] [medium] Pred 0:	b'SELECT papers.title, papers.abstract FROM papers WHERE papers.year = 2020' (-0.000) (length=11)
+[CORRE] [medium] Pred 1:	b'SELECT papers.title, papers.abstract FROM papers WHERE papers.year = 2020 AND papers.journal = "Information Systems"' (-1.710) (length=18)
+Error Case 10
+
+Parsing error: from reference_citations join citations on citations.reference_citekey = reference_citations.citekey group by citations on citations.reference_citekey = reference_citations.citekey group by reference_citations.citekey having count (*) <= 100 select reference_citations.citekey
+Parsing error: from reference_citations join citations on citations.reference_citekey = reference_citations.citekey group by citations group by reference_citations.citekey having count (*) <= 100 select reference_citations.citekey
+Parsing error: from reference_citations join citations on citations.reference_citekey = reference_citations.citekey group by ? having count (*) <= 100 select reference_citations.citekey
+Parsing error: from reference_citations join citations on citations.reference_citekey = reference_citations.citekey group by reference_citations.citekey having count (*) asc <= 100 select reference_citations.citekey
+Parsing error: from reference_citations join citations on citations.reference_citekey = reference_citations.citekey group by reference_citations.citekey having count (*) 100 100 select reference_citations.citekey
+Example 35
+isrecon
+ +-- dsr_count (dsr count)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- count_dsr_all (count dsr all)
+ |   +-- count_ml (count ml)
+ |   +-- count_dsr (count dsr)
+ |   +-- count_dsr_citations (count dsr citations)
+ +-- papers (papers)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- citekey (citekey) [FOREIGN]
+ |   +-- journal_akronym (journal akronym)
+ |   +-- journal (journal)
+ |   +-- year (year)
+ |   +-- authors (authors)
+ |   +-- title (title)
+ |   +-- abstract (abstract)
+ |   +-- keywords (keywords)
+ +-- authors (authors)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- author_position (author position)
+ |   +-- fullname (fullname)
+ |   +-- surname (surname)
+ |   +-- firstname (firstname)
+ |   +-- middlename (middlename)
+ |   +-- email (email)
+ |   +-- departments (departments)
+ |   +-- institutions (institutions)
+ |   +-- countries (countries)
+ +-- citations (citations)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- paper_citekey (paper citekey)
+ |   +-- sentence_id (sentence id)
+ |   +-- para_id (para id)
+ |   +-- bibkey (bibkey)
+ |   +-- reference_citekey (reference citekey)
+ +-- reference_citations (reference citations)
+ |   +-- citekey (citekey) [PRIMARY] [FOREIGN]
+ |   +-- authors (authors)
+ |   +-- year (year)
+ |   +-- title (title)
+ |   +-- journal (journal)
+ |   +-- volume (volume)
+ |   +-- issue (issue)
+ |   +-- pages (pages)
+ |   +-- source_type (source type)
+ |   +-- publisher (publisher)
+ |   +-- place (place)
+ |   +-- editor (editor)
+ |   +-- monograph_title (monograph title)
+ |   +-- note (note)
+ +-- papers_keywords (papers keywords)
+     +-- article_id (article id) [FOREIGN]
+     +-- keywords (keywords)
+NL: b'What are the papers with no less than 100 citations?'
+NL tokens: [b'what', b'are', b'the', b'papers', b'with', b'no', b'less', b'than', b'100', b'citations', b'?']
+NL tokens (original): [b'What', b'are', b'the', b'papers', b'with', b'no', b'less', b'than', b'100', b'citations', b'?']
+['[CLS]', 'what', 'are', 'the', 'papers', 'with', 'no', 'less', 'than', '100', 'citations', '?', '[SEP]', '*', '[unused50]', 'ds', '##r', 'count', '[unused51]', 'article', 'id', '[unused51]', 'count', 'ds', '##r', 'all', '[unused51]', 'count', 'ml', '[unused51]', 'count', 'ds', '##r', '[unused51]', 'count', 'ds', '##r', 'citations', '[unused50]', 'papers', '[unused51]', 'article', 'id', '[unused51]', 'cite', '##key', '[unused51]', 'journal', 'akron', '##ym', '[unused51]', 'journal', '[unused51]', 'year', '[unused51]', 'authors', '[unused51]', 'title', '[unused51]', 'abstract', '[unused51]', 'key', '##words', '[unused50]', 'authors', '[unused51]', 'article', 'id', '[unused51]', 'author', 'position', '[unused51]', 'full', '##name', '[unused51]', 'surname', '[unused49]', 'papers', '[unused51]', 'first', '##name', '[unused51]', 'middle', '##name', '[unused51]', 'email', '[unused51]', 'departments', '[unused51]', 'institutions', '[unused51]', 'countries', '[unused50]', 'citations', '[unused51]', 'article', 'id', '[unused51]', 'paper', 'cite', '##key', '[unused51]', 'sentence', 'id', '[unused51]', 'para', 'id', '[unused51]', 'bi', '##b', '##key', '[unused51]', 'reference', 'cite', '##key', '[unused50]', 'reference', 'citations', '[unused51]', 'cite', '##key', '[unused51]', 'authors', '[unused51]', 'year', '[unused51]', 'title', '[unused51]', 'journal', '[unused49]', 'papers', '[unused51]', 'volume', '[unused51]', 'issue', '[unused51]', 'pages', '[unused51]', 'source', 'type', '[unused51]', 'publisher', '[unused49]', 'paper', '[unused51]', 'place', '[unused51]', 'editor', '[unused51]', 'monograph', 'title', '[unused51]', 'note', '[unused49]', 'paper', '[unused50]', 'papers', 'key', '##words', '[unused51]', 'article', 'id', '[unused51]', 'key', '##words', '[unused49]', 'citations', '[unused49]', 'citation', '[SEP]']
+Target 0: b'SELECT reference_citations.citekey from reference_citations join citations on citations.reference_citekey = reference_citations.citekey group by reference_citations.citekey HAVING COUNT(*) >= 100'
+Target TF-P tokens: from reference_citations join citations on citations.reference_citekey = reference_citations.citekey group by reference_citations.citekey having count (*) >= 100 select reference_citations.citekey
+
+[WRONG] [medium] Pred 0:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey GROUP BY reference_citations.citekey HAVING COUNT(*) <= 100' (-0.000) (length=20)
+[WRONG] [medium] Pred 1:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey GROUP BY 100 INTERSECT SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey GROUP BY reference_citations.citekey HAVING COUNT(*) <= 100' (-2.055) (length=33)
+[WRONG] [medium] Pred 2:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey GROUP BY citations.reference_citekey HAVING COUNT(*) <= 100' (-2.520) (length=20)
+[WRONG] [medium] Pred 3:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey GROUP BY reference_citations.title HAVING COUNT(*) <= 100' (-2.883) (length=20)
+[WRONG] [medium] Pred 4:	b'SELECT * FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey GROUP BY reference_citations.citekey HAVING COUNT(*) <= 100' (-3.174) (length=20)
+[WRONG] [medium] Pred 5:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey GROUP BY "citations" HAVING COUNT(*) <= 100' (-3.268) (length=20)
+[WRONG] [medium] Pred 6:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey GROUP BY "the" HAVING COUNT(*) <= 100' (-3.293) (length=20)
+[WRONG] [medium] Pred 7:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey GROUP BY reference_citations.year HAVING COUNT(*) <= 100' (-3.308) (length=20)
+[WRONG] [medium] Pred 8:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey GROUP BY "papers" HAVING COUNT(*) <= 100' (-3.309) (length=20)
+[WRONG] [medium] Pred 9:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey GROUP BY "papers_keywords" HAVING COUNT(*) <= 100' (-3.347) (length=20)
+[WRONG] [medium] Pred 10:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey GROUP BY reference_citations.citekey HAVING COUNT(*) < 100' (-3.353) (length=20)
+Error Case 11
+
+ERROR: table "reference_citations" in field expression reference_citations.citekey is not in the current scope
+Parsing error: from reference_citations join citations on citations.reference_citekey = reference_citations.citekey where reference_citations.year = 2010 group by reference_citations.citekey having count (*) 4 100 select reference_citations.citekey
+Parsing error: from reference_citations join citations on citations.reference_citekey = reference_citations.citekey where reference_citations.year = 2010 group by reference_citations.citekey having count (*) between 100 select reference_citations.citekey
+Example 38
+isrecon
+ +-- dsr_count (dsr count)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- count_dsr_all (count dsr all)
+ |   +-- count_ml (count ml)
+ |   +-- count_dsr (count dsr)
+ |   +-- count_dsr_citations (count dsr citations)
+ +-- papers (papers)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- citekey (citekey) [FOREIGN]
+ |   +-- journal_akronym (journal akronym)
+ |   +-- journal (journal)
+ |   +-- year (year)
+ |   +-- authors (authors)
+ |   +-- title (title)
+ |   +-- abstract (abstract)
+ |   +-- keywords (keywords)
+ +-- authors (authors)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- author_position (author position)
+ |   +-- fullname (fullname)
+ |   +-- surname (surname)
+ |   +-- firstname (firstname)
+ |   +-- middlename (middlename)
+ |   +-- email (email)
+ |   +-- departments (departments)
+ |   +-- institutions (institutions)
+ |   +-- countries (countries)
+ +-- citations (citations)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- paper_citekey (paper citekey)
+ |   +-- sentence_id (sentence id)
+ |   +-- para_id (para id)
+ |   +-- bibkey (bibkey)
+ |   +-- reference_citekey (reference citekey)
+ +-- reference_citations (reference citations)
+ |   +-- citekey (citekey) [PRIMARY] [FOREIGN]
+ |   +-- authors (authors)
+ |   +-- year (year)
+ |   +-- title (title)
+ |   +-- journal (journal)
+ |   +-- volume (volume)
+ |   +-- issue (issue)
+ |   +-- pages (pages)
+ |   +-- source_type (source type)
+ |   +-- publisher (publisher)
+ |   +-- place (place)
+ |   +-- editor (editor)
+ |   +-- monograph_title (monograph title)
+ |   +-- note (note)
+ +-- papers_keywords (papers keywords)
+     +-- article_id (article id) [FOREIGN]
+     +-- keywords (keywords)
+NL: b'What are the titles of the referenced papers published in 2010 with at least 100 citations?'
+NL tokens: [b'what', b'are', b'the', b'titles', b'of', b'the', b'referenced', b'papers', b'published', b'in', b'2010', b'with', b'at', b'least', b'100', b'citations', b'?']
+NL tokens (original): [b'What', b'are', b'the', b'titles', b'of', b'the', b'referenced', b'papers', b'published', b'in', b'2010', b'with', b'at', b'least', b'100', b'citations', b'?']
+['[CLS]', 'what', 'are', 'the', 'titles', 'of', 'the', 'referenced', 'papers', 'published', 'in', '2010', 'with', 'at', 'least', '100', 'citations', '?', '[SEP]', '*', '[unused50]', 'ds', '##r', 'count', '[unused51]', 'article', 'id', '[unused51]', 'count', 'ds', '##r', 'all', '[unused51]', 'count', 'ml', '[unused51]', 'count', 'ds', '##r', '[unused51]', 'count', 'ds', '##r', 'citations', '[unused50]', 'papers', '[unused51]', 'article', 'id', '[unused51]', 'cite', '##key', '[unused51]', 'journal', 'akron', '##ym', '[unused51]', 'journal', '[unused51]', 'year', '[unused51]', 'authors', '[unused51]', 'title', '[unused51]', 'abstract', '[unused51]', 'key', '##words', '[unused50]', 'authors', '[unused51]', 'article', 'id', '[unused51]', 'author', 'position', '[unused51]', 'full', '##name', '[unused51]', 'surname', '[unused49]', 'published', '[unused49]', 'papers', '[unused51]', 'first', '##name', '[unused51]', 'middle', '##name', '[unused51]', 'email', '[unused51]', 'departments', '[unused51]', 'institutions', '[unused51]', 'countries', '[unused50]', 'citations', '[unused51]', 'article', 'id', '[unused51]', 'paper', 'cite', '##key', '[unused51]', 'sentence', 'id', '[unused51]', 'para', 'id', '[unused51]', 'bi', '##b', '##key', '[unused51]', 'reference', 'cite', '##key', '[unused50]', 'reference', 'citations', '[unused51]', 'cite', '##key', '[unused51]', 'authors', '[unused51]', 'year', '[unused51]', 'title', '[unused51]', 'journal', '[unused49]', 'papers', '[unused51]', 'volume', '[unused51]', 'issue', '[unused51]', 'pages', '[unused51]', 'source', 'type', '[unused51]', 'publisher', '[unused49]', 'paper', '[unused51]', 'place', '[unused51]', 'editor', '[unused51]', 'monograph', 'title', '[unused51]', 'note', '[unused49]', 'paper', '[unused50]', 'papers', 'key', '##words', '[unused51]', 'article', 'id', '[unused51]', 'key', '##words', '[unused49]', 'citations', '[unused49]', 'reference', '[SEP]']
+Target 0: b'SELECT reference_citations.title from reference_citations join citations on citations.reference_citekey = reference_citations.citekey  WHERE reference_citations.year = 2010 group by reference_citations.citekey HAVING COUNT(*) >= 100'
+ 38%|███▊      | 5/13 [01:23<01:59, 14.93s/it]Target TF-P tokens: from reference_citations join citations on citations.reference_citekey = reference_citations.citekey where reference_citations.year = 2010 group by reference_citations.citekey having count (*) >= 100 select reference_citations.title
+
+[WRONG] [hard] Pred 0:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey WHERE reference_citations.year = 2010 GROUP BY reference_citations.citekey HAVING COUNT(*) >= 100' (-0.000) (length=24)
+[WRONG] [hard] Pred 1:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey WHERE reference_citations.year = 2010 GROUP BY 100 UNION SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey WHERE reference_citations.year = 100 GROUP BY reference_citations.citekey HAVING COUNT(*) >= 100' (-2.001) (length=41)
+[WRONG] [hard] Pred 2:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey WHERE reference_citations.year = 2010 GROUP BY 100 INTERSECT SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey WHERE reference_citations.year = 100 GROUP BY reference_citations.citekey HAVING COUNT(*) >= 100' (-2.101) (length=41)
+[WRONG] [hard] Pred 3:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey WHERE reference_citations.year = 2010 GROUP BY 100 INTERSECT SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey WHERE reference_citations.year = 100' (-2.150) (length=32)
+[WRONG] [hard] Pred 4:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey JOIN citations ON citations.reference_citekey = reference_citations.citekey WHERE reference_citations.year = 2010 GROUP BY reference_citations.citekey HAVING COUNT(*) >= 100' (-2.324) (length=30)
+[WRONG] [hard] Pred 5:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey WHERE reference_citations.year = 2010 GROUP BY 100 UNION SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey WHERE reference_citations.year = 100' (-2.436) (length=32)
+[WRONG] [hard] Pred 6:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey WHERE reference_citations.year = 2010 GROUP BY reference_citations.citekey HAVING COUNT(*) > 100' (-2.515) (length=24)
+[WRONG] [hard] Pred 7:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey WHERE reference_citations.year = 2010 AND reference_citations.citekey = 2010 GROUP BY reference_citations.citekey HAVING COUNT(*) >= 100' (-2.539) (length=30)
+[WRONG] [hard] Pred 8:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey WHERE reference_citations.year = 2010 GROUP BY citations.reference_citekey HAVING COUNT(*) >= 100' (-2.682) (length=24)
+[WRONG] [hard] Pred 9:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey WHERE reference_citations.year = 2010 GROUP BY 100 INTERSECT SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey WHERE reference_citations.year >= 100' (-2.701) (length=32)
+[WRONG] [hard] Pred 10:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey WHERE reference_citations.year = 2010 GROUP BY reference_citations.citekey HAVING COUNT(*) >= 2010' (-2.828) (length=24)
+[WRONG] [hard] Pred 11:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey WHERE reference_citations.year = 2010 GROUP BY reference_citations.citekey HAVING COUNT(*) >= "least"' (-2.855) (length=24)
+[WRONG] [hard] Pred 12:	b'SELECT reference_citations.citekey FROM reference_citations JOIN citations ON citations.reference_citekey = reference_citations.citekey WHERE reference_citations.year = 2010 GROUP BY reference_citations.citekey HAVING SUM(*) >= 100' (-2.942) (length=24)
+Error Case 12
+
+Parsing error: from authors join papers on papers.article_id = authors.article_id where papers.year = Washington State University "and papers.year = 2020 select distinct papers.title"
+Parsing error: from authors join papers on papers.article_id = authors.article_id where papers.year = 2020 and authors.institutions = "Washington State University" select papers.title (papers on papers.article_id = papers.authors where authors.institutions = "Washington State University" select papers.title
+Parsing error: from authors join papers on papers.article_id = authors.article_id where papers.year = 2020 and authors.institutions = "Washington State University" select papers.title (papers on papers.article_id = authors.article_id where papers.year = 2020 select distinct papers.title
+Parsing error: from authors join papers on papers.article_id = authors.article_id where papers.year = 2020 and authors.institutions = "Washington State University" select papers.title (from papers where papers.year = 2020 select distinct papers.title
+Parsing error: from authors join papers on papers.article_id = authors.article_id where papers.year = 2020 and authors.institutions = "Washington State University" select papers.title (papers on papers.article_id = papers.authors where papers.year = 2020 select distinct papers.title
+Parsing error: from authors join papers on papers.article_id = authors.article_id where papers.year = Washington State University "and authors.departments =" Washington State University "select distinct papers.title"
+Parsing error: from authors join papers on papers.article_id = authors.article_id where papers.year = Washington State University "and papers.article_id = 2020 select distinct papers.title"
+Parsing error: from authors join papers on papers.article_id = authors.article_id where papers.year = 2020 and authors.institutions = "Washington State University" select papers.title (papers on papers.article_id = 2020 select distinct papers.title
+Parsing error: from authors join papers on papers.article_id = authors.article_id where papers.year = Washington State University "and authors.article_id = 2020 select distinct papers.title"
+Example 41
+ 46%|████▌     | 6/13 [01:34<01:37, 13.87s/it]isrecon
+ +-- dsr_count (dsr count)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- count_dsr_all (count dsr all)
+ |   +-- count_ml (count ml)
+ |   +-- count_dsr (count dsr)
+ |   +-- count_dsr_citations (count dsr citations)
+ +-- papers (papers)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- citekey (citekey) [FOREIGN]
+ |   +-- journal_akronym (journal akronym)
+ |   +-- journal (journal)
+ |   +-- year (year)
+ |   +-- authors (authors)
+ |   +-- title (title)
+ |   +-- abstract (abstract)
+ |   +-- keywords (keywords)
+ +-- authors (authors)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- author_position (author position)
+ |   +-- fullname (fullname)
+ |   +-- surname (surname)
+ |   +-- firstname (firstname)
+ |   +-- middlename (middlename)
+ |   +-- email (email)
+ |   +-- departments (departments)
+ |   +-- institutions (institutions)
+ |   +-- countries (countries)
+ +-- citations (citations)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- paper_citekey (paper citekey)
+ |   +-- sentence_id (sentence id)
+ |   +-- para_id (para id)
+ |   +-- bibkey (bibkey)
+ |   +-- reference_citekey (reference citekey)
+ +-- reference_citations (reference citations)
+ |   +-- citekey (citekey) [PRIMARY] [FOREIGN]
+ |   +-- authors (authors)
+ |   +-- year (year)
+ |   +-- title (title)
+ |   +-- journal (journal)
+ |   +-- volume (volume)
+ |   +-- issue (issue)
+ |   +-- pages (pages)
+ |   +-- source_type (source type)
+ |   +-- publisher (publisher)
+ |   +-- place (place)
+ |   +-- editor (editor)
+ |   +-- monograph_title (monograph title)
+ |   +-- note (note)
+ +-- papers_keywords (papers keywords)
+     +-- article_id (article id) [FOREIGN]
+     +-- keywords (keywords)
+NL: b'What are the papers published by authors from Washington State University in 2020?'
+NL tokens: [b'what', b'are', b'the', b'papers', b'published', b'by', b'authors', b'from', b'washington', b'state', b'university', b'in', b'2020', b'?']
+NL tokens (original): [b'What', b'are', b'the', b'papers', b'published', b'by', b'authors', b'from', b'Washington', b'State', b'University', b'in', b'2020', b'?']
+['[CLS]', 'what', 'are', 'the', 'papers', 'published', 'by', 'authors', 'from', 'washington', 'state', 'university', 'in', '2020', '?', '[SEP]', '*', '[unused50]', 'ds', '##r', 'count', '[unused51]', 'article', 'id', '[unused51]', 'count', 'ds', '##r', 'all', '[unused51]', 'count', 'ml', '[unused51]', 'count', 'ds', '##r', '[unused51]', 'count', 'ds', '##r', 'citations', '[unused50]', 'papers', '[unused51]', 'article', 'id', '[unused51]', 'cite', '##key', '[unused51]', 'journal', 'akron', '##ym', '[unused51]', 'journal', '[unused51]', 'year', '[unused51]', 'authors', '[unused51]', 'title', '[unused51]', 'abstract', '[unused51]', 'key', '##words', '[unused50]', 'authors', '[unused51]', 'article', 'id', '[unused51]', 'author', 'position', '[unused51]', 'full', '##name', '[unused51]', 'surname', '[unused49]', 'university', '[unused49]', 'published', '[unused51]', 'first', '##name', '[unused51]', 'middle', '##name', '[unused51]', 'email', '[unused51]', 'departments', '[unused51]', 'institutions', '[unused49]', 'washington', 'state', 'university', '[unused49]', 'university', '[unused51]', 'countries', '[unused50]', 'citations', '[unused51]', 'article', 'id', '[unused51]', 'paper', 'cite', '##key', '[unused51]', 'sentence', 'id', '[unused51]', 'para', 'id', '[unused51]', 'bi', '##b', '##key', '[unused51]', 'reference', 'cite', '##key', '[unused50]', 'reference', 'citations', '[unused51]', 'cite', '##key', '[unused51]', 'authors', '[unused49]', 'authors', '[unused51]', 'year', '[unused51]', 'title', '[unused51]', 'journal', '[unused49]', 'washington', '[unused49]', 'papers', '[unused51]', 'volume', '[unused51]', 'issue', '[unused51]', 'pages', '[unused51]', 'source', 'type', '[unused51]', 'publisher', '[unused49]', 'author', '[unused49]', 'paper', '[unused51]', 'place', '[unused49]', 'university', '[unused49]', 'washington', '[unused51]', 'editor', '[unused51]', 'monograph', 'title', '[unused51]', 'note', '[unused49]', 'washington', '[unused49]', 'paper', '[unused50]', 'papers', 'key', '##words', '[unused51]', 'article', 'id', '[unused51]', 'key', '##words', '[unused49]', 'university', '[unused49]', 'author', '[SEP]']
+Target 0: b'SELECT distinct papers.citekey from papers join authors on papers.article_id = authors.article_id where authors.institutions = "Washington State University" and papers.year = 2020'
+Target TF-P tokens: from papers join authors on papers.article_id = authors.article_id where authors.institutions = "Washington State University" and papers.year = 2020 select distinct papers.citekey
+
+[WRONG] [medium] Pred 0:	b'SELECT DISTINCT papers.title FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE papers.year = 2020 AND authors.institutions = "Washington State University"' (-0.004) (length=24)
+[WRONG] [medium] Pred 1:	b'SELECT DISTINCT papers.title FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE papers.year = 2020 AND authors.departments = "Washington State University"' (-1.075) (length=24)
+[WRONG] [medium] Pred 2:	b'SELECT papers.title FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE papers.year = 2020 AND authors.institutions = "Washington State University"' (-1.789) (length=23)
+[WRONG] [medium] Pred 3:	b'SELECT DISTINCT papers.title FROM papers JOIN authors ON authors.article_id = papers.article_id WHERE papers.year = 2020 AND authors.institutions = "Washington State University"' (-2.103) (length=24)
+[WRONG] [medium] Pred 4:	b'SELECT COUNT(DISTINCT papers.title) FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE papers.year = 2020 AND authors.institutions = "Washington State University"' (-2.238) (length=27)
+[WRONG] [medium] Pred 5:	b'SELECT DISTINCT papers.title FROM authors JOIN papers ON papers.article_id = authors.article_id JOIN authors ON authors.article_id = papers.article_id WHERE papers.year = 2020 AND authors.institutions = "Washington State University"' (-2.589) (length=30)
+[WRONG] [medium] Pred 6:	b'SELECT papers.title FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE papers.year = 2020 AND authors.departments = "Washington State University"' (-2.882) (length=23)
+Error Case 13
+
+Parsing error: from authors join papers on papers.article_id = authors.article_id group by authors.firstname join 2020 group by authors.author_position select authors.firstname , authors.surname order by count (papers.article_id) desc limit 1
+Parsing error: from authors join papers on papers.article_id = authors.article_id group by authors.firstname join 2020 group by papers.authors select authors.firstname , authors.surname order by count (papers.article_id) desc limit 1
+Parsing error: from authors join papers on papers.article_id = authors.article_id group by authors.firstname join 2020 group by authors.firstname , authors.surname select authors.firstname , authors.surname order by count (papers.article_id) desc limit 1
+Parsing error: from authors join papers on papers.article_id = authors.article_id group by authors.firstname = 2020 group by authors.author_position select authors.firstname , authors.surname order by count (papers.article_id) desc limit 1
+Parsing error: from authors join papers on papers.article_id = authors.article_id group by authors.firstname join 2020 group by authors.author_position select authors.firstname order by count (papers.article_id) desc limit 1
+Parsing error: from authors join papers on papers.article_id = authors.article_id group by authors.firstname , authors.surname select authors.firstname = "2020" group by authors.author_position select authors.firstname order by count (papers.article_id) desc limit 1
+Parsing error: from authors join papers on papers.article_id = authors.article_id group by authors.firstname = 2020 group by papers.authors select authors.firstname , authors.surname order by count (papers.article_id) desc limit 1
+ 54%|█████▍    | 7/13 [01:42<01:12, 12.03s/it]Parsing error: from authors join papers on papers.article_id = authors.article_id where papers.year = 2020 group by authors.firstname , authors.surname select authors.firstname = "2020" select authors.firstname , authors.surname
+Parsing error: from authors join papers on papers.article_id = authors.article_id group by authors.firstname , authors.surname select authors.firstname max (papers.year) where papers.year = 2020 select authors.firstname
+Example 50
+isrecon
+ +-- dsr_count (dsr count)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- count_dsr_all (count dsr all)
+ |   +-- count_ml (count ml)
+ |   +-- count_dsr (count dsr)
+ |   +-- count_dsr_citations (count dsr citations)
+ +-- papers (papers)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- citekey (citekey) [FOREIGN]
+ |   +-- journal_akronym (journal akronym)
+ |   +-- journal (journal)
+ |   +-- year (year)
+ |   +-- authors (authors)
+ |   +-- title (title)
+ |   +-- abstract (abstract)
+ |   +-- keywords (keywords)
+ +-- authors (authors)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- author_position (author position)
+ |   +-- fullname (fullname)
+ |   +-- surname (surname)
+ |   +-- firstname (firstname)
+ |   +-- middlename (middlename)
+ |   +-- email (email)
+ |   +-- departments (departments)
+ |   +-- institutions (institutions)
+ |   +-- countries (countries)
+ +-- citations (citations)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- paper_citekey (paper citekey)
+ |   +-- sentence_id (sentence id)
+ |   +-- para_id (para id)
+ |   +-- bibkey (bibkey)
+ |   +-- reference_citekey (reference citekey)
+ +-- reference_citations (reference citations)
+ |   +-- citekey (citekey) [PRIMARY] [FOREIGN]
+ |   +-- authors (authors)
+ |   +-- year (year)
+ |   +-- title (title)
+ |   +-- journal (journal)
+ |   +-- volume (volume)
+ |   +-- issue (issue)
+ |   +-- pages (pages)
+ |   +-- source_type (source type)
+ |   +-- publisher (publisher)
+ |   +-- place (place)
+ |   +-- editor (editor)
+ |   +-- monograph_title (monograph title)
+ |   +-- note (note)
+ +-- papers_keywords (papers keywords)
+     +-- article_id (article id) [FOREIGN]
+     +-- keywords (keywords)
+NL: b'Who is the author that published the highest number of papers in 2020?'
+NL tokens: [b'who', b'is', b'the', b'author', b'that', b'published', b'the', b'highest', b'number', b'of', b'papers', b'in', b'2020', b'?']
+NL tokens (original): [b'Who', b'is', b'the', b'author', b'that', b'published', b'the', b'highest', b'number', b'of', b'papers', b'in', b'2020', b'?']
+['[CLS]', 'who', 'is', 'the', 'author', 'that', 'published', 'the', 'highest', 'number', 'of', 'papers', 'in', '2020', '?', '[SEP]', '*', '[unused50]', 'ds', '##r', 'count', '[unused51]', 'article', 'id', '[unused51]', 'count', 'ds', '##r', 'all', '[unused51]', 'count', 'ml', '[unused51]', 'count', 'ds', '##r', '[unused51]', 'count', 'ds', '##r', 'citations', '[unused50]', 'papers', '[unused51]', 'article', 'id', '[unused51]', 'cite', '##key', '[unused51]', 'journal', 'akron', '##ym', '[unused51]', 'journal', '[unused51]', 'year', '[unused51]', 'authors', '[unused51]', 'title', '[unused51]', 'abstract', '[unused51]', 'key', '##words', '[unused50]', 'authors', '[unused51]', 'article', 'id', '[unused51]', 'author', 'position', '[unused51]', 'full', '##name', '[unused51]', 'surname', '[unused49]', 'published', '[unused49]', 'papers', '[unused51]', 'first', '##name', '[unused51]', 'middle', '##name', '[unused51]', 'email', '[unused51]', 'departments', '[unused51]', 'institutions', '[unused51]', 'countries', '[unused50]', 'citations', '[unused51]', 'article', 'id', '[unused51]', 'paper', 'cite', '##key', '[unused51]', 'sentence', 'id', '[unused51]', 'para', 'id', '[unused51]', 'bi', '##b', '##key', '[unused51]', 'reference', 'cite', '##key', '[unused50]', 'reference', 'citations', '[unused51]', 'cite', '##key', '[unused51]', 'authors', '[unused49]', 'authors', '[unused51]', 'year', '[unused51]', 'title', '[unused49]', 'who', 'is', 'them', '?', '[unused51]', 'journal', '[unused49]', 'number', '[unused49]', 'papers', '[unused51]', 'volume', '[unused49]', 'number', '[unused51]', 'issue', '[unused51]', 'pages', '[unused51]', 'source', 'type', '[unused51]', 'publisher', '[unused49]', 'author', '[unused49]', 'paper', '[unused51]', 'place', '[unused51]', 'editor', '[unused51]', 'monograph', 'title', '[unused51]', 'note', '[unused49]', 'who', 'is', 'them', '?', '[unused49]', 'paper', '[unused50]', 'papers', 'key', '##words', '[unused51]', 'article', 'id', '[unused51]', 'key', '##words', '[unused49]', 'author', '[SEP]']
+Target 0: b'select authors.firstname, authors.surname from authors join papers on papers.article_id = authors.article_id GROUP by authors.firstname, authors.surname ORDER by count(papers.title) DESC LIMIT 1'
+Target TF-P tokens: from authors join papers on papers.article_id = authors.article_id group by authors.firstname , authors.surname select authors.firstname , authors.surname order by count (papers.title) desc limit 1
+
+[WRONG] [extra] Pred 0:	b'SELECT authors.firstname, authors.surname FROM authors JOIN papers ON papers.article_id = authors.article_id GROUP BY authors.firstname, authors.surname ORDER BY COUNT(papers.article_id) DESC LIMIT 1' (-0.006) (length=25)
+[WRONG] [extra] Pred 1:	b'SELECT authors.firstname, authors.surname FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE papers.year = 2020 GROUP BY authors.firstname, authors.surname ORDER BY COUNT(papers.article_id) DESC LIMIT 1' (-0.717) (length=29)
+[WRONG] [extra] Pred 2:	b'SELECT authors.firstname FROM authors JOIN papers ON papers.article_id = authors.article_id GROUP BY authors.firstname, authors.surname ORDER BY COUNT(papers.article_id) DESC LIMIT 1' (-0.952) (length=23)
+[WRONG] [extra] Pred 3:	b'SELECT authors.firstname FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE papers.year = 2020 GROUP BY authors.firstname, authors.surname ORDER BY COUNT(papers.article_id) DESC LIMIT 1' (-1.225) (length=27)
+[WRONG] [extra] Pred 4:	b'SELECT authors.firstname, authors.surname FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE papers.year = 2020 GROUP BY authors.firstname ORDER BY COUNT(papers.article_id) DESC LIMIT 1' (-1.334) (length=27)
+[WRONG] [extra] Pred 5:	b'SELECT authors.firstname, authors.surname FROM authors JOIN papers ON papers.article_id = authors.article_id GROUP BY authors.firstname = authors.surname ORDER BY COUNT(papers.article_id) DESC LIMIT 1' (-1.395) (length=25)
+[WRONG] [extra] Pred 6:	b'SELECT authors.firstname FROM authors JOIN papers ON papers.article_id = authors.article_id WHERE papers.year = 2020 GROUP BY authors.firstname ORDER BY COUNT(papers.article_id) DESC LIMIT 1' (-1.405) (length=25)
+Error Case 14
+
+ERROR: Join condition does not match with table: ['papers', {'join': 'papers_keywords', 'on': {'eq': ['papers.journal_akronym', 'papers.article_id']}}]
+ERROR: Join condition does not match with table: ['papers', {'join': 'papers_keywords', 'on': {'eq': ['papers.journal_akronym', 'papers.article_id']}}]
+ERROR: Join condition does not match with table: ['papers', {'join': 'papers_keywords', 'on': {'eq': ['papers.journal_akronym', 'papers.article_id']}}]
+ERROR: Join condition does not match with table: ['papers', {'join': 'papers_keywords', 'on': {'eq': ['papers.journal_akronym', 'papers.article_id']}}]
+ERROR: Join condition does not match with table: ['papers', {'join': 'papers_keywords', 'on': {'eq': ['papers.journal_akronym', 'papers.article_id']}}]
+ERROR: Join condition does not match with table: ['papers', {'join': 'papers_keywords', 'on': {'eq': ['papers.journal_akronym', 'papers.article_id']}}]
+ERROR: Join condition does not match with table: ['papers', {'join': 'papers_keywords', 'on': {'eq': ['papers.journal_akronym', 'papers.article_id']}}]
+ERROR: Join condition does not match with table: ['papers', {'join': 'papers_keywords', 'on': {'eq': ['papers.journal_akronym', 'papers.article_id']}}]
+ERROR: Join condition does not match with table: ['papers', {'join': 'papers_keywords', 'on': {'eq': ['papers.journal_akronym', 'papers.article_id']}}]
+ 62%|██████▏   | 8/13 [01:53<00:58, 11.68s/it] 69%|██████▉   | 9/13 [01:56<00:36,  9.14s/it] 77%|███████▋  | 10/13 [01:59<00:21,  7.32s/it]ERROR: Join condition does not match with table: ['papers', {'join': 'papers_keywords', 'on': {'eq': ['papers.journal_akronym', 'papers.article_id']}}]
+ERROR: Join condition does not match with table: ['papers', {'join': 'papers_keywords', 'on': {'eq': ['papers.journal_akronym', 'papers.article_id']}}]
+ERROR: Join condition does not match with table: ['papers', {'join': 'papers_keywords', 'on': {'eq': ['papers.journal_akronym', 'papers.article_id']}}]
+ERROR: Join condition does not match with table: ['papers', {'join': 'papers_keywords', 'on': {'eq': ['papers.journal_akronym', 'papers.article_id']}}]
+ERROR: Join condition does not match with table: ['papers', {'join': 'papers_keywords', 'on': {'eq': ['papers.journal_akronym', 'papers.article_id']}}]
+ERROR: Join condition does not match with table: ['papers', {'join': 'papers_keywords', 'on': {'eq': ['papers.journal_akronym', 'papers.article_id']}}]
+ERROR: Join condition does not match with table: ['papers', {'join': 'papers_keywords', 'on': {'eq': ['papers.journal_akronym', 'papers.article_id']}}]
+Example 59
+isrecon
+ +-- dsr_count (dsr count)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- count_dsr_all (count dsr all)
+ |   +-- count_ml (count ml)
+ |   +-- count_dsr (count dsr)
+ |   +-- count_dsr_citations (count dsr citations)
+ +-- papers (papers)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- citekey (citekey) [FOREIGN]
+ |   +-- journal_akronym (journal akronym)
+ |   +-- journal (journal)
+ |   +-- year (year)
+ |   +-- authors (authors)
+ |   +-- title (title)
+ |   +-- abstract (abstract)
+ |   +-- keywords (keywords)
+ +-- authors (authors)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- author_position (author position)
+ |   +-- fullname (fullname)
+ |   +-- surname (surname)
+ |   +-- firstname (firstname)
+ |   +-- middlename (middlename)
+ |   +-- email (email)
+ |   +-- departments (departments)
+ |   +-- institutions (institutions)
+ |   +-- countries (countries)
+ +-- citations (citations)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- paper_citekey (paper citekey)
+ |   +-- sentence_id (sentence id)
+ |   +-- para_id (para id)
+ |   +-- bibkey (bibkey)
+ |   +-- reference_citekey (reference citekey)
+ +-- reference_citations (reference citations)
+ |   +-- citekey (citekey) [PRIMARY] [FOREIGN]
+ |   +-- authors (authors)
+ |   +-- year (year)
+ |   +-- title (title)
+ |   +-- journal (journal)
+ |   +-- volume (volume)
+ |   +-- issue (issue)
+ |   +-- pages (pages)
+ |   +-- source_type (source type)
+ |   +-- publisher (publisher)
+ |   +-- place (place)
+ |   +-- editor (editor)
+ |   +-- monograph_title (monograph title)
+ |   +-- note (note)
+ +-- papers_keywords (papers keywords)
+     +-- article_id (article id) [FOREIGN]
+     +-- keywords (keywords)
+NL: b'What are the papers published in 2021 mentioning data science?'
+NL tokens: [b'what', b'are', b'the', b'papers', b'published', b'in', b'2021', b'mentioning', b'data', b'science', b'?']
+NL tokens (original): [b'What', b'are', b'the', b'papers', b'published', b'in', b'2021', b'mentioning', b'data', b'science', b'?']
+['[CLS]', 'what', 'are', 'the', 'papers', 'published', 'in', '2021', 'mentioning', 'data', 'science', '?', '[SEP]', '*', '[unused50]', 'ds', '##r', 'count', '[unused51]', 'article', 'id', '[unused51]', 'count', 'ds', '##r', 'all', '[unused51]', 'count', 'ml', '[unused51]', 'count', 'ds', '##r', '[unused51]', 'count', 'ds', '##r', 'citations', '[unused50]', 'papers', '[unused51]', 'article', 'id', '[unused51]', 'cite', '##key', '[unused51]', 'journal', 'akron', '##ym', '[unused51]', 'journal', '[unused51]', 'year', '[unused51]', 'authors', '[unused51]', 'title', '[unused51]', 'abstract', '[unused51]', 'key', '##words', '[unused50]', 'authors', '[unused51]', 'article', 'id', '[unused51]', 'author', 'position', '[unused51]', 'full', '##name', '[unused51]', 'surname', '[unused49]', 'published', '[unused49]', 'papers', '[unused51]', 'first', '##name', '[unused49]', 'data', '[unused51]', 'middle', '##name', '[unused51]', 'email', '[unused51]', 'departments', '[unused51]', 'institutions', '[unused51]', 'countries', '[unused50]', 'citations', '[unused51]', 'article', 'id', '[unused51]', 'paper', 'cite', '##key', '[unused51]', 'sentence', 'id', '[unused51]', 'para', 'id', '[unused51]', 'bi', '##b', '##key', '[unused51]', 'reference', 'cite', '##key', '[unused50]', 'reference', 'citations', '[unused51]', 'cite', '##key', '[unused51]', 'authors', '[unused51]', 'year', '[unused51]', 'title', '[unused51]', 'journal', '[unused49]', 'papers', '[unused49]', 'data', '[unused51]', 'volume', '[unused51]', 'issue', '[unused51]', 'pages', '[unused51]', 'source', 'type', '[unused51]', 'publisher', '[unused49]', 'paper', '[unused51]', 'place', '[unused51]', 'editor', '[unused51]', 'monograph', 'title', '[unused51]', 'note', '[unused49]', 'science', '[unused49]', 'data', '[unused50]', 'papers', 'key', '##words', '[unused51]', 'article', 'id', '[unused51]', 'key', '##words', '[unused49]', 'data', 'science', '[unused49]', 'science', '[SEP]']
+Target 0: b'select papers.title from papers join papers_keywords on papers_keywords.article_id = papers.article_id where papers_keywords.keywords = "data science" and papers.year = 2021'
+Target TF-P tokens: from papers join papers_keywords on papers_keywords.article_id = papers.article_id where papers_keywords.keywords = "data science" and papers.year = 2021 select papers.title
+
+[WRONG] medium Pred 0:	No valid output! (0.000)
+Error Case 15
+
+Example 80
+isrecon
+ +-- dsr_count (dsr count)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- count_dsr_all (count dsr all)
+ |   +-- count_ml (count ml)
+ |   +-- count_dsr (count dsr)
+ |   +-- count_dsr_citations (count dsr citations)
+ +-- papers (papers)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- citekey (citekey) [FOREIGN]
+ |   +-- journal_akronym (journal akronym)
+ |   +-- journal (journal)
+ |   +-- year (year)
+ |   +-- authors (authors)
+ |   +-- title (title)
+ |   +-- abstract (abstract)
+ |   +-- keywords (keywords)
+ +-- authors (authors)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- author_position (author position)
+ |   +-- fullname (fullname)
+ |   +-- surname (surname)
+ |   +-- firstname (firstname)
+ |   +-- middlename (middlename)
+ |   +-- email (email)
+ |   +-- departments (departments)
+ |   +-- institutions (institutions)
+ |   +-- countries (countries)
+ +-- citations (citations)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- paper_citekey (paper citekey)
+ |   +-- sentence_id (sentence id)
+ |   +-- para_id (para id)
+ |   +-- bibkey (bibkey)
+ |   +-- reference_citekey (reference citekey)
+ +-- reference_citations (reference citations)
+ |   +-- citekey (citekey) [PRIMARY] [FOREIGN]
+ |   +-- authors (authors)
+ |   +-- year (year)
+ |   +-- title (title)
+ |   +-- journal (journal)
+ |   +-- volume (volume)
+ |   +-- issue (issue)
+ |   +-- pages (pages)
+ |   +-- source_type (source type)
+ |   +-- publisher (publisher)
+ |   +-- place (place)
+ |   +-- editor (editor)
+ |   +-- monograph_title (monograph title)
+ |   +-- note (note)
+ +-- papers_keywords (papers keywords)
+     +-- article_id (article id) [FOREIGN]
+     +-- keywords (keywords)
+NL: b'Which journals have more than 1000 papers published there.'
+NL tokens: [b'which', b'journals', b'have', b'more', b'than', b'1000', b'papers', b'published', b'there', b'.']
+NL tokens (original): [b'Which', b'journals', b'have', b'more', b'than', b'1000', b'papers', b'published', b'there', b'.']
+ 85%|████████▍ | 11/13 [02:02<00:11,  5.97s/it]['[CLS]', 'which', 'journals', 'have', 'more', 'than', '1000', 'papers', 'published', 'there', '.', '[SEP]', '*', '[unused50]', 'ds', '##r', 'count', '[unused51]', 'article', 'id', '[unused51]', 'count', 'ds', '##r', 'all', '[unused51]', 'count', 'ml', '[unused51]', 'count', 'ds', '##r', '[unused51]', 'count', 'ds', '##r', 'citations', '[unused50]', 'papers', '[unused51]', 'article', 'id', '[unused51]', 'cite', '##key', '[unused51]', 'journal', 'akron', '##ym', '[unused51]', 'journal', '[unused51]', 'year', '[unused51]', 'authors', '[unused51]', 'title', '[unused51]', 'abstract', '[unused51]', 'key', '##words', '[unused50]', 'authors', '[unused51]', 'article', 'id', '[unused51]', 'author', 'position', '[unused51]', 'full', '##name', '[unused51]', 'surname', '[unused49]', 'published', '[unused49]', 'papers', '[unused51]', 'first', '##name', '[unused51]', 'middle', '##name', '[unused51]', 'email', '[unused51]', 'departments', '[unused51]', 'institutions', '[unused51]', 'countries', '[unused50]', 'citations', '[unused51]', 'article', 'id', '[unused51]', 'paper', 'cite', '##key', '[unused51]', 'sentence', 'id', '[unused51]', 'para', 'id', '[unused51]', 'bi', '##b', '##key', '[unused51]', 'reference', 'cite', '##key', '[unused50]', 'reference', 'citations', '[unused51]', 'cite', '##key', '[unused51]', 'authors', '[unused51]', 'year', '[unused51]', 'title', '[unused51]', 'journal', '[unused49]', 'papers', '[unused49]', 'journal', '[unused51]', 'volume', '[unused51]', 'issue', '[unused51]', 'pages', '[unused51]', 'source', 'type', '[unused51]', 'publisher', '[unused49]', 'paper', '[unused51]', 'place', '[unused51]', 'editor', '[unused51]', 'monograph', 'title', '[unused51]', 'note', '[unused49]', 'journal', '[unused49]', 'paper', '[unused50]', 'papers', 'key', '##words', '[unused51]', 'article', 'id', '[unused51]', 'key', '##words', '[unused49]', 'journals', '[SEP]']
+Target 0: b'Select papers.journal from papers group by papers.journal having count(*) > 1000'
+Target TF-P tokens: from papers group by papers.journal having count (*) > 1000 select papers.journal
+
+[WRONG] [easy] Pred 0:	b'SELECT papers.journal FROM papers GROUP BY papers.journal HAVING COUNT(papers.article_id) > 1000' (-0.000) (length=14)
+[WRONG] [easy] Pred 1:	b'SELECT papers.journal FROM papers GROUP BY papers.journal HAVING COUNT(papers.journal_akronym) > 1000' (-2.000) (length=14)
+[CORRE] [easy] Pred 2:	b'SELECT papers.journal FROM papers GROUP BY papers.journal HAVING COUNT(*) > 1000' (-2.318) (length=14)
+Error Case 16
+
+ERROR: Join condition does not match with table: ['authors', {'join': 'papers', 'on': {'eq': ['papers.article_id', 'papers.authors']}}]
+ERROR: Join condition does not match with table: ['authors', {'join': 'papers', 'on': {'eq': ['papers.article_id', 'papers.citekey']}}]
+ERROR: Join condition does not match with table: ['authors', {'join': 'papers', 'on': {'eq': ['papers.article_id', 'papers.authors']}}]
+ERROR: Join condition does not match with table: ['authors', {'join': 'papers', 'on': {'eq': ['papers.authors', 'papers.authors']}}]
+argument of type 'int' is not iterable
+Example 91
+isrecon
+ +-- dsr_count (dsr count)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- count_dsr_all (count dsr all)
+ |   +-- count_ml (count ml)
+ |   +-- count_dsr (count dsr)
+ |   +-- count_dsr_citations (count dsr citations)
+ +-- papers (papers)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- citekey (citekey) [FOREIGN]
+ |   +-- journal_akronym (journal akronym)
+ |   +-- journal (journal)
+ |   +-- year (year)
+ |   +-- authors (authors)
+ |   +-- title (title)
+ |   +-- abstract (abstract)
+ |   +-- keywords (keywords)
+ +-- authors (authors)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- author_position (author position)
+ |   +-- fullname (fullname)
+ |   +-- surname (surname)
+ |   +-- firstname (firstname)
+ |   +-- middlename (middlename)
+ |   +-- email (email)
+ |   +-- departments (departments)
+ |   +-- institutions (institutions)
+ |   +-- countries (countries)
+ +-- citations (citations)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- paper_citekey (paper citekey)
+ |   +-- sentence_id (sentence id)
+ |   +-- para_id (para id)
+ |   +-- bibkey (bibkey)
+ |   +-- reference_citekey (reference citekey)
+ +-- reference_citations (reference citations)
+ |   +-- citekey (citekey) [PRIMARY] [FOREIGN]
+ |   +-- authors (authors)
+ |   +-- year (year)
+ |   +-- title (title)
+ |   +-- journal (journal)
+ |   +-- volume (volume)
+ |   +-- issue (issue)
+ |   +-- pages (pages)
+ |   +-- source_type (source type)
+ |   +-- publisher (publisher)
+ |   +-- place (place)
+ |   +-- editor (editor)
+ |   +-- monograph_title (monograph title)
+ |   +-- note (note)
+ +-- papers_keywords (papers keywords)
+     +-- article_id (article id) [FOREIGN]
+     +-- keywords (keywords)
+NL: b'Authors from which top 10 institutions have the highest numbers of papers published?'
+NL tokens: [b'authors', b'from', b'which', b'top', b'10', b'institutions', b'have', b'the', b'highest', b'numbers', b'of', b'papers', b'published', b'?']
+NL tokens (original): [b'Authors', b'from', b'which', b'top', b'10', b'institutions', b'have', b'the', b'highest', b'numbers', b'of', b'papers', b'published', b'?']
+['[CLS]', 'authors', 'from', 'which', 'top', '10', 'institutions', 'have', 'the', 'highest', 'numbers', 'of', 'papers', 'published', '?', '[SEP]', '*', '[unused50]', 'ds', '##r', 'count', '[unused51]', 'article', 'id', '[unused51]', 'count', 'ds', '##r', 'all', '[unused51]', 'count', 'ml', '[unused51]', 'count', 'ds', '##r', '[unused51]', 'count', 'ds', '##r', 'citations', '[unused50]', 'papers', '[unused51]', 'article', 'id', '[unused51]', 'cite', '##key', '[unused51]', 'journal', 'akron', '##ym', '[unused51]', 'journal', '[unused51]', 'year', '[unused51]', 'authors', '[unused51]', 'title', '[unused51]', 'abstract', '[unused51]', 'key', '##words', '[unused50]', 'authors', '[unused51]', 'article', 'id', '[unused51]', 'author', 'position', '[unused51]', 'full', '##name', '[unused51]', 'surname', '[unused49]', 'published', '[unused49]', 'papers', '[unused51]', 'first', '##name', '[unused51]', 'middle', '##name', '[unused51]', 'email', '[unused51]', 'departments', '[unused51]', 'institutions', '[unused51]', 'countries', '[unused50]', 'citations', '[unused51]', 'article', 'id', '[unused51]', 'paper', 'cite', '##key', '[unused51]', 'sentence', 'id', '[unused51]', 'para', 'id', '[unused51]', 'bi', '##b', '##key', '[unused51]', 'reference', 'cite', '##key', '[unused50]', 'reference', 'citations', '[unused51]', 'cite', '##key', '[unused51]', 'authors', '[unused49]', 'authors', '[unused51]', 'year', '[unused51]', 'title', '[unused51]', 'journal', '[unused49]', 'papers', '[unused49]', 'number', '[unused51]', 'volume', '[unused49]', 'number', '[unused51]', 'issue', '[unused51]', 'pages', '[unused51]', 'source', 'type', '[unused51]', 'publisher', '[unused49]', 'author', '[unused49]', 'paper', '[unused51]', 'place', '[unused51]', 'editor', '[unused51]', 'monograph', 'title', '[unused51]', 'note', '[unused49]', 'paper', '[unused50]', 'papers', 'key', '##words', '[unused51]', 'article', 'id', '[unused51]', 'key', '##words', '[unused49]', 'institutions', '[unused49]', 'institutions', '[SEP]']
+Target 0: b'select authors.institutions from authors group by authors.institutions order by count(*) desc limit 10'
+Target TF-P tokens: from authors group by authors.institutions select authors.institutions order by count (*) desc limit 10
+
+[WRONG] [hard] Pred 0:	b'SELECT authors.institutions FROM authors JOIN papers ON papers.article_id = authors.article_id GROUP BY authors.institutions ORDER BY COUNT(*) DESC LIMIT 10' (-0.011) (length=21)
+[WRONG] [hard] Pred 1:	b'SELECT authors.departments FROM authors JOIN papers ON papers.article_id = authors.article_id GROUP BY authors.institutions ORDER BY COUNT(*) DESC LIMIT 10' (-1.136) (length=21)
+[WRONG] [hard] Pred 2:	b'SELECT authors.institutions FROM authors JOIN papers ON authors.institutions = papers.authors GROUP BY authors.institutions ORDER BY COUNT(*) DESC LIMIT 10' (-1.707) (length=21)
+ 92%|█████████▏| 12/13 [02:07<00:05,  5.84s/it]100%|██████████| 13/13 [02:09<00:00,  4.57s/it]
+[WRONG] [hard] Pred 3:	b'SELECT authors.institutions FROM authors JOIN papers ON authors.departments = papers.authors GROUP BY authors.institutions ORDER BY COUNT(*) DESC LIMIT 10' (-1.753) (length=21)
+[WRONG] [hard] Pred 4:	b'SELECT papers.authors FROM authors JOIN papers ON papers.article_id = authors.article_id GROUP BY authors.institutions ORDER BY COUNT(*) DESC LIMIT 10' (-1.940) (length=21)
+[WRONG] [hard] Pred 5:	b'SELECT authors.institutions FROM authors JOIN papers ON papers.article_id = authors.article_id GROUP BY authors.departments ORDER BY COUNT(*) DESC LIMIT 10' (-2.153) (length=21)
+[WRONG] [hard] Pred 6:	b'SELECT authors.institutions FROM authors JOIN papers ON papers.article_id = authors.article_id GROUP BY authors.institutions ORDER BY COUNT(papers.article_id) DESC LIMIT 10' (-2.246) (length=21)
+[WRONG] [hard] Pred 7:	b'SELECT authors.institutions FROM authors JOIN papers ON authors.author_position = papers.authors GROUP BY authors.institutions ORDER BY COUNT(*) DESC LIMIT 10' (-2.259) (length=21)
+[WRONG] [hard] Pred 8:	b'SELECT authors.institutions FROM authors JOIN papers ON papers.article_id = authors.author_position GROUP BY authors.institutions ORDER BY COUNT(*) DESC LIMIT 10' (-2.263) (length=21)
+[WRONG] [hard] Pred 9:	b'SELECT DISTINCT authors.institutions FROM authors JOIN papers ON papers.article_id = authors.article_id GROUP BY authors.institutions ORDER BY COUNT(*) DESC LIMIT 10' (-2.468) (length=22)
+[WRONG] [hard] Pred 10:	b'SELECT authors.institutions FROM authors JOIN papers ON papers.article_id = authors.article_id GROUP BY papers.authors ORDER BY COUNT(*) DESC LIMIT 10' (-2.507) (length=21)
+Error Case 17
+
+Example 94
+isrecon
+ +-- dsr_count (dsr count)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- count_dsr_all (count dsr all)
+ |   +-- count_ml (count ml)
+ |   +-- count_dsr (count dsr)
+ |   +-- count_dsr_citations (count dsr citations)
+ +-- papers (papers)
+ |   +-- article_id (article id) [PRIMARY] [FOREIGN]
+ |   +-- citekey (citekey) [FOREIGN]
+ |   +-- journal_akronym (journal akronym)
+ |   +-- journal (journal)
+ |   +-- year (year)
+ |   +-- authors (authors)
+ |   +-- title (title)
+ |   +-- abstract (abstract)
+ |   +-- keywords (keywords)
+ +-- authors (authors)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- author_position (author position)
+ |   +-- fullname (fullname)
+ |   +-- surname (surname)
+ |   +-- firstname (firstname)
+ |   +-- middlename (middlename)
+ |   +-- email (email)
+ |   +-- departments (departments)
+ |   +-- institutions (institutions)
+ |   +-- countries (countries)
+ +-- citations (citations)
+ |   +-- article_id (article id) [FOREIGN]
+ |   +-- paper_citekey (paper citekey)
+ |   +-- sentence_id (sentence id)
+ |   +-- para_id (para id)
+ |   +-- bibkey (bibkey)
+ |   +-- reference_citekey (reference citekey)
+ +-- reference_citations (reference citations)
+ |   +-- citekey (citekey) [PRIMARY] [FOREIGN]
+ |   +-- authors (authors)
+ |   +-- year (year)
+ |   +-- title (title)
+ |   +-- journal (journal)
+ |   +-- volume (volume)
+ |   +-- issue (issue)
+ |   +-- pages (pages)
+ |   +-- source_type (source type)
+ |   +-- publisher (publisher)
+ |   +-- place (place)
+ |   +-- editor (editor)
+ |   +-- monograph_title (monograph title)
+ |   +-- note (note)
+ +-- papers_keywords (papers keywords)
+     +-- article_id (article id) [FOREIGN]
+     +-- keywords (keywords)
+NL: b'For each journal name list the correponding journal akronym.'
+NL tokens: [b'for', b'each', b'journal', b'name', b'list', b'the', b'co', b'##rre', b'##pon', b'##ding', b'journal', b'akron', b'##ym', b'.']
+NL tokens (original): [b'For', b'each', b'journal', b'name', b'list', b'the', b'co', b'##rre', b'##pon', b'##ding', b'journal', b'akron', b'##ym', b'.']
+['[CLS]', 'for', 'each', 'journal', 'name', 'list', 'the', 'co', '##rre', '##pon', '##ding', 'journal', 'akron', '##ym', '.', '[SEP]', '*', '[unused50]', 'ds', '##r', 'count', '[unused51]', 'article', 'id', '[unused51]', 'count', 'ds', '##r', 'all', '[unused51]', 'count', 'ml', '[unused51]', 'count', 'ds', '##r', '[unused51]', 'count', 'ds', '##r', 'citations', '[unused50]', 'papers', '[unused51]', 'article', 'id', '[unused51]', 'cite', '##key', '[unused51]', 'journal', 'akron', '##ym', '[unused51]', 'journal', '[unused51]', 'year', '[unused51]', 'authors', '[unused51]', 'title', '[unused51]', 'abstract', '[unused51]', 'key', '##words', '[unused50]', 'authors', '[unused51]', 'article', 'id', '[unused51]', 'author', 'position', '[unused51]', 'full', '##name', '[unused51]', 'surname', '[unused51]', 'first', '##name', '[unused51]', 'middle', '##name', '[unused51]', 'email', '[unused51]', 'departments', '[unused51]', 'institutions', '[unused51]', 'countries', '[unused50]', 'citations', '[unused51]', 'article', 'id', '[unused51]', 'paper', 'cite', '##key', '[unused51]', 'sentence', 'id', '[unused51]', 'para', 'id', '[unused51]', 'bi', '##b', '##key', '[unused51]', 'reference', 'cite', '##key', '[unused50]', 'reference', 'citations', '[unused51]', 'cite', '##key', '[unused51]', 'authors', '[unused51]', 'year', '[unused51]', 'title', '[unused51]', 'journal', '[unused49]', 'journal', '[unused51]', 'volume', '[unused51]', 'issue', '[unused51]', 'pages', '[unused51]', 'source', 'type', '[unused51]', 'publisher', '[unused51]', 'place', '[unused51]', 'editor', '[unused51]', 'monograph', 'title', '[unused51]', 'note', '[unused49]', 'journal', '[unused50]', 'papers', 'key', '##words', '[unused51]', 'article', 'id', '[unused51]', 'key', '##words', '[unused49]', 'journals', '[SEP]']
+Target 0: b'select DISTINCT papers.journal, papers.journal_akronym from papers'
+Target TF-P tokens: from papers select distinct papers.journal , papers.journal_akronym
+
+[WRONG] [medium] Pred 0:	b'SELECT papers.journal FROM papers' (-0.001) (length=5)
+[CORRE] [medium] Pred 1:	b'SELECT papers.journal, papers.journal_akronym FROM papers' (-3.073) (length=7)
+Error Case 18
+
+Model predictions saved to /home/shelunts/thesis/TabularSemantingParsing/model/spider.bridge.lstm.meta.ts.ppl-0.85.2.dn.eo.feat.bert-large-uncased.xavier-1024-400-400-8-2-0.0005-inv-sqr-0.0005-4000-6e-05-inv-sqr-3e-05-4000-0.3-0.3-0.0-0.0-1-8-0.0-0.0-res-0.2-0.0-ff-0.4-0.0/predictions.16.1.05.dev.txt
+DEV set performance
+Top-1 exact match: 0.820
+Top-2 exact match: 0.860
+Top-3 exact match: 0.880
+Top-5 exact match: 0.890
+Top-10 exact match: 0.900
+Table error: 0.010

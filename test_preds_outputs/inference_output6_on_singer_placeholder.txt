@@ -1,0 +1,274 @@
+run python3 -m src.experiments     --inference     --data_dir data/spider     --db_dir data/spider/database     --dataset_name spider     --question_split          --question_only               --denormalize_sql               --table_shuffling     --use_lstm_encoder     --use_meta_data_encoding          --sql_consistency_check          --use_picklist     --anchor_text_match_threshold 0.85               --top_k_picklist_matches 2     --process_sql_in_execution_order               --num_random_tables_added 0                         --save_best_model_only     --schema_augmentation_factor 1          --data_augmentation_factor 1          --vocab_min_freq 0     --text_vocab_min_freq 0     --program_vocab_min_freq 0     --num_values_per_field 0     --max_in_seq_len 512     --max_out_seq_len 60     --model bridge     --num_steps 100000     --curriculum_interval 0     --num_peek_steps 1000     --num_accumulation_steps 2     --train_batch_size 8     --dev_batch_size 8     --encoder_input_dim 1024     --encoder_hidden_dim 400     --decoder_input_dim 400     --num_rnn_layers 1     --num_const_attn_layers 0     --emb_dropout_rate 0.3     --pretrained_lm_dropout_rate 0     --rnn_layer_dropout_rate 0     --rnn_weight_dropout_rate 0     --cross_attn_dropout_rate 0     --cross_attn_num_heads 8     --res_input_dropout_rate 0.2     --res_layer_dropout_rate 0     --ff_input_dropout_rate 0.4     --ff_hidden_dropout_rate 0.0     --pretrained_transformer bert-large-uncased          --bert_finetune_rate 0.00006     --learning_rate 0.0005     --learning_rate_scheduler inverse-square     --trans_learning_rate_scheduler inverse-square     --warmup_init_lr 0.0005     --warmup_init_ft_lr 0.00003     --num_warmup_steps 4000     --grad_norm 0.3     --decoding_algorithm beam-search     --beam_size 16     --bs_alpha 1.05     --gpu 0     --checkpoint_path /home/shelunts/thesis/TabularSemantingParsing/model/spider.bridge.lstm.meta.ts.ppl-0.85.2.dn.eo.feat.bert-large-uncased.xavier-1024-400-400-8-2-0.0005-inv-sqr-0.0005-4000-6e-05-inv-sqr-3e-05-4000-0.3-0.3-0.0-0.0-1-8-0.0-0.0-res-0.2-0.0-ff-0.4-0.0.220119-195756.tg05/model-best.16.tar
+2022-01-22 13:52:19.069513: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
+  0%|          | 0/6 [00:00<?, ?it/s]/usr/lib/python3/dist-packages/torch/_tensor.py:575: UserWarning: floor_divide is deprecated, and will be removed in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values.
+To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor'). (Triggered internally at  ../aten/src/ATen/native/BinaryOps.cpp:461.)
+  return torch.floor_divide(self, other)
+ 17%|█▋        | 1/6 [00:08<00:41,  8.34s/it] 33%|███▎      | 2/6 [00:09<00:24,  6.15s/it]Model directory exists: /home/shelunts/thesis/TabularSemantingParsing/model/spider.bridge.lstm.meta.ts.ppl-0.85.2.dn.eo.feat.bert-large-uncased.xavier-1024-400-400-8-2-0.0005-inv-sqr-0.0005-4000-6e-05-inv-sqr-3e-05-4000-0.3-0.3-0.0-0.0-1-8-0.0-0.0-res-0.2-0.0-ff-0.4-0.0
+Visualization directory exists: /home/shelunts/thesis/TabularSemantingParsing/viz/spider.bridge.lstm.meta.ts.ppl-0.85.2.dn.eo.feat.bert-large-uncased.xavier-1024-400-400-8-2-0.0005-inv-sqr-0.0005-4000-6e-05-inv-sqr-3e-05-4000-0.3-0.3-0.0-0.0-1-8-0.0-0.0-res-0.2-0.0-ff-0.4-0.0
+* text vocab size = 30522
+* program vocab size = 99
+
+pretrained_transformer = bert-large-uncased
+fix_pretrained_transformer_parameters = False
+
+bridge module created
+loading preprocessed data: data/spider/spider.bridge.question-split.ppl-0.85.2.dn.eo.bert.pkl
+45 dev examples loaded
+=> loading checkpoint '/home/shelunts/thesis/TabularSemantingParsing/model/spider.bridge.lstm.meta.ts.ppl-0.85.2.dn.eo.feat.bert-large-uncased.xavier-1024-400-400-8-2-0.0005-inv-sqr-0.0005-4000-6e-05-inv-sqr-3e-05-4000-0.3-0.3-0.0-0.0-1-8-0.0-0.0-res-0.2-0.0-ff-0.4-0.0.220119-195756.tg05/model-best.16.tar'
+0 pre-computed prediction order reconstruction cached
+Parsing error: from singer where singer.Is_male = "French" select avg (singer.Age) in (from singer where singer.Is_male = "French" select max (singer.Age)) select avg (singer.Age) , min (singer.Age) , singer.Age
+Parsing error: from singer where singer.Is_male = "French" select avg (singer.Age) in (from singer where singer.Is_male = "French" select avg (singer.Age)) select avg (singer.Age) , min (singer.Age) , singer.Age
+Parsing error: from singer where singer.Is_male = "French" select avg (singer.Age) in (from singer where singer.Is_male = "French" select avg (singer.Age)) select avg (singer.Age) , min (singer.Age) , max (singer.Age)
+Parsing error: from singer where singer.Is_male = "French" select avg (singer.Age) in (from singer where singer.Is_male = "French" select max (singer.Age)) select avg (singer.Age) , min (singer.Age) , max (singer.Age)
+Parsing error: from singer where singer.Is_male = "French" select avg (singer.Age) in (from singer where singer.Is_male = "French" select avg (singer.Age)) select avg (singer.Age) , min (singer.Age)
+Parsing error: from singer where singer.Is_male = "French" select avg (singer.Age) in (from singer where singer.Is_male = "French" select min (singer.Age)) select avg (singer.Age) , min (singer.Age) , singer.Age
+Parsing error: from singer where singer.Is_male = "French" select avg (singer.Age) in (from singer where singer.Is_male = "French" select max (singer.Age)) select avg (singer.Age) , min (singer.Age)
+Parsing error: from singer where singer.Is_male = "French" select avg (singer.Age) in (from singer where singer.Is_male = "French" select max (singer.Age)) select avg (singer.Age) , min (singer.Age) , singer.Singer_ID
+Parsing error: from singer where singer.Is_male = "French" select avg (singer.Age) in (from singer where singer.Is_male = "French" select min (singer.Age)) select avg (singer.Age) , min (singer.Age) , max (singer.Age)
+Parsing error: from singer where singer.Is_male = "French" select avg (singer.Age) in (from singer where singer.Is_male = "French" select singer.Age) select avg (singer.Age) , min (singer.Age)
+Parsing error: from singer where singer.Is_male = "French" select avg (singer.Age) in (from singer where singer.Is_male = "French" select max (singer.Age)) select avg (singer.Age) , min (singer.Age) , singer.Is_male
+Parsing error: from singer where singer.Is_male = "French" select avg (singer.Age) in (from singer where singer.Is_male = "French" select singer.Age) select avg (singer.Age) , min (singer.Age) , max (singer.Age)
+Parsing error: from singer where singer.Is_male = "French" select avg (singer.Age) in (from singer where singer.Is_male = "French" select min (singer.Age)) select avg (singer.Age) , min (singer.Age)
+Example 5
+concert_singer
+ +-- stadium (stadium)
+ |   +-- Stadium_ID (stadium id) [PRIMARY] [FOREIGN]
+ |   +-- Location (location)
+ |   +-- Name (name)
+ |   +-- Capacity (capacity)
+ |   +-- Highest (highest)
+ |   +-- Lowest (lowest)
+ |   +-- Average (average)
+ +-- singer (singer)
+ |   +-- Singer_ID (singer id) [PRIMARY] [FOREIGN]
+ |   +-- Name (name)
+ |   +-- Country (country)
+ |   +-- Song_Name (song name)
+ |   +-- Song_release_year (song release year)
+ |   +-- Age (age)
+ |   +-- Is_male (is male)
+ +-- concert (concert)
+ |   +-- concert_ID (concert id) [PRIMARY] [FOREIGN]
+ |   +-- concert_Name (concert name)
+ |   +-- Theme (theme)
+ |   +-- Stadium_ID (stadium id) [FOREIGN]
+ |   +-- Year (year)
+ +-- singer_in_concert (singer in concert)
+     +-- concert_ID (concert id) [PRIMARY] [FOREIGN]
+     +-- Singer_ID (singer id) [FOREIGN]
+NL: b'What is the average, minimum, and maximum age for all French singers?'
+NL tokens: [b'what', b'is', b'the', b'average', b',', b'minimum', b',', b'and', b'maximum', b'age', b'for', b'all', b'french', b'singers', b'?']
+NL tokens (original): [b'What', b'is', b'the', b'average', b',', b'minimum', b',', b'and', b'maximum', b'age', b'for', b'all', b'French', b'singers', b'?']
+['[CLS]', 'what', 'is', 'the', 'average', ',', 'minimum', ',', 'and', 'maximum', 'age', 'for', 'all', 'french', 'singers', '?', '[SEP]', '*', '[unused50]', 'stadium', '[unused51]', 'stadium', 'id', '[unused51]', 'location', '[unused51]', 'name', '[unused51]', 'capacity', '[unused51]', 'highest', '[unused51]', 'lowest', '[unused51]', 'average', '[unused50]', 'singer', '[unused51]', 'singer', 'id', '[unused51]', 'name', '[unused51]', 'country', '[unused51]', 'song', 'name', '[unused51]', 'song', 'release', 'year', '[unused51]', 'age', '[unused51]', 'is', 'male', '[unused50]', 'concert', '[unused51]', 'concert', 'id', '[unused51]', 'concert', 'name', '[unused51]', 'theme', '[unused51]', 'stadium', 'id', '[unused51]', 'year', '[unused50]', 'singer', 'in', 'concert', '[unused51]', 'concert', 'id', '[unused51]', 'singer', 'id', '[SEP]']
+Target 0: b"SELECT avg(age) ,  min(age) ,  max(age) FROM singer WHERE country  =  'France'"
+Target TF-P tokens: from singer where singer.Country = "VALUE" select avg (singer.Age) , min (singer.Age) , max (singer.Age)
+
+[WRONG] [medium] Pred 0:	b'SELECT AVG(singer.Age), MIN(singer.Age), MAX(singer.Age) FROM singer WHERE singer.Is_male = "French"' (-0.000) (length=24)
+[WRONG] [medium] Pred 1:	b'SELECT AVG(singer.Age), MIN(singer.Age), MAX(singer.Age) FROM singer WHERE singer.Is_male = "French" AND singer.Age = (SELECT MAX(singer.Age) FROM singer WHERE singer.Is_male = "French")' (-1.855) (length=42)
+[WRONG] [medium] Pred 2:	b'SELECT AVG(singer.Age), MIN(singer.Age), singer.Age FROM singer WHERE singer.Is_male = "French" AND singer.Age = (SELECT MAX(singer.Age) FROM singer WHERE singer.Is_male = "French")' (-1.945) (length=39)
+Error Case 1
+
+Parsing error: from stadium select max max (stadium.Capacity) , avg (stadium.Average)
+Parsing error: from stadium select max (stadium.Capacity) in (from stadium select stadium.Average
+Parsing error: from stadium select max (stadium.Capacity) (avg (stadium.Average)
+Parsing error: from stadium select max (stadium.Capacity)) , avg (stadium.Average)
+Parsing error: from stadium select on (stadium.Capacity) , avg (stadium.Average)
+Parsing error: from stadium select on max (stadium.Capacity) , avg (stadium.Average)
+Parsing error: from stadium select max (stadium.Capacity) , avg (stadium.Average) ,
+Example 16
+ 50%|█████     | 3/6 [00:12<00:15,  5.17s/it] 67%|██████▋   | 4/6 [00:13<00:07,  3.95s/it] 83%|████████▎ | 5/6 [00:14<00:03,  3.18s/it]concert_singer
+ +-- stadium (stadium)
+ |   +-- Stadium_ID (stadium id) [PRIMARY] [FOREIGN]
+ |   +-- Location (location)
+ |   +-- Name (name)
+ |   +-- Capacity (capacity)
+ |   +-- Highest (highest)
+ |   +-- Lowest (lowest)
+ |   +-- Average (average)
+ +-- singer (singer)
+ |   +-- Singer_ID (singer id) [PRIMARY] [FOREIGN]
+ |   +-- Name (name)
+ |   +-- Country (country)
+ |   +-- Song_Name (song name)
+ |   +-- Song_release_year (song release year)
+ |   +-- Age (age)
+ |   +-- Is_male (is male)
+ +-- concert (concert)
+ |   +-- concert_ID (concert id) [PRIMARY] [FOREIGN]
+ |   +-- concert_Name (concert name)
+ |   +-- Theme (theme)
+ |   +-- Stadium_ID (stadium id) [FOREIGN]
+ |   +-- Year (year)
+ +-- singer_in_concert (singer in concert)
+     +-- concert_ID (concert id) [PRIMARY] [FOREIGN]
+     +-- Singer_ID (singer id) [FOREIGN]
+NL: b'What is the maximum capacity and the average of all stadiums ?'
+NL tokens: [b'what', b'is', b'the', b'maximum', b'capacity', b'and', b'the', b'average', b'of', b'all', b'stadiums', b'?']
+NL tokens (original): [b'What', b'is', b'the', b'maximum', b'capacity', b'and', b'the', b'average', b'of', b'all', b'stadiums', b'?']
+['[CLS]', 'what', 'is', 'the', 'maximum', 'capacity', 'and', 'the', 'average', 'of', 'all', 'stadiums', '?', '[SEP]', '*', '[unused50]', 'stadium', '[unused51]', 'stadium', 'id', '[unused51]', 'location', '[unused51]', 'name', '[unused51]', 'capacity', '[unused51]', 'highest', '[unused51]', 'lowest', '[unused51]', 'average', '[unused50]', 'singer', '[unused51]', 'singer', 'id', '[unused51]', 'name', '[unused51]', 'country', '[unused51]', 'song', 'name', '[unused51]', 'song', 'release', 'year', '[unused51]', 'age', '[unused51]', 'is', 'male', '[unused50]', 'concert', '[unused51]', 'concert', 'id', '[unused51]', 'concert', 'name', '[unused51]', 'theme', '[unused51]', 'stadium', 'id', '[unused51]', 'year', '[unused50]', 'singer', 'in', 'concert', '[unused51]', 'concert', 'id', '[unused51]', 'singer', 'id', '[SEP]']
+Target 0: b'select max(capacity), average from stadium'
+Target TF-P tokens: from stadium select max (stadium.Capacity) , stadium.Average
+
+[WRONG] [medium] Pred 0:	b'SELECT MAX(stadium.Capacity), AVG(stadium.Average) FROM stadium' (-0.000) (length=13)
+[WRONG] [medium] Pred 1:	b'SELECT MAX(stadium.Capacity), AVG(stadium.Average) FROM stadium' (-3.006) (length=18)
+[WRONG] [medium] Pred 2:	b'SELECT MAX(stadium.Capacity), AVG(stadium.Average) FROM stadium WHERE stadium.Capacity = (SELECT MAX(stadium.Capacity) FROM stadium)' (-3.555) (length=25)
+[WRONG] [medium] Pred 3:	b'SELECT MAX(stadium.Capacity), MAX(stadium.Average), stadium.Average FROM stadium GROUP BY stadium.Capacity' (-4.835) (length=17)
+[WRONG] [medium] Pred 4:	b'SELECT MAX(stadium.Capacity), AVG(stadium.Average), stadium.Average FROM stadium GROUP BY stadium.Capacity' (-5.180) (length=17)
+[WRONG] [medium] Pred 5:	b'SELECT SUM(stadium.Capacity), AVG(stadium.Average) FROM stadium' (-5.348) (length=13)
+[WRONG] [medium] Pred 6:	b'SELECT MAX(stadium.Capacity), MIN(stadium.Average) FROM stadium' (-5.732) (length=13)
+[WRONG] [medium] Pred 7:	b'SELECT MIN(stadium.Capacity), AVG(stadium.Average) FROM stadium' (-5.760) (length=13)
+[WRONG] [medium] Pred 8:	b'SELECT MAX(stadium.Capacity), AVG(stadium.Average), stadium.Average FROM stadium WHERE stadium.Capacity = (SELECT MAX(stadium.Capacity) FROM stadium)' (-5.839) (length=27)
+Error Case 2
+
+Example 19
+concert_singer
+ +-- stadium (stadium)
+ |   +-- Stadium_ID (stadium id) [PRIMARY] [FOREIGN]
+ |   +-- Location (location)
+ |   +-- Name (name)
+ |   +-- Capacity (capacity)
+ |   +-- Highest (highest)
+ |   +-- Lowest (lowest)
+ |   +-- Average (average)
+ +-- singer (singer)
+ |   +-- Singer_ID (singer id) [PRIMARY] [FOREIGN]
+ |   +-- Name (name)
+ |   +-- Country (country)
+ |   +-- Song_Name (song name)
+ |   +-- Song_release_year (song release year)
+ |   +-- Age (age)
+ |   +-- Is_male (is male)
+ +-- concert (concert)
+ |   +-- concert_ID (concert id) [PRIMARY] [FOREIGN]
+ |   +-- concert_Name (concert name)
+ |   +-- Theme (theme)
+ |   +-- Stadium_ID (stadium id) [FOREIGN]
+ |   +-- Year (year)
+ +-- singer_in_concert (singer in concert)
+     +-- concert_ID (concert id) [PRIMARY] [FOREIGN]
+     +-- Singer_ID (singer id) [FOREIGN]
+NL: b'What is the name and capacity for the stadium with the highest average attendance?'
+NL tokens: [b'what', b'is', b'the', b'name', b'and', b'capacity', b'for', b'the', b'stadium', b'with', b'the', b'highest', b'average', b'attendance', b'?']
+NL tokens (original): [b'What', b'is', b'the', b'name', b'and', b'capacity', b'for', b'the', b'stadium', b'with', b'the', b'highest', b'average', b'attendance', b'?']
+['[CLS]', 'what', 'is', 'the', 'name', 'and', 'capacity', 'for', 'the', 'stadium', 'with', 'the', 'highest', 'average', 'attendance', '?', '[SEP]', '*', '[unused50]', 'stadium', '[unused51]', 'stadium', 'id', '[unused51]', 'location', '[unused51]', 'name', '[unused51]', 'capacity', '[unused51]', 'highest', '[unused51]', 'lowest', '[unused51]', 'average', '[unused50]', 'singer', '[unused51]', 'singer', 'id', '[unused51]', 'name', '[unused51]', 'country', '[unused51]', 'song', 'name', '[unused51]', 'song', 'release', 'year', '[unused51]', 'age', '[unused51]', 'is', 'male', '[unused50]', 'concert', '[unused51]', 'concert', 'id', '[unused51]', 'concert', 'name', '[unused51]', 'theme', '[unused51]', 'stadium', 'id', '[unused51]', 'year', '[unused50]', 'singer', 'in', 'concert', '[unused51]', 'concert', 'id', '[unused51]', 'singer', 'id', '[SEP]']
+Target 0: b'SELECT name ,  capacity FROM stadium ORDER BY average DESC LIMIT 1'
+Target TF-P tokens: from stadium select stadium.Name , stadium.Capacity order by stadium.Average desc limit 1
+
+[WRONG] [medium] Pred 0:	b'SELECT stadium.Name, stadium.Capacity FROM concert JOIN stadium ON concert.Stadium_ID = stadium.Stadium_ID GROUP BY concert.Stadium_ID ORDER BY AVG(stadium.Average) DESC LIMIT 1' (-0.065) (length=23)
+[CORRE] [medium] Pred 1:	b'SELECT stadium.Name, stadium.Capacity FROM stadium ORDER BY stadium.Average DESC LIMIT 1' (-0.436) (length=12)
+Error Case 3
+
+Parsing error: from singer_in_concert join singer on singer_in_concert.Singer_ID = singer.Singer_ID join concert on concert on singer_in_concert.concert_ID = concert.concert_ID where concert.Year = 2014 select singer.Name
+Parsing error: from stadium join concert on stadium.Stadium_ID = concert.Stadium_ID select count (*) union from stadium on stadium.Stadium_ID = concert.Stadium_ID select count (*)
+ERROR: table "stadium" in field expression stadium.Capacity is not in the current scope
+Parsing error: from stadium join concert on stadium.Stadium_ID = concert.Stadium_ID select count (*) : stadium.Stadium_ID order by stadium.Capacity desc limit 1
+Parsing error: from stadium join concert on stadium.Stadium_ID = concert.Stadium_ID select count (*) desc limit 1
+Parsing error: from stadium join concert on stadium.Stadium_ID = concert.Stadium_ID order by count (*) desc limit 1
+Parsing error: from stadium join concert on stadium.Stadium_ID = concert.Stadium_ID select count (*) asc limit 1
+Parsing error: from stadium join concert on stadium.Stadium_ID = concert.Stadium_ID select count (*) union limit 1
+Example 43
+concert_singer
+ +-- stadium (stadium)
+ |   +-- Stadium_ID (stadium id) [PRIMARY] [FOREIGN]
+ |   +-- Location (location)
+ |   +-- Name (name)
+ |   +-- Capacity (capacity)
+ |   +-- Highest (highest)
+ |   +-- Lowest (lowest)
+ |   +-- Average (average)
+ +-- singer (singer)
+ |   +-- Singer_ID (singer id) [PRIMARY] [FOREIGN]
+ |   +-- Name (name)
+ |   +-- Country (country)
+ |   +-- Song_Name (song name)
+ |   +-- Song_release_year (song release year)
+ |   +-- Age (age)
+ |   +-- Is_male (is male)
+ +-- concert (concert)
+ |   +-- concert_ID (concert id) [PRIMARY] [FOREIGN]
+ |   +-- concert_Name (concert name)
+ |   +-- Theme (theme)
+ |   +-- Stadium_ID (stadium id) [FOREIGN]
+ |   +-- Year (year)
+ +-- singer_in_concert (singer in concert)
+     +-- concert_ID (concert id) [PRIMARY] [FOREIGN]
+     +-- Singer_ID (singer id) [FOREIGN]
+NL: b'Find the number of concerts happened in the stadium with the highest capacity .'
+100%|██████████| 6/6 [00:19<00:00,  3.77s/it]NL tokens: [b'find', b'the', b'number', b'of', b'concerts', b'happened', b'in', b'the', b'stadium', b'with', b'the', b'highest', b'capacity', b'.']
+NL tokens (original): [b'Find', b'the', b'number', b'of', b'concerts', b'happened', b'in', b'the', b'stadium', b'with', b'the', b'highest', b'capacity', b'.']
+['[CLS]', 'find', 'the', 'number', 'of', 'concerts', 'happened', 'in', 'the', 'stadium', 'with', 'the', 'highest', 'capacity', '.', '[SEP]', '*', '[unused50]', 'stadium', '[unused51]', 'stadium', 'id', '[unused51]', 'location', '[unused51]', 'name', '[unused51]', 'capacity', '[unused51]', 'highest', '[unused51]', 'lowest', '[unused51]', 'average', '[unused50]', 'singer', '[unused51]', 'singer', 'id', '[unused51]', 'name', '[unused51]', 'country', '[unused51]', 'song', 'name', '[unused51]', 'song', 'release', 'year', '[unused51]', 'age', '[unused51]', 'is', 'male', '[unused50]', 'concert', '[unused51]', 'concert', 'id', '[unused51]', 'concert', 'name', '[unused51]', 'theme', '[unused51]', 'stadium', 'id', '[unused51]', 'year', '[unused50]', 'singer', 'in', 'concert', '[unused51]', 'concert', 'id', '[unused51]', 'singer', 'id', '[SEP]']
+Target 0: b'select count(*) from concert where stadium_id = (select stadium_id from stadium order by capacity desc limit 1)'
+Target TF-P tokens: from concert where concert.Stadium_ID = (from stadium select stadium.Stadium_ID order by stadium.Capacity desc limit 1) select count (*)
+
+[WRONG] [hard] Pred 0:	b'SELECT COUNT(*) FROM stadium JOIN concert ON stadium.Stadium_ID = concert.Stadium_ID' (-0.022) (length=14)
+[WRONG] [hard] Pred 1:	b'SELECT COUNT(*) FROM stadium JOIN concert ON stadium.Stadium_ID = concert.Stadium_ID ORDER BY stadium.Capacity DESC LIMIT 1' (-0.727) (length=19)
+[WRONG] [hard] Pred 2:	b'SELECT COUNT(*) FROM concert JOIN stadium ON concert.Stadium_ID = stadium.Stadium_ID ORDER BY stadium.Capacity DESC LIMIT 1' (-0.862) (length=19)
+[WRONG] [hard] Pred 3:	b'SELECT COUNT(*) FROM stadium JOIN concert ON stadium.Stadium_ID = concert.Stadium_ID WHERE stadium.Capacity = (SELECT MAX(stadium.Capacity) FROM stadium)' (-1.297) (length=26)
+[WRONG] [hard] Pred 4:	b'SELECT COUNT(*) FROM concert JOIN stadium ON concert.Stadium_ID = stadium.Stadium_ID WHERE stadium.Capacity = (SELECT MAX(stadium.Capacity) FROM stadium)' (-1.498) (length=26)
+[WRONG] [hard] Pred 5:	b'SELECT COUNT(*) FROM stadium JOIN concert ON stadium.Stadium_ID = concert.Stadium_ID GROUP BY concert.Stadium_ID ORDER BY MAX(stadium.Capacity) DESC LIMIT 1' (-2.516) (length=24)
+[WRONG] [hard] Pred 6:	b'SELECT COUNT(*) FROM stadium JOIN concert ON stadium.Stadium_ID = concert.Stadium_ID GROUP BY concert.Stadium_ID ORDER BY stadium.Capacity DESC LIMIT 1' (-2.687) (length=21)
+[WRONG] [hard] Pred 7:	b'SELECT COUNT(*) FROM stadium ORDER BY stadium.Capacity DESC LIMIT 1' (-2.745) (length=13)
+[WRONG] [hard] Pred 8:	b'SELECT COUNT(*) FROM concert JOIN stadium ON concert.Stadium_ID = stadium.Stadium_ID' (-3.073) (length=14)
+Error Case 4
+
+Parsing error: from stadium join concert on stadium.Stadium_ID = concert.Stadium_ID select count (*) union from stadium on stadium.Stadium_ID = concert.Stadium_ID select count (*)
+ERROR: table "stadium" in field expression stadium.Capacity is not in the current scope
+Parsing error: from stadium join concert on stadium.Stadium_ID = concert.Stadium_ID order by count (*) desc limit 1
+Parsing error: from stadium join concert on stadium.Stadium_ID = concert.Stadium_ID select count (*) desc limit 1
+Parsing error: from stadium join concert on stadium.Stadium_ID = concert.Stadium_ID select count (*) asc limit 1
+Parsing error: from stadium join concert on stadium.Stadium_ID = concert.Stadium_ID select count (*) : stadium.Stadium_ID
+Example 44
+concert_singer
+ +-- stadium (stadium)
+ |   +-- Stadium_ID (stadium id) [PRIMARY] [FOREIGN]
+ |   +-- Location (location)
+ |   +-- Name (name)
+ |   +-- Capacity (capacity)
+ |   +-- Highest (highest)
+ |   +-- Lowest (lowest)
+ |   +-- Average (average)
+ +-- singer (singer)
+ |   +-- Singer_ID (singer id) [PRIMARY] [FOREIGN]
+ |   +-- Name (name)
+ |   +-- Country (country)
+ |   +-- Song_Name (song name)
+ |   +-- Song_release_year (song release year)
+ |   +-- Age (age)
+ |   +-- Is_male (is male)
+ +-- concert (concert)
+ |   +-- concert_ID (concert id) [PRIMARY] [FOREIGN]
+ |   +-- concert_Name (concert name)
+ |   +-- Theme (theme)
+ |   +-- Stadium_ID (stadium id) [FOREIGN]
+ |   +-- Year (year)
+ +-- singer_in_concert (singer in concert)
+     +-- concert_ID (concert id) [PRIMARY] [FOREIGN]
+     +-- Singer_ID (singer id) [FOREIGN]
+NL: b'What are the number of concerts that occurred in the stadium with the largest capacity ?'
+NL tokens: [b'what', b'are', b'the', b'number', b'of', b'concerts', b'that', b'occurred', b'in', b'the', b'stadium', b'with', b'the', b'largest', b'capacity', b'?']
+NL tokens (original): [b'What', b'are', b'the', b'number', b'of', b'concerts', b'that', b'occurred', b'in', b'the', b'stadium', b'with', b'the', b'largest', b'capacity', b'?']
+['[CLS]', 'what', 'are', 'the', 'number', 'of', 'concerts', 'that', 'occurred', 'in', 'the', 'stadium', 'with', 'the', 'largest', 'capacity', '?', '[SEP]', '*', '[unused50]', 'stadium', '[unused51]', 'stadium', 'id', '[unused51]', 'location', '[unused51]', 'name', '[unused51]', 'capacity', '[unused51]', 'highest', '[unused51]', 'lowest', '[unused51]', 'average', '[unused50]', 'singer', '[unused51]', 'singer', 'id', '[unused51]', 'name', '[unused51]', 'country', '[unused51]', 'song', 'name', '[unused51]', 'song', 'release', 'year', '[unused51]', 'age', '[unused51]', 'is', 'male', '[unused50]', 'concert', '[unused51]', 'concert', 'id', '[unused51]', 'concert', 'name', '[unused51]', 'theme', '[unused51]', 'stadium', 'id', '[unused51]', 'year', '[unused50]', 'singer', 'in', 'concert', '[unused51]', 'concert', 'id', '[unused51]', 'singer', 'id', '[SEP]']
+Target 0: b'select count(*) from concert where stadium_id = (select stadium_id from stadium order by capacity desc limit 1)'
+Target TF-P tokens: from concert where concert.Stadium_ID = (from stadium select stadium.Stadium_ID order by stadium.Capacity desc limit 1) select count (*)
+
+[WRONG] [hard] Pred 0:	b'SELECT COUNT(*) FROM stadium JOIN concert ON stadium.Stadium_ID = concert.Stadium_ID' (-0.006) (length=14)
+[WRONG] [hard] Pred 1:	b'SELECT COUNT(*) FROM concert JOIN stadium ON concert.Stadium_ID = stadium.Stadium_ID ORDER BY stadium.Capacity DESC LIMIT 1' (-1.100) (length=19)
+[WRONG] [hard] Pred 2:	b'SELECT COUNT(*) FROM stadium JOIN concert ON stadium.Stadium_ID = concert.Stadium_ID WHERE stadium.Capacity = (SELECT MAX(stadium.Capacity) FROM stadium)' (-1.164) (length=26)
+[WRONG] [hard] Pred 3:	b'SELECT COUNT(*) FROM stadium JOIN concert ON stadium.Stadium_ID = concert.Stadium_ID ORDER BY stadium.Capacity DESC LIMIT 1' (-1.338) (length=19)
+[WRONG] [hard] Pred 4:	b'SELECT COUNT(*) FROM concert JOIN stadium ON concert.Stadium_ID = stadium.Stadium_ID WHERE stadium.Capacity = (SELECT MAX(stadium.Capacity) FROM stadium)' (-1.353) (length=26)
+[WRONG] [hard] Pred 5:	b'SELECT COUNT(*) FROM stadium ORDER BY stadium.Capacity DESC LIMIT 1' (-1.672) (length=13)
+[WRONG] [hard] Pred 6:	b'SELECT COUNT(*) FROM stadium JOIN concert ON stadium.Stadium_ID = concert.Stadium_ID GROUP BY concert.Stadium_ID ORDER BY MAX(stadium.Capacity) DESC LIMIT 1' (-2.473) (length=24)
+[WRONG] [hard] Pred 7:	b'SELECT COUNT(*) FROM concert JOIN stadium ON concert.Stadium_ID = stadium.Stadium_ID' (-2.672) (length=14)
+[WRONG] [hard] Pred 8:	b'SELECT COUNT(*) FROM stadium WHERE stadium.Capacity = (SELECT MAX(stadium.Capacity) FROM stadium)' (-2.963) (length=20)
+[WRONG] [hard] Pred 9:	b'SELECT COUNT(*) FROM stadium JOIN concert ON stadium.Stadium_ID = concert.Stadium_ID GROUP BY concert.Stadium_ID ORDER BY stadium.Capacity DESC LIMIT 1' (-2.993) (length=21)
+Error Case 5
+
+Model predictions saved to /home/shelunts/thesis/TabularSemantingParsing/model/spider.bridge.lstm.meta.ts.ppl-0.85.2.dn.eo.feat.bert-large-uncased.xavier-1024-400-400-8-2-0.0005-inv-sqr-0.0005-4000-6e-05-inv-sqr-3e-05-4000-0.3-0.3-0.0-0.0-1-8-0.0-0.0-res-0.2-0.0-ff-0.4-0.0/predictions.16.1.05.dev.txt
+DEV set performance
+Top-1 exact match: 0.889
+Top-2 exact match: 0.911
+
+Top-3 exact match: 0.911
+Top-5 exact match: 0.911
+Top-10 exact match: 0.911
+Table error: 0.067
