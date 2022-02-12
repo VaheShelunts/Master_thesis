@@ -67,7 +67,7 @@ Processed different train, test sets and schemas of ISRECON as well as Spider da
 To test the model run the following command. Evaluation results will be outputted out at the end the testing run.
 
 ```
-./experiment-bridge.sh configs/bridge/spider-bridge-bert-large.sh --inference 0
+./experiment-bridge.sh configs/bridge/spider-bridge-bert-large.sh --inference 0 --checkpoint_path [path_to_model_checkpoint_tar_file]
 
 ```
 
