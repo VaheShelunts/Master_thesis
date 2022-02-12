@@ -30,8 +30,8 @@ mv isrecon.sqlite data/isrecon/isrecon/
 ```
 
 
-- **Preprocessing:** Preprocessing and parsing of SQL queries is completed in the notebooks in the [preprocess_inputs directory](/home/shelunts/thesis/TabularSemantingParsing/preprocess_inputs).
-- **Evaluation:** Model testing is done by running the relevant command line commands according to the instructions specified in the [official implementation of the BRIDGE model](https://github.com/salesforce/TabularSemanticParsing). Afterwards, the results evaluation and analysis is completed in the notebooks in the [evaluation_isrecon directory](/home/shelunts/thesis/TabularSemantingParsing/evaluation_isrecon).
+- **Preprocessing:** Preprocessing and parsing of SQL queries is completed in the notebooks in the preprocess_inputs directory.
+- **Evaluation:** Model testing is done by running the relevant command line commands according to the instructions specified in the [official implementation of the BRIDGE model](https://github.com/salesforce/TabularSemanticParsing). Afterwards, the results evaluation and analysis is completed in the notebooks in the evaluation_isrecon directory.
 
 **Note:** 
 There is a potential bug in the sql token parser which fails to extract foreign keys from ISRECON database. Those were added manually. The updated schema is available in the table.json file in the directory "data/spider".
