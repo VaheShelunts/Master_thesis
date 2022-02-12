@@ -1,955 +1,0 @@
-run python3 -m src.experiments     --inference     --data_dir data/spider     --db_dir data/spider/database     --dataset_name spider     --question_split          --question_only               --denormalize_sql               --table_shuffling     --use_lstm_encoder     --use_meta_data_encoding          --sql_consistency_check          --use_picklist     --anchor_text_match_threshold 0.85               --top_k_picklist_matches 2     --process_sql_in_execution_order               --num_random_tables_added 0                         --save_best_model_only     --schema_augmentation_factor 1          --data_augmentation_factor 1          --vocab_min_freq 0     --text_vocab_min_freq 0     --program_vocab_min_freq 0     --num_values_per_field 0     --max_in_seq_len 512     --max_out_seq_len 60     --model bridge     --num_steps 100000     --curriculum_interval 0     --num_peek_steps 1000     --num_accumulation_steps 2     --train_batch_size 8     --dev_batch_size 8     --encoder_input_dim 1024     --encoder_hidden_dim 400     --decoder_input_dim 400     --num_rnn_layers 1     --num_const_attn_layers 0     --emb_dropout_rate 0.3     --pretrained_lm_dropout_rate 0     --rnn_layer_dropout_rate 0     --rnn_weight_dropout_rate 0     --cross_attn_dropout_rate 0     --cross_attn_num_heads 8     --res_input_dropout_rate 0.2     --res_layer_dropout_rate 0     --ff_input_dropout_rate 0.4     --ff_hidden_dropout_rate 0.0     --pretrained_transformer bert-large-uncased          --bert_finetune_rate 0.00006     --learning_rate 0.0005     --learning_rate_scheduler inverse-square     --trans_learning_rate_scheduler inverse-square     --warmup_init_lr 0.0005     --warmup_init_ft_lr 0.00003     --num_warmup_steps 4000     --grad_norm 0.3     --decoding_algorithm beam-search     --beam_size 16     --bs_alpha 1.05     --gpu 0     --checkpoint_path /home/shelunts/thesis/TabularSemantingParsing/model/spider.bridge.lstm.meta.ts.ppl-0.85.2.dn.eo.feat.bert-large-uncased.xavier-1024-400-400-8-2-0.0005-inv-sqr-0.0005-4000-6e-05-inv-sqr-3e-05-4000-0.3-0.3-0.0-0.0-1-8-0.0-0.0-res-0.2-0.0-ff-0.4-0.0.220117-231119.uq87/model-best.16.tar
-2022-01-19 17:41:15.021140: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
-  0%|          | 0/130 [00:00<?, ?it/s]/usr/lib/python3/dist-packages/torch/_tensor.py:575: UserWarning: floor_divide is deprecated, and will be removed in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values.
-To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor'). (Triggered internally at  ../aten/src/ATen/native/BinaryOps.cpp:461.)
-  return torch.floor_divide(self, other)
-  1%|          | 1/130 [00:01<03:38,  1.70s/it]  2%|▏         | 2/130 [00:02<03:16,  1.53s/it]  2%|▏         | 3/130 [00:05<03:39,  1.73s/it]  3%|▎         | 4/130 [00:06<03:22,  1.61s/it]  4%|▍         | 5/130 [00:09<04:01,  1.93s/it]  5%|▍         | 6/130 [00:10<03:38,  1.76s/it]  5%|▌         | 7/130 [00:13<04:11,  2.05s/it]  6%|▌         | 8/130 [00:16<05:08,  2.53s/it]  7%|▋         | 9/130 [00:21<06:34,  3.26s/it]  8%|▊         | 10/130 [00:23<05:19,  2.66s/it]  8%|▊         | 11/130 [00:25<05:23,  2.72s/it]  9%|▉         | 12/130 [00:26<04:23,  2.23s/it]Model directory exists: /home/shelunts/thesis/TabularSemantingParsing/model/spider.bridge.lstm.meta.ts.ppl-0.85.2.dn.eo.feat.bert-large-uncased.xavier-1024-400-400-8-2-0.0005-inv-sqr-0.0005-4000-6e-05-inv-sqr-3e-05-4000-0.3-0.3-0.0-0.0-1-8-0.0-0.0-res-0.2-0.0-ff-0.4-0.0
-Visualization directory exists: /home/shelunts/thesis/TabularSemantingParsing/viz/spider.bridge.lstm.meta.ts.ppl-0.85.2.dn.eo.feat.bert-large-uncased.xavier-1024-400-400-8-2-0.0005-inv-sqr-0.0005-4000-6e-05-inv-sqr-3e-05-4000-0.3-0.3-0.0-0.0-1-8-0.0-0.0-res-0.2-0.0-ff-0.4-0.0
-* text vocab size = 30522
-* program vocab size = 99
-
-pretrained_transformer = bert-large-uncased
-fix_pretrained_transformer_parameters = False
-
-bridge module created
-loading preprocessed data: data/spider/spider.bridge.question-split.ppl-0.85.2.dn.eo.bert.pkl
-1034 dev examples loaded
-=> loading checkpoint '/home/shelunts/thesis/TabularSemantingParsing/model/spider.bridge.lstm.meta.ts.ppl-0.85.2.dn.eo.feat.bert-large-uncased.xavier-1024-400-400-8-2-0.0005-inv-sqr-0.0005-4000-6e-05-inv-sqr-3e-05-4000-0.3-0.3-0.0-0.0-1-8-0.0-0.0-res-0.2-0.0-ff-0.4-0.0.220117-231119.uq87/model-best.16.tar'
-0 pre-computed prediction order reconstruction cached
-ERROR: table "Student" in field expression Student.StuID is not in the current scope
-Example 61
-pets_1
- +-- Student (student)
- |   +-- StuID (student id) [PRIMARY] [FOREIGN]
- |   +-- LName (last name)
- |   +-- Fname (first name)
- |   +-- Age (age)
- |   +-- Sex (sex)
- |   +-- Major (major)
- |   +-- Advisor (advisor)
- |   +-- city_code (city code)
- +-- Has_Pet (has pet)
- |   +-- StuID (student id) [FOREIGN]
- |   +-- PetID (pet id) [FOREIGN]
- +-- Pets (pets)
-     +-- PetID (pet id) [PRIMARY] [FOREIGN]
-     +-- PetType (pet type)
-     +-- pet_age (pet age)
-     +-- weight (weight)
-NL: b'Find the major and age of students who do not have a cat pet.'
-NL tokens: [b'find', b'the', b'major', b'and', b'age', b'of', b'students', b'who', b'do', b'not', b'have', b'a', b'cat', b'pet', b'.']
-NL tokens (original): [b'Find', b'the', b'major', b'and', b'age', b'of', b'students', b'who', b'do', b'not', b'have', b'a', b'cat', b'pet', b'.']
-['[CLS]', 'find', 'the', 'major', 'and', 'age', 'of', 'students', 'who', 'do', 'not', 'have', 'a', 'cat', 'pet', '.', '[SEP]', '*', '[unused50]', 'student', '[unused51]', 'student', 'id', '[unused51]', 'last', 'name', '[unused51]', 'first', 'name', '[unused51]', 'age', '[unused51]', 'sex', '[unused51]', 'major', '[unused51]', 'advisor', '[unused51]', 'city', 'code', '[unused50]', 'has', 'pet', '[unused51]', 'student', 'id', '[unused51]', 'pet', 'id', '[unused50]', 'pets', '[unused51]', 'pet', 'id', '[unused51]', 'pet', 'type', '[unused49]', 'cat', '[unused51]', 'pet', 'age', '[unused51]', 'weight', '[SEP]']
-Target 0: b"SELECT major ,  age FROM student WHERE stuid NOT IN (SELECT T1.stuid FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid  =  T2.stuid JOIN pets AS T3 ON T3.petid  =  T2.petid WHERE T3.pettype  =  'cat')"
-Target TF-P tokens: from Student where Student.StuID not in (from Student join Has_Pet on Student.StuID = Has_Pet.StuID join Pets on Pets.PetID = Has_Pet.PetID where Pets.PetType = "cat" select Student.StuID) select Student.Major , Student.Age
-
-[WRONG] [extra] Pred 0:	b'SELECT Student.Major, Student.Age FROM Student EXCEPT SELECT Student.Major, Student.Age FROM Student JOIN Has_Pet ON Student.StuID = Has_Pet.StuID JOIN Pets ON Pets.PetID = Has_Pet.PetID WHERE Pets.PetType = "cat"' (-0.079) (length=32)
-[CORRE] [extra] Pred 1:	b'SELECT Student.Major, Student.Age FROM Student WHERE Student.StuID NOT IN (SELECT Student.StuID FROM Student JOIN Has_Pet ON Student.StuID = Has_Pet.StuID JOIN Pets ON Pets.PetID = Has_Pet.PetID WHERE Pets.PetType = "cat")' (-0.371) (length=35)
-Error Case 1
-
-Example 66
-pets_1
- +-- Student (student)
- |   +-- StuID (student id) [PRIMARY] [FOREIGN]
- |   +-- LName (last name)
- |   +-- Fname (first name)
- |   +-- Age (age)
- |   +-- Sex (sex)
- |   +-- Major (major)
- |   +-- Advisor (advisor)
- |   +-- city_code (city code)
- +-- Has_Pet (has pet)
- |   +-- StuID (student id) [FOREIGN]
- |   +-- PetID (pet id) [FOREIGN]
- +-- Pets (pets)
-     +-- PetID (pet id) [PRIMARY] [FOREIGN]
-     +-- PetType (pet type)
-     +-- pet_age (pet age)
-     +-- weight (weight)
-NL: b'What is the first name of every student who has a dog but does not have a cat?'
-NL tokens: [b'what', b'is', b'the', b'first', b'name', b'of', b'every', b'student', b'who', b'has', b'a', b'dog', b'but', b'does', b'not', b'have', b'a', b'cat', b'?']
-NL tokens (original): [b'What', b'is', b'the', b'first', b'name', b'of', b'every', b'student', b'who', b'has', b'a', b'dog', b'but', b'does', b'not', b'have', b'a', b'cat', b'?']
-['[CLS]', 'what', 'is', 'the', 'first', 'name', 'of', 'every', 'student', 'who', 'has', 'a', 'dog', 'but', 'does', 'not', 'have', 'a', 'cat', '?', '[SEP]', '*', '[unused50]', 'student', '[unused51]', 'student', 'id', '[unused51]', 'last', 'name', '[unused51]', 'first', 'name', '[unused51]', 'age', '[unused51]', 'sex', '[unused51]', 'major', '[unused51]', 'advisor', '[unused51]', 'city', 'code', '[unused50]', 'has', 'pet', '[unused51]', 'student', 'id', '[unused51]', 'pet', 'id', '[unused50]', 'pets', '[unused51]', 'pet', 'id', '[unused51]', 'pet', 'type', '[unused49]', 'dog', '[unused49]', 'cat', '[unused51]', 'pet', 'age', '[unused51]', 'weight', '[SEP]']
-Target 0: b"SELECT T1.fname ,  T1.age FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid  =  T2.stuid JOIN pets AS T3 ON T3.petid  =  T2.petid WHERE T3.pettype  =  'dog' AND T1.stuid NOT IN (SELECT T1.stuid FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid  =  T2.stuid JOIN pets AS T3 ON T3.petid  =  T2.petid WHERE T3.pettype  =  'cat')"
-Target TF-P tokens: from Student join Has_Pet on Student.StuID = Has_Pet.StuID join Pets on Pets.PetID = Has_Pet.PetID where Pets.PetType = "dog" and Student.StuID not in (from Student join Has_Pet on Student.StuID = Has_Pet.StuID join Pets on Pets.PetID = Has_Pet.PetID where Pets.PetType = "cat" select Student.StuID) select Student.Fname , Student.Age
-
-[WRONG] [extra] Pred 0:	b'SELECT Student.Fname FROM Student JOIN Has_Pet ON Student.StuID = Has_Pet.StuID JOIN Pets ON Pets.PetID = Has_Pet.PetID WHERE Pets.PetType = "dog" EXCEPT SELECT Student.Fname, Student.Age FROM Student JOIN Has_Pet ON Student.StuID = Has_Pet.StuID JOIN Pets ON Pets.PetID = Has_Pet.PetID WHERE Pets.PetType = "cat"' (-0.105) (length=48)
-[CORRE] [extra] Pred 1:	b'SELECT Student.Fname, Student.Age FROM Student JOIN Has_Pet ON Student.StuID = Has_Pet.StuID JOIN Pets ON Pets.PetID = Has_Pet.PetID WHERE Pets.PetType = "dog" AND Student.StuID NOT IN (SELECT Student.StuID FROM Student JOIN Has_Pet ON Student.StuID = Has_Pet.StuID JOIN Pets ON Pets.PetID = Has_Pet.PetID WHERE Pets.PetType = "cat")' (-0.118) (length=53)
-Error Case 2
-
-Example 102
-car_1
- +-- continents (continents)
- |   +-- ContId (cont id) [PRIMARY] [FOREIGN]
- |   +-- Continent (continent)
- +-- countries (countries)
- |   +-- CountryId (country id) [PRIMARY] [FOREIGN]
- |   +-- CountryName (country name)
- |   +-- Continent (continent) [FOREIGN]
- +-- car_makers (car makers)
- |   +-- Id (id) [PRIMARY] [FOREIGN]
- |   +-- Maker (maker)
- |   +-- FullName (full name)
- |   +-- Country (country) [FOREIGN]
- +-- model_list (model list)
- |   +-- ModelId (model id) [PRIMARY]
- |   +-- Maker (maker) [FOREIGN]
- |   +-- Model (model) [FOREIGN]
- +-- car_names (car names)
- |   +-- MakeId (make id) [PRIMARY] [FOREIGN]
- |   +-- Model (model) [FOREIGN]
- |   +-- Make (make)
- +-- cars_data (cars data)
-     +-- Id (id) [PRIMARY] [FOREIGN]
-     +-- MPG (mpg)
-     +-- Cylinders (cylinders)
-     +-- Edispl (edispl)
-     +-- Horsepower (horsepower)
-     +-- Weight (weight)
-     +-- Accelerate (accelerate)
-     +-- Year (year)
-NL: b'What is the maker of the carr produced in the earliest year and what year was it?'
-NL tokens: [b'what', b'is', b'the', b'maker', b'of', b'the', b'carr', b'produced', b'in', b'the', b'earliest', b'year', b'and', b'what', b'year', b'was', b'it', b'?']
-NL tokens (original): [b'What', b'is', b'the', b'maker', b'of', b'the', b'carr', b'produced', b'in', b'the', b'earliest', b'year', b'and', b'what', b'year', b'was', b'it', b'?']
- 10%|█         | 13/130 [00:29<04:38,  2.38s/it] 11%|█         | 14/130 [00:32<04:40,  2.42s/it] 12%|█▏        | 15/130 [00:33<03:59,  2.08s/it] 12%|█▏        | 16/130 [00:35<03:57,  2.08s/it] 13%|█▎        | 17/130 [00:36<03:28,  1.85s/it] 14%|█▍        | 18/130 [00:38<03:35,  1.92s/it] 15%|█▍        | 19/130 [00:40<03:16,  1.77s/it]['[CLS]', 'what', 'is', 'the', 'maker', 'of', 'the', 'carr', 'produced', 'in', 'the', 'earliest', 'year', 'and', 'what', 'year', 'was', 'it', '?', '[SEP]', '*', '[unused50]', 'continents', '[unused51]', 'con', '##t', 'id', '[unused51]', 'continent', '[unused50]', 'countries', '[unused51]', 'country', 'id', '[unused51]', 'country', 'name', '[unused51]', 'continent', '[unused50]', 'car', 'makers', '[unused51]', 'id', '[unused51]', 'maker', '[unused51]', 'full', 'name', '[unused51]', 'country', '[unused50]', 'model', 'list', '[unused51]', 'model', 'id', '[unused51]', 'maker', '[unused51]', 'model', '[unused50]', 'car', 'names', '[unused51]', 'make', 'id', '[unused51]', 'model', '[unused51]', 'make', '[unused50]', 'cars', 'data', '[unused51]', 'id', '[unused51]', 'mp', '##g', '[unused51]', 'cylinders', '[unused51]', 'ed', '##is', '##pl', '[unused51]', 'horsepower', '[unused51]', 'weight', '[unused51]', 'accelerate', '[unused51]', 'year', '[SEP]']
-Target 0: b'SELECT T2.Make ,  T1.Year FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T1.Year  =  (SELECT min(YEAR) FROM CARS_DATA)'
-Target TF-P tokens: from cars_data join car_names on cars_data.Id = car_names.MakeId where cars_data.Year = (from cars_data select min (cars_data.Year)) select car_names.Make , cars_data.Year
-
-[WRONG] [extra] Pred 0:	b'SELECT car_names.Make FROM cars_data JOIN car_names ON cars_data.Id = car_names.MakeId WHERE cars_data.Year = (SELECT MIN(cars_data.Year) FROM cars_data)' (-0.013) (length=23)
-[CORRE] [extra] Pred 1:	b'SELECT car_names.Make, cars_data.Year FROM cars_data JOIN car_names ON cars_data.Id = car_names.MakeId WHERE cars_data.Year = (SELECT MIN(cars_data.Year) FROM cars_data)' (-0.880) (length=25)
-Error Case 3
-
-Example 129
-car_1
- +-- continents (continents)
- |   +-- ContId (cont id) [PRIMARY] [FOREIGN]
- |   +-- Continent (continent)
- +-- countries (countries)
- |   +-- CountryId (country id) [PRIMARY] [FOREIGN]
- |   +-- CountryName (country name)
- |   +-- Continent (continent) [FOREIGN]
- +-- car_makers (car makers)
- |   +-- Id (id) [PRIMARY] [FOREIGN]
- |   +-- Maker (maker)
- |   +-- FullName (full name)
- |   +-- Country (country) [FOREIGN]
- +-- model_list (model list)
- |   +-- ModelId (model id) [PRIMARY]
- |   +-- Maker (maker) [FOREIGN]
- |   +-- Model (model) [FOREIGN]
- +-- car_names (car names)
- |   +-- MakeId (make id) [PRIMARY] [FOREIGN]
- |   +-- Model (model) [FOREIGN]
- |   +-- Make (make)
- +-- cars_data (cars data)
-     +-- Id (id) [PRIMARY] [FOREIGN]
-     +-- MPG (mpg)
-     +-- Cylinders (cylinders)
-     +-- Edispl (edispl)
-     +-- Horsepower (horsepower)
-     +-- Weight (weight)
-     +-- Accelerate (accelerate)
-     +-- Year (year)
-NL: b'Which countries in europe have at least 3 car manufacturers?'
-NL tokens: [b'which', b'countries', b'in', b'europe', b'have', b'at', b'least', b'3', b'car', b'manufacturers', b'?']
-NL tokens (original): [b'Which', b'countries', b'in', b'europe', b'have', b'at', b'least', b'3', b'car', b'manufacturers', b'?']
-['[CLS]', 'which', 'countries', 'in', 'europe', 'have', 'at', 'least', '3', 'car', 'manufacturers', '?', '[SEP]', '*', '[unused50]', 'continents', '[unused51]', 'con', '##t', 'id', '[unused51]', 'continent', '[unused49]', 'europe', '[unused50]', 'countries', '[unused51]', 'country', 'id', '[unused51]', 'country', 'name', '[unused51]', 'continent', '[unused50]', 'car', 'makers', '[unused51]', 'id', '[unused51]', 'maker', '[unused51]', 'full', 'name', '[unused51]', 'country', '[unused50]', 'model', 'list', '[unused51]', 'model', 'id', '[unused51]', 'maker', '[unused51]', 'model', '[unused50]', 'car', 'names', '[unused51]', 'make', 'id', '[unused51]', 'model', '[unused51]', 'make', '[unused50]', 'cars', 'data', '[unused51]', 'id', '[unused51]', 'mp', '##g', '[unused51]', 'cylinders', '[unused51]', 'ed', '##is', '##pl', '[unused51]', 'horsepower', '[unused51]', 'weight', '[unused51]', 'accelerate', '[unused51]', 'year', '[SEP]']
-Target 0: b"SELECT T1.CountryName FROM COUNTRIES AS T1 JOIN CONTINENTS AS T2 ON T1.Continent  =  T2.ContId JOIN CAR_MAKERS AS T3 ON T1.CountryId  =  T3.Country WHERE T2.Continent  =  'europe' GROUP BY T1.CountryName HAVING count(*)  >=  3"
-Target TF-P tokens: from countries join continents on countries.Continent = continents.ContId join car_makers on countries.CountryId = car_makers.Country where continents.Continent = "europe" group by countries.CountryName having count (*) >= 3 select countries.CountryName
-
-[WRONG] [extra] Pred 0:	b'SELECT countries.CountryName FROM countries JOIN continents ON countries.Continent = continents.ContId JOIN car_makers ON countries.CountryId = car_makers.Country WHERE continents.Continent = "europe" GROUP BY countries.CountryId HAVING COUNT(*) >= 3' (-0.078) (length=32)
-[WRONG] [extra] Pred 1:	b'SELECT countries.CountryName FROM countries JOIN continents ON countries.Continent = continents.ContId WHERE continents.Continent = "europe" GROUP BY countries.CountryId HAVING COUNT(*) >= 3' (-0.195) (length=26)
-[CORRE] [extra] Pred 2:	b'SELECT countries.CountryName FROM countries JOIN continents ON countries.Continent = continents.ContId JOIN car_makers ON countries.CountryId = car_makers.Country WHERE continents.Continent = "europe" GROUP BY countries.CountryName HAVING COUNT(*) >= 3' (-0.452) (length=32)
-Error Case 4
-
-ERROR: Join condition does not match with table: ['car_names', {'join': 'model_list', 'on': {'eq': ['model_list.Model', 'model_list.Model']}}, {'join': 'car_makers', 'on': {'eq': ['model_list.Maker', 'car_makers.Id']}}, {'join': 'cars_data', 'on': {'eq': ['car_names.MakeId', 'cars_data.Id']}}]
-ERROR: Join condition does not match with table: ['car_names', {'join': 'model_list', 'on': {'eq': ['model_list.Model', 'model_list.Model']}}, {'join': 'cars_data', 'on': {'eq': ['car_names.MakeId', 'cars_data.Id']}}, {'join': 'car_makers', 'on': {'eq': ['model_list.Maker', 'car_makers.Id']}}]
-ERROR: Join condition does not match with table: ['car_names', {'join': 'model_list', 'on': {'eq': ['model_list.Model', 'model_list.Model']}}, {'join': 'cars_data', 'on': {'eq': ['car_names.MakeId', 'cars_data.Id']}}, {'join': 'car_makers', 'on': {'eq': ['model_list.Maker', 'car_makers.Id']}}]
-ERROR: Join condition does not match with table: ['model_list', {'join': 'car_names', 'on': {'eq': ['model_list.Model', 'model_list.Model']}}, {'join': 'cars_data', 'on': {'eq': ['car_names.MakeId', 'cars_data.Id']}}, {'join': 'car_makers', 'on': {'eq': ['model_list.Maker', 'car_makers.Id']}}]
-Parsing error: from cars_data where cars_data.Accelerate = (from cars_data where car_names on cars_data.Id = car_names.MakeId where car_names.Model = "volvo" select min (cars_data.Accelerate)) select cars_data.Cylinders
-Parsing error: from cars_data where cars_data.Accelerate <= (from cars_data where car_names on cars_data.Id = car_names.MakeId where car_names.Model = "volvo" select min (cars_data.Accelerate)) select cars_data.Cylinders
-Parsing error: from cars_data where cars_data.Accelerate <= volvo order by cars_data.Accelerate asc limit 1
-Parsing error: from cars_data where cars_data.Accelerate order by cars_data.Accelerate asc limit 1
-Parsing error: from cars_data where cars_data.Accelerate = (from cars_data where cars_data.Id = volvo select cars_data.Accelerate) order by cars_data.Accelerate asc limit 1
-Example 158
- 15%|█▌        | 20/130 [00:45<05:17,  2.88s/it] 16%|█▌        | 21/130 [00:48<05:08,  2.83s/it] 17%|█▋        | 22/130 [00:51<05:15,  2.92s/it]car_1
- +-- continents (continents)
- |   +-- ContId (cont id) [PRIMARY] [FOREIGN]
- |   +-- Continent (continent)
- +-- countries (countries)
- |   +-- CountryId (country id) [PRIMARY] [FOREIGN]
- |   +-- CountryName (country name)
- |   +-- Continent (continent) [FOREIGN]
- +-- car_makers (car makers)
- |   +-- Id (id) [PRIMARY] [FOREIGN]
- |   +-- Maker (maker)
- |   +-- FullName (full name)
- |   +-- Country (country) [FOREIGN]
- +-- model_list (model list)
- |   +-- ModelId (model id) [PRIMARY]
- |   +-- Maker (maker) [FOREIGN]
- |   +-- Model (model) [FOREIGN]
- +-- car_names (car names)
- |   +-- MakeId (make id) [PRIMARY] [FOREIGN]
- |   +-- Model (model) [FOREIGN]
- |   +-- Make (make)
- +-- cars_data (cars data)
-     +-- Id (id) [PRIMARY] [FOREIGN]
-     +-- MPG (mpg)
-     +-- Cylinders (cylinders)
-     +-- Edispl (edispl)
-     +-- Horsepower (horsepower)
-     +-- Weight (weight)
-     +-- Accelerate (accelerate)
-     +-- Year (year)
-NL: b'For a volvo model, how many cylinders does the version with least accelerate have?'
-NL tokens: [b'for', b'a', b'volvo', b'model', b',', b'how', b'many', b'cylinders', b'does', b'the', b'version', b'with', b'least', b'accelerate', b'have', b'?']
-NL tokens (original): [b'For', b'a', b'volvo', b'model', b',', b'how', b'many', b'cylinders', b'does', b'the', b'version', b'with', b'least', b'accelerate', b'have', b'?']
-['[CLS]', 'for', 'a', 'volvo', 'model', ',', 'how', 'many', 'cylinders', 'does', 'the', 'version', 'with', 'least', 'accelerate', 'have', '?', '[SEP]', '*', '[unused50]', 'continents', '[unused51]', 'con', '##t', 'id', '[unused51]', 'continent', '[unused50]', 'countries', '[unused51]', 'country', 'id', '[unused51]', 'country', 'name', '[unused51]', 'continent', '[unused50]', 'car', 'makers', '[unused51]', 'id', '[unused51]', 'maker', '[unused49]', 'volvo', '[unused51]', 'full', 'name', '[unused49]', 'volvo', '[unused51]', 'country', '[unused50]', 'model', 'list', '[unused51]', 'model', 'id', '[unused51]', 'maker', '[unused51]', 'model', '[unused49]', 'volvo', '[unused50]', 'car', 'names', '[unused51]', 'make', 'id', '[unused51]', 'model', '[unused49]', 'volvo', '[unused51]', 'make', '[unused50]', 'cars', 'data', '[unused51]', 'id', '[unused51]', 'mp', '##g', '[unused51]', 'cylinders', '[unused51]', 'ed', '##is', '##pl', '[unused51]', 'horsepower', '[unused51]', 'weight', '[unused51]', 'accelerate', '[unused51]', 'year', '[SEP]']
-Target 0: b"SELECT T1.cylinders FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T2.Model  =  'volvo' ORDER BY T1.accelerate ASC LIMIT 1"
-Target TF-P tokens: from cars_data join car_names on cars_data.Id = car_names.MakeId where car_names.Model = "volvo" select cars_data.Cylinders order by cars_data.Accelerate asc limit 1
-
-[WRONG] [extra] Pred 0:	b'SELECT cars_data.Cylinders FROM cars_data WHERE cars_data.Accelerate <= "volvo" ORDER BY cars_data.Accelerate ASC LIMIT 1' (-0.401) (length=14)
-[WRONG] [extra] Pred 1:	b'SELECT cars_data.Cylinders FROM cars_data WHERE cars_data.Accelerate LIKE "% volvo %" ORDER BY cars_data.Accelerate ASC LIMIT 1' (-0.432) (length=18)
-[WRONG] [extra] Pred 2:	b'SELECT cars_data.Cylinders FROM cars_data WHERE cars_data.Accelerate = (SELECT cars_data.Accelerate FROM cars_data WHERE cars_data.Id = "volvo" ORDER BY cars_data.Accelerate ASC LIMIT 1)' (-0.464) (length=23)
-[WRONG] [extra] Pred 3:	b'SELECT cars_data.Cylinders FROM cars_data WHERE cars_data.Accelerate <= (SELECT cars_data.Accelerate FROM cars_data WHERE cars_data.Id = "volvo" ORDER BY cars_data.Accelerate ASC LIMIT 1)' (-0.555) (length=23)
-[WRONG] [extra] Pred 4:	b'SELECT cars_data.Cylinders FROM cars_data WHERE cars_data.Accelerate = (SELECT cars_data.Accelerate FROM cars_data WHERE cars_data.Id = "volvo") ORDER BY cars_data.Accelerate ASC LIMIT 1' (-0.660) (length=23)
-[WRONG] [extra] Pred 5:	b'SELECT cars_data.Cylinders FROM cars_data WHERE cars_data.Accelerate <= (SELECT cars_data.Accelerate FROM cars_data WHERE cars_data.Id = "volvo") ORDER BY cars_data.Accelerate ASC LIMIT 1' (-0.734) (length=23)
-[WRONG] [extra] Pred 6:	b'SELECT cars_data.Cylinders FROM cars_data WHERE cars_data.Accelerate = "volvo" ORDER BY cars_data.Accelerate ASC LIMIT 1' (-0.922) (length=14)
-[WRONG] [extra] Pred 7:	b'SELECT cars_data.Cylinders FROM cars_data WHERE cars_data.Accelerate = (SELECT cars_data.Accelerate FROM cars_data WHERE cars_data.Id <= "volvo" ORDER BY cars_data.Accelerate ASC LIMIT 1)' (-0.996) (length=23)
-[WRONG] [extra] Pred 8:	b'SELECT cars_data.Cylinders FROM cars_data WHERE cars_data.Accelerate <= (SELECT MIN(cars_data.Accelerate) FROM cars_data)' (-1.151) (length=17)
-[WRONG] [extra] Pred 9:	b'SELECT cars_data.Cylinders FROM cars_data WHERE cars_data.Accelerate = (SELECT MIN(cars_data.Accelerate) FROM cars_data)' (-1.177) (length=17)
-[WRONG] [extra] Pred 10:	b'SELECT cars_data.Cylinders FROM cars_data WHERE cars_data.Accelerate <= (SELECT cars_data.Accelerate FROM cars_data WHERE cars_data.Id = "volvo")' (-1.398) (length=18)
-Error Case 5
-
-Example 176
-car_1
- +-- continents (continents)
- |   +-- ContId (cont id) [PRIMARY] [FOREIGN]
- |   +-- Continent (continent)
- +-- countries (countries)
- |   +-- CountryId (country id) [PRIMARY] [FOREIGN]
- |   +-- CountryName (country name)
- |   +-- Continent (continent) [FOREIGN]
- +-- car_makers (car makers)
- |   +-- Id (id) [PRIMARY] [FOREIGN]
- |   +-- Maker (maker)
- |   +-- FullName (full name)
- |   +-- Country (country) [FOREIGN]
- +-- model_list (model list)
- |   +-- ModelId (model id) [PRIMARY]
- |   +-- Maker (maker) [FOREIGN]
- |   +-- Model (model) [FOREIGN]
- +-- car_names (car names)
- |   +-- MakeId (make id) [PRIMARY] [FOREIGN]
- |   +-- Model (model) [FOREIGN]
- |   +-- Make (make)
- +-- cars_data (cars data)
-     +-- Id (id) [PRIMARY] [FOREIGN]
-     +-- MPG (mpg)
-     +-- Cylinders (cylinders)
-     +-- Edispl (edispl)
-     +-- Horsepower (horsepower)
-     +-- Weight (weight)
-     +-- Accelerate (accelerate)
-     +-- Year (year)
-NL: b'What are the ids and makers of all car makers that produce at least 2 models and make more than 3 cars?'
-NL tokens: [b'what', b'are', b'the', b'id', b'##s', b'and', b'makers', b'of', b'all', b'car', b'makers', b'that', b'produce', b'at', b'least', b'2', b'models', b'and', b'make', b'more', b'than', b'3', b'cars', b'?']
-NL tokens (original): [b'What', b'are', b'the', b'id', b'##s', b'and', b'makers', b'of', b'all', b'car', b'makers', b'that', b'produce', b'at', b'least', b'2', b'models', b'and', b'make', b'more', b'than', b'3', b'cars', b'?']
-['[CLS]', 'what', 'are', 'the', 'id', '##s', 'and', 'makers', 'of', 'all', 'car', 'makers', 'that', 'produce', 'at', 'least', '2', 'models', 'and', 'make', 'more', 'than', '3', 'cars', '?', '[SEP]', '*', '[unused50]', 'continents', '[unused51]', 'con', '##t', 'id', '[unused51]', 'continent', '[unused50]', 'countries', '[unused51]', 'country', 'id', '[unused51]', 'country', 'name', '[unused51]', 'continent', '[unused50]', 'car', 'makers', '[unused51]', 'id', '[unused51]', 'maker', '[unused51]', 'full', 'name', '[unused51]', 'country', '[unused50]', 'model', 'list', '[unused51]', 'model', 'id', '[unused51]', 'maker', '[unused51]', 'model', '[unused50]', 'car', 'names', '[unused51]', 'make', 'id', '[unused51]', 'model', '[unused51]', 'make', '[unused50]', 'cars', 'data', '[unused51]', 'id', '[unused51]', 'mp', '##g', '[unused51]', 'cylinders', '[unused51]', 'ed', '##is', '##pl', '[unused51]', 'horsepower', '[unused51]', 'weight', '[unused51]', 'accelerate', '[unused51]', 'year', '[SEP]']
-Target 0: b'SELECT T1.Id ,  T1.Maker FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker GROUP BY T1.Id HAVING count(*)  >=  2 INTERSECT SELECT T1.Id ,  T1.Maker FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker JOIN CAR_NAMES AS T3 ON T2.model  =  T3.model GROUP BY T1.Id HAVING count(*)  >  3'
- 18%|█▊        | 23/130 [00:54<05:14,  2.94s/it] 18%|█▊        | 24/130 [00:55<04:06,  2.32s/it] 19%|█▉        | 25/130 [00:56<03:24,  1.95s/it] 20%|██        | 26/130 [00:59<03:37,  2.09s/it] 21%|██        | 27/130 [01:01<03:53,  2.27s/it] 22%|██▏       | 28/130 [01:03<03:29,  2.05s/it] 22%|██▏       | 29/130 [01:06<03:53,  2.31s/it] 23%|██▎       | 30/130 [01:08<04:01,  2.41s/it]Target TF-P tokens: from car_makers join model_list on car_makers.Id = model_list.Maker group by car_makers.Id having count (*) >= 2 select car_makers.Id , car_makers.Maker intersect from car_makers join model_list on car_makers.Id = model_list.Maker join car_names on model_list.Model = car_names.Model group by car_makers.Id having count (*) > 3 select car_makers.Id , car_makers.Maker
-
-[WRONG] [extra] Pred 0:	b'SELECT car_makers.Id, car_makers.Maker FROM car_makers JOIN model_list ON car_makers.Id = model_list.Maker GROUP BY car_makers.Id HAVING COUNT(*) >= 2 INTERSECT SELECT car_makers.Id, car_makers.Maker FROM car_makers JOIN model_list ON car_makers.Id = model_list.Maker GROUP BY car_makers.Id HAVING COUNT(*) > 3' (-0.054) (length=44)
-[WRONG] [extra] Pred 1:	b'SELECT car_makers.Id, car_makers.Maker FROM car_makers JOIN model_list ON car_makers.Id = model_list.Maker GROUP BY car_makers.Id HAVING COUNT(*) >= 2 INTERSECT SELECT car_makers.Id, car_makers.Maker FROM car_makers JOIN model_list ON car_makers.Id = model_list.Maker GROUP BY car_makers.Id HAVING COUNT(DISTINCT model_list.Model) > 3' (-0.142) (length=45)
-[CORRE] [extra] Pred 2:	b'SELECT car_makers.Id, car_makers.Maker FROM car_makers JOIN model_list ON car_makers.Id = model_list.Maker GROUP BY car_makers.Id HAVING COUNT(*) >= 2 INTERSECT SELECT car_makers.Id, car_makers.Maker FROM car_makers JOIN model_list ON car_makers.Id = model_list.Maker JOIN car_names ON model_list.Model = car_names.Model GROUP BY car_makers.Id HAVING COUNT(*) > 3' (-0.267) (length=50)
-Error Case 6
-
-Example 224
-flight_2
- +-- airlines (airlines)
- |   +-- uid (airline id) [PRIMARY]
- |   +-- Airline (airline name) [FOREIGN]
- |   +-- Abbreviation (abbreviation)
- |   +-- Country (country)
- +-- airports (airports)
- |   +-- AirportCode (airport code) [PRIMARY] [FOREIGN]
- |   +-- City (city)
- |   +-- AirportName (airport name)
- |   +-- Country (country)
- |   +-- CountryAbbrev (country abbrev)
- +-- flights (flights)
-     +-- Airline (airline) [PRIMARY] [FOREIGN]
-     +-- FlightNo (flight number)
-     +-- SourceAirport (source airport) [FOREIGN]
-     +-- DestAirport (destination airport) [FOREIGN]
-NL: b'Which city is the most frequent source airport?'
-NL tokens: [b'which', b'city', b'is', b'the', b'most', b'frequent', b'source', b'airport', b'?']
-NL tokens (original): [b'Which', b'city', b'is', b'the', b'most', b'frequent', b'source', b'airport', b'?']
-['[CLS]', 'which', 'city', 'is', 'the', 'most', 'frequent', 'source', 'airport', '?', '[SEP]', '*', '[unused50]', 'airlines', '[unused51]', 'airline', 'id', '[unused51]', 'airline', 'name', '[unused51]', 'abbreviation', '[unused51]', 'country', '[unused50]', 'airports', '[unused51]', 'city', '[unused51]', 'airport', 'code', '[unused51]', 'airport', 'name', '[unused51]', 'country', '[unused51]', 'country', 'ab', '##bre', '##v', '[unused50]', 'flights', '[unused51]', 'airline', '[unused51]', 'flight', 'number', '[unused51]', 'source', 'airport', '[unused51]', 'destination', 'airport', '[SEP]']
-Target 0: b'SELECT T1.City FROM AIRPORTS AS T1 JOIN FLIGHTS AS T2 ON T1.AirportCode  =  T2.SourceAirport GROUP BY T1.City ORDER BY count(*) DESC LIMIT 1'
-Target TF-P tokens: from airports join flights on airports.AirportCode = flights.SourceAirport group by airports.City select airports.City order by count (*) desc limit 1
-
-[WRONG] [extra] Pred 0:	b'SELECT airports.City FROM airports GROUP BY airports.City ORDER BY COUNT(*) DESC LIMIT 1' (-0.071) (length=15)
-[CORRE] [extra] Pred 1:	b'SELECT airports.City FROM airports JOIN flights ON airports.AirportCode = flights.SourceAirport GROUP BY airports.City ORDER BY COUNT(*) DESC LIMIT 1' (-0.382) (length=21)
-Error Case 7
-
-ERROR: Join condition does not match with table: ['airlines', {'join': 'flights', 'on': {'eq': ['airlines.uid', 'flights.Airline']}}, {'join': 'airports', 'on': {'eq': ['airlines.uid', 'flights.Airline']}}]
-ERROR: Join condition does not match with table: ['airlines', {'join': 'flights', 'on': {'eq': ['airlines.uid', 'flights.Airline']}}, {'join': 'airports', 'on': {'eq': ['airlines.uid', 'flights.Airline']}}]
-ERROR: Join condition does not match with table: ['airlines', {'join': 'flights', 'on': {'eq': ['airlines.uid', 'flights.Airline']}}, {'join': 'airports', 'on': {'eq': ['airlines.uid', 'flights.Airline']}}]
-ERROR: Join condition does not match with table: ['airlines', {'join': 'airports', 'on': {'eq': ['airlines.uid', 'flights.Airline']}}]
-ERROR: Join condition does not match with table: ['airlines', {'join': 'flights', 'on': {'eq': ['airlines.uid', 'flights.Airline']}}, {'join': 'airports', 'on': {'eq': ['airlines.uid', 'flights.Airline']}}]
-ERROR: Join condition does not match with table: ['airlines', {'join': 'flights', 'on': {'eq': ['airlines.uid', 'flights.Airline']}}, {'join': 'airports', 'on': {'eq': ['airlines.uid', 'flights.Airline']}}]
-ERROR: Join condition does not match with table: ['airlines', {'join': 'airports', 'on': {'eq': ['airlines.uid', 'flights.Airline']}}]
-Example 240
-flight_2
- +-- airlines (airlines)
- |   +-- uid (airline id) [PRIMARY]
- |   +-- Airline (airline name) [FOREIGN]
- |   +-- Abbreviation (abbreviation)
- |   +-- Country (country)
- +-- airports (airports)
- |   +-- AirportCode (airport code) [PRIMARY] [FOREIGN]
- |   +-- City (city)
- |   +-- AirportName (airport name)
- |   +-- Country (country)
- |   +-- CountryAbbrev (country abbrev)
- +-- flights (flights)
-     +-- Airline (airline) [PRIMARY] [FOREIGN]
-     +-- FlightNo (flight number)
-     +-- SourceAirport (source airport) [FOREIGN]
-     +-- DestAirport (destination airport) [FOREIGN]
-NL: b'Which airlines have departures from CVO but not from APG airports?'
-NL tokens: [b'which', b'airlines', b'have', b'departure', b'##s', b'from', b'cv', b'##o', b'but', b'not', b'from', b'ap', b'##g', b'airports', b'?']
-NL tokens (original): [b'Which', b'airlines', b'have', b'departure', b'##s', b'from', b'CV', b'##O', b'but', b'not', b'from', b'AP', b'##G', b'airports', b'?']
-['[CLS]', 'which', 'airlines', 'have', 'departure', '##s', 'from', 'cv', '##o', 'but', 'not', 'from', 'ap', '##g', 'airports', '?', '[SEP]', '*', '[unused50]', 'airlines', '[unused51]', 'airline', 'id', '[unused51]', 'airline', 'name', '[unused51]', 'abbreviation', '[unused51]', 'country', '[unused50]', 'airports', '[unused51]', 'city', '[unused51]', 'airport', 'code', '[unused49]', 'ap', '##g', '[unused49]', 'cv', '##o', '[unused51]', 'airport', 'name', '[unused51]', 'country', '[unused51]', 'country', 'ab', '##bre', '##v', '[unused50]', 'flights', '[unused51]', 'airline', '[unused51]', 'flight', 'number', '[unused51]', 'source', 'airport', '[unused49]', 'ap', '##g', '[unused49]', 'cv', '##o', '[unused51]', 'destination', 'airport', '[unused49]', 'ap', '##g', '[unused49]', 'cv', '##o', '[SEP]']
-Target 0: b'SELECT T1.Airline FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid  =  T2.Airline WHERE T2.SourceAirport  =  "CVO" EXCEPT SELECT T1.Airline FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid  =  T2.Airline WHERE T2.SourceAirport  =  "APG"'
-Target TF-P tokens: from airlines join flights on airlines.uid = flights.Airline where flights.SourceAirport = "CVO" select airlines.Airline except from airlines join flights on airlines.uid = flights.Airline where flights.SourceAirport = "APG" select airlines.Airline
-
-[WRONG] [extra] Pred 0:	b'SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline JOIN airports ON airports.AirportCode = airports.AirportCode WHERE airports.AirportCode = "CVO" EXCEPT SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline JOIN airports ON airports.AirportCode = flights.SourceAirport WHERE airports.AirportCode = "APG"' (-0.171) (length=48)
-[WRONG] [extra] Pred 1:	b'SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline JOIN airports ON airports.AirportCode = flights.SourceAirport WHERE airports.AirportCode = "CVO" EXCEPT SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline JOIN airports ON airports.AirportCode = flights.SourceAirport WHERE airports.AirportCode = "APG"' (-0.242) (length=48)
- 24%|██▍       | 31/130 [01:14<05:44,  3.48s/it] 25%|██▍       | 32/130 [01:17<05:14,  3.21s/it] 25%|██▌       | 33/130 [01:18<04:11,  2.59s/it] 26%|██▌       | 34/130 [01:20<03:57,  2.47s/it] 27%|██▋       | 35/130 [01:22<03:21,  2.12s/it] 28%|██▊       | 36/130 [01:24<03:33,  2.27s/it] 28%|██▊       | 37/130 [01:25<02:54,  1.87s/it] 29%|██▉       | 38/130 [01:26<02:27,  1.61s/it][WRONG] [extra] Pred 2:	b'SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline JOIN airports ON airports.AirportCode = airports.AirportCode WHERE airports.AirportCode = "CVO" EXCEPT SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline JOIN airports ON airports.AirportCode = airports.AirportCode WHERE airports.AirportCode = "APG"' (-0.293) (length=48)
-[WRONG] [extra] Pred 3:	b'SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline JOIN airports ON airports.AirportCode = airports.AirportCode WHERE airports.AirportCode = "CVO" EXCEPT SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline JOIN airports ON airports.AirportCode = flights.DestAirport WHERE airports.AirportCode = "APG"' (-0.326) (length=48)
-[WRONG] [extra] Pred 4:	b'SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline JOIN airports ON airports.AirportCode = flights.SourceAirport WHERE airports.AirportCode = "CVO" EXCEPT SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline JOIN airports ON airports.AirportCode = airports.AirportCode WHERE airports.AirportCode = "APG"' (-0.362) (length=48)
-[WRONG] [extra] Pred 5:	b'SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline JOIN airports ON airports.AirportCode = flights.DestAirport WHERE airports.AirportCode = "CVO" EXCEPT SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline JOIN airports ON airports.AirportCode = flights.SourceAirport WHERE airports.AirportCode = "APG"' (-0.374) (length=48)
-[WRONG] [extra] Pred 6:	b'SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline JOIN airports ON airports.AirportCode = flights.SourceAirport WHERE airports.AirportCode = "CVO" EXCEPT SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline JOIN airports ON airports.AirportCode = flights.DestAirport WHERE airports.AirportCode = "APG"' (-0.412) (length=48)
-[WRONG] [extra] Pred 7:	b'SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline JOIN airports ON airports.AirportCode = airports.AirportCode WHERE airports.AirportCode = "CVO" EXCEPT SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline JOIN airports ON airports.AirportCode = flights.SourceAirport WHERE flights.SourceAirport = "APG"' (-0.492) (length=48)
-[WRONG] [extra] Pred 8:	b'SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline JOIN airports ON airports.AirportCode = flights.DestAirport WHERE airports.AirportCode = "CVO" EXCEPT SELECT airlines.Airline FROM airlines JOIN flights ON airlines.uid = flights.Airline JOIN airports ON airports.AirportCode = airports.AirportCode WHERE airports.AirportCode = "APG"' (-0.495) (length=48)
-Error Case 8
-
-Example 257
-flight_2
- +-- airlines (airlines)
- |   +-- uid (airline id) [PRIMARY]
- |   +-- Airline (airline name) [FOREIGN]
- |   +-- Abbreviation (abbreviation)
- |   +-- Country (country)
- +-- airports (airports)
- |   +-- AirportCode (airport code) [PRIMARY] [FOREIGN]
- |   +-- City (city)
- |   +-- AirportName (airport name)
- |   +-- Country (country)
- |   +-- CountryAbbrev (country abbrev)
- +-- flights (flights)
-     +-- Airline (airline) [PRIMARY] [FOREIGN]
-     +-- FlightNo (flight number)
-     +-- SourceAirport (source airport) [FOREIGN]
-     +-- DestAirport (destination airport) [FOREIGN]
-NL: b'Find the name of airports which do not have any flight in and out.'
-NL tokens: [b'find', b'the', b'name', b'of', b'airports', b'which', b'do', b'not', b'have', b'any', b'flight', b'in', b'and', b'out', b'.']
-NL tokens (original): [b'Find', b'the', b'name', b'of', b'airports', b'which', b'do', b'not', b'have', b'any', b'flight', b'in', b'and', b'out', b'.']
-['[CLS]', 'find', 'the', 'name', 'of', 'airports', 'which', 'do', 'not', 'have', 'any', 'flight', 'in', 'and', 'out', '.', '[SEP]', '*', '[unused50]', 'airlines', '[unused51]', 'airline', 'id', '[unused51]', 'airline', 'name', '[unused51]', 'abbreviation', '[unused51]', 'country', '[unused50]', 'airports', '[unused51]', 'city', '[unused51]', 'airport', 'code', '[unused51]', 'airport', 'name', '[unused51]', 'country', '[unused51]', 'country', 'ab', '##bre', '##v', '[unused50]', 'flights', '[unused51]', 'airline', '[unused51]', 'flight', 'number', '[unused51]', 'source', 'airport', '[unused51]', 'destination', 'airport', '[SEP]']
-Target 0: b'SELECT AirportName FROM Airports WHERE AirportCode NOT IN (SELECT SourceAirport FROM Flights UNION SELECT DestAirport FROM Flights)'
-Target TF-P tokens: from airports where airports.AirportCode not in (from flights select flights.SourceAirport union from flights select flights.DestAirport) select airports.AirportName
-
-[WRONG] [hard] Pred 0:	b'SELECT airports.AirportName FROM airports WHERE airports.AirportCode NOT IN (SELECT flights.DestAirport FROM flights)' (-0.057) (length=15)
-[CORRE] [hard] Pred 1:	b'SELECT airports.AirportName FROM airports WHERE airports.AirportCode NOT IN (SELECT flights.SourceAirport FROM flights UNION SELECT flights.DestAirport FROM flights)' (-0.406) (length=20)
-Error Case 9
-
-Example 308
-cre_Doc_Template_Mgt
- +-- Ref_Template_Types (reference template types)
- |   +-- Template_Type_Code (template type code) [PRIMARY] [FOREIGN]
- |   +-- Template_Type_Description (template type description)
- +-- Templates (templates)
- |   +-- Template_ID (template id) [PRIMARY] [FOREIGN]
- |   +-- Version_Number (version number)
- |   +-- Template_Type_Code (template type code) [FOREIGN]
- |   +-- Date_Effective_From (date effective from)
- |   +-- Date_Effective_To (date effective to)
- |   +-- Template_Details (template details)
- +-- Documents (documents)
- |   +-- Document_ID (document id) [PRIMARY] [FOREIGN]
- |   +-- Template_ID (template id) [FOREIGN]
- |   +-- Document_Name (document name)
- |   +-- Document_Description (document description)
- |   +-- Other_Details (other details)
- +-- Paragraphs (paragraphs)
-     +-- Paragraph_ID (paragraph id) [PRIMARY]
-     +-- Document_ID (document id) [FOREIGN]
-     +-- Paragraph_Text (paragraph text)
-     +-- Other_Details (other details)
-NL: b'Count the number of documents that use the PPT template type.'
-NL tokens: [b'count', b'the', b'number', b'of', b'documents', b'that', b'use', b'the', b'pp', b'##t', b'template', b'type', b'.']
-NL tokens (original): [b'Count', b'the', b'number', b'of', b'documents', b'that', b'use', b'the', b'PP', b'##T', b'template', b'type', b'.']
-['[CLS]', 'count', 'the', 'number', 'of', 'documents', 'that', 'use', 'the', 'pp', '##t', 'template', 'type', '.', '[SEP]', '*', '[unused50]', 'reference', 'template', 'types', '[unused51]', 'template', 'type', 'code', '[unused49]', 'pp', '##t', '[unused51]', 'template', 'type', 'description', '[unused50]', 'template', '##s', '[unused51]', 'template', 'id', '[unused51]', 'version', 'number', '[unused51]', 'template', 'type', 'code', '[unused49]', 'pp', '##t', '[unused51]', 'date', 'effective', 'from', '[unused51]', 'date', 'effective', 'to', '[unused51]', 'template', 'details', '[unused50]', 'documents', '[unused51]', 'document', 'id', '[unused51]', 'template', 'id', '[unused51]', 'document', 'name', '[unused51]', 'document', 'description', '[unused51]', 'other', 'details', '[unused50]', 'paragraph', '##s', '[unused51]', 'paragraph', 'id', '[unused51]', 'document', 'id', '[unused51]', 'paragraph', 'text', '[unused51]', 'other', 'details', '[SEP]']
-Target 0: b"SELECT count(*) FROM Documents AS T1 JOIN Templates AS T2 ON T1.Template_ID  =  T2.Template_ID WHERE T2.Template_Type_Code  =  'PPT'"
-Target TF-P tokens: from Documents join Templates on Documents.Template_ID = Templates.Template_ID where Templates.Template_Type_Code = "PPT" select count (*)
-
-[WRONG] [medium] Pred 0:	b'SELECT COUNT(*) FROM Documents WHERE Documents.Template_ID = (SELECT * FROM Templates WHERE Templates.Template_Type_Code = "PPT")' (-0.198) (length=24)
- 30%|███       | 39/130 [01:29<02:50,  1.87s/it] 31%|███       | 40/130 [01:30<02:25,  1.62s/it] 32%|███▏      | 41/130 [01:31<02:10,  1.47s/it] 32%|███▏      | 42/130 [01:33<02:30,  1.71s/it] 33%|███▎      | 43/130 [01:34<02:13,  1.54s/it] 34%|███▍      | 44/130 [01:35<02:06,  1.47s/it] 35%|███▍      | 45/130 [01:38<02:32,  1.79s/it] 35%|███▌      | 46/130 [01:39<02:12,  1.58s/it] 36%|███▌      | 47/130 [01:40<01:51,  1.34s/it] 37%|███▋      | 48/130 [01:42<02:18,  1.69s/it] 38%|███▊      | 49/130 [01:44<02:02,  1.52s/it] 38%|███▊      | 50/130 [01:45<01:49,  1.36s/it] 39%|███▉      | 51/130 [01:47<02:10,  1.65s/it] 40%|████      | 52/130 [01:48<01:58,  1.52s/it] 41%|████      | 53/130 [01:51<02:19,  1.82s/it] 42%|████▏     | 54/130 [01:52<02:09,  1.71s/it] 42%|████▏     | 55/130 [01:53<01:54,  1.52s/it] 43%|████▎     | 56/130 [01:55<02:07,  1.72s/it] 44%|████▍     | 57/130 [01:57<02:01,  1.67s/it] 45%|████▍     | 58/130 [01:59<02:14,  1.87s/it] 45%|████▌     | 59/130 [02:00<01:56,  1.64s/it] 46%|████▌     | 60/130 [02:01<01:42,  1.46s/it] 47%|████▋     | 61/130 [02:04<02:08,  1.86s/it] 48%|████▊     | 62/130 [02:05<01:50,  1.63s/it] 48%|████▊     | 63/130 [02:08<02:07,  1.90s/it] 49%|████▉     | 64/130 [02:09<01:55,  1.74s/it] 50%|█████     | 65/130 [02:11<01:46,  1.64s/it] 51%|█████     | 66/130 [02:13<02:01,  1.89s/it] 52%|█████▏    | 67/130 [02:14<01:50,  1.76s/it][CORRE] [medium] Pred 1:	b'SELECT COUNT(*) FROM Documents JOIN Templates ON Documents.Template_ID = Templates.Template_ID WHERE Templates.Template_Type_Code = "PPT"' (-0.561) (length=21)
-Error Case 10
-
-Parsing error: from Students join Student_Enrolment on Students.student_id = Student_Enrolment.student_id group by Students.student_id select , Students.first_name , Students.middle_name , Students.last_name , count (*) , Students.student_id order by count (*) desc limit 1
-Parsing error: from Students join Student_Enrolment on Students.student_id = Student_Enrolment.student_id group by Students.student_id select , Students.first_name , Students.middle_name , Students.student_id , count (*) , count (*) , Students.student_id
-Parsing error: from Students join Student_Enrolment on Students.student_id = Student_Enrolment.student_id group by Students.student_id select , Students.first_name , Students.middle_name , Students.last_name , count (*) , Students.student_id , count (*) , Students.student_id
-Parsing error: from Students join Student_Enrolment on Students.student_id = Student_Enrolment.student_id group by Students.student_id select , Students.first_name , Students.middle_name , Students.student_id , count (*) order by count (*) desc limit 1
-Example 541
-student_transcripts_tracking
- +-- Addresses (addresses)
- |   +-- address_id (address id) [PRIMARY] [FOREIGN]
- |   +-- line_1 (line 1)
- |   +-- line_2 (line 2)
- |   +-- line_3 (line 3)
- |   +-- city (city)
- |   +-- zip_postcode (zip postcode)
- |   +-- state_province_county (state province county)
- |   +-- country (country)
- |   +-- other_address_details (other address details)
- +-- Courses (courses)
- |   +-- course_id (course id) [PRIMARY] [FOREIGN]
- |   +-- course_name (course name)
- |   +-- course_description (course description)
- |   +-- other_details (other details)
- +-- Departments (departments)
- |   +-- department_id (department id) [PRIMARY] [FOREIGN]
- |   +-- department_name (department name)
- |   +-- department_description (department description)
- |   +-- other_details (other details)
- +-- Degree_Programs (degree programs)
- |   +-- degree_program_id (degree program id) [PRIMARY] [FOREIGN]
- |   +-- department_id (department id) [FOREIGN]
- |   +-- degree_summary_name (degree summary name)
- |   +-- degree_summary_description (degree summary description)
- |   +-- other_details (other details)
- +-- Sections (sections)
- |   +-- section_id (section id) [PRIMARY]
- |   +-- course_id (course id) [FOREIGN]
- |   +-- section_name (section name)
- |   +-- section_description (section description)
- |   +-- other_details (other details)
- +-- Semesters (semesters)
- |   +-- semester_id (semester id) [PRIMARY] [FOREIGN]
- |   +-- semester_name (semester name)
- |   +-- semester_description (semester description)
- |   +-- other_details (other details)
- +-- Students (students)
- |   +-- student_id (student id) [PRIMARY] [FOREIGN]
- |   +-- current_address_id (current address id) [FOREIGN]
- |   +-- permanent_address_id (permanent address id) [FOREIGN]
- |   +-- first_name (first name)
- |   +-- middle_name (middle name)
- |   +-- last_name (last name)
- |   +-- cell_mobile_number (cell mobile number)
- |   +-- email_address (email address)
- |   +-- ssn (ssn)
- |   +-- date_first_registered (date first registered)
- |   +-- date_left (date left)
- |   +-- other_student_details (other student details)
- +-- Student_Enrolment (student enrolment)
- |   +-- student_enrolment_id (student enrolment id) [PRIMARY] [FOREIGN]
- |   +-- degree_program_id (degree program id) [FOREIGN]
- |   +-- semester_id (semester id) [FOREIGN]
- |   +-- student_id (student id) [FOREIGN]
- |   +-- other_details (other details)
- +-- Student_Enrolment_Courses (student enrolment courses)
- |   +-- student_course_id (student course id) [PRIMARY] [FOREIGN]
- |   +-- course_id (course id) [FOREIGN]
- |   +-- student_enrolment_id (student enrolment id) [FOREIGN]
- +-- Transcripts (transcripts)
- |   +-- transcript_id (transcript id) [PRIMARY] [FOREIGN]
- |   +-- transcript_date (transcript date)
- |   +-- other_details (other details)
- +-- Transcript_Contents (transcript contents)
-     +-- student_course_id (student course id) [FOREIGN]
-     +-- transcript_id (transcript id) [FOREIGN]
-NL: b'Which student has enrolled for the most times in any program? List the id, first name, middle name, last name, the number of enrollments and student id.'
-NL tokens: [b'which', b'student', b'has', b'enrolled', b'for', b'the', b'most', b'times', b'in', b'any', b'program', b'?', b'list', b'the', b'id', b',', b'first', b'name', b',', b'middle', b'name', b',', b'last', b'name', b',', b'the', b'number', b'of', b'enrollment', b'##s', b'and', b'student', b'id', b'.']
-NL tokens (original): [b'Which', b'student', b'has', b'enrolled', b'for', b'the', b'most', b'times', b'in', b'any', b'program', b'?', b'List', b'the', b'id', b',', b'first', b'name', b',', b'middle', b'name', b',', b'last', b'name', b',', b'the', b'number', b'of', b'enrollment', b'##s', b'and', b'student', b'id', b'.']
-['[CLS]', 'which', 'student', 'has', 'enrolled', 'for', 'the', 'most', 'times', 'in', 'any', 'program', '?', 'list', 'the', 'id', ',', 'first', 'name', ',', 'middle', 'name', ',', 'last', 'name', ',', 'the', 'number', 'of', 'enrollment', '##s', 'and', 'student', 'id', '.', '[SEP]', '*', '[unused50]', 'addresses', '[unused51]', 'address', 'id', '[unused51]', 'line', '1', '[unused51]', 'line', '2', '[unused51]', 'line', '3', '[unused51]', 'city', '[unused51]', 'zip', 'post', '##code', '[unused51]', 'state', 'province', 'county', '[unused51]', 'country', '[unused51]', 'other', 'address', 'details', '[unused50]', 'courses', '[unused51]', 'course', 'id', '[unused51]', 'course', 'name', '[unused51]', 'course', 'description', '[unused51]', 'other', 'details', '[unused50]', 'departments', '[unused51]', 'department', 'id', '[unused51]', 'department', 'name', '[unused51]', 'department', 'description', '[unused51]', 'other', 'details', '[unused50]', 'degree', 'programs', '[unused51]', 'degree', 'program', 'id', '[unused51]', 'department', 'id', '[unused51]', 'degree', 'summary', 'name', '[unused51]', 'degree', 'summary', 'description', '[unused51]', 'other', 'details', '[unused50]', 'sections', '[unused51]', 'section', 'id', '[unused51]', 'course', 'id', '[unused51]', 'section', 'name', '[unused51]', 'section', 'description', '[unused51]', 'other', 'details', '[unused50]', 'semester', '##s', '[unused51]', 'semester', 'id', '[unused51]', 'semester', 'name', '[unused51]', 'semester', 'description', '[unused51]', 'other', 'details', '[unused50]', 'students', '[unused51]', 'student', 'id', '[unused51]', 'current', 'address', 'id', '[unused51]', 'permanent', 'address', 'id', '[unused51]', 'first', 'name', '[unused51]', 'middle', 'name', '[unused51]', 'last', 'name', '[unused51]', 'cell', 'mobile', 'number', '[unused51]', 'email', 'address', '[unused51]', 'ss', '##n', '[unused51]', 'date', 'first', 'registered', '[unused51]', 'date', 'left', '[unused51]', 'other', 'student', 'details', '[unused50]', 'student', 'en', '##rol', '##ment', '[unused51]', 'student', 'en', '##rol', '##ment', 'id', '[unused51]', 'degree', 'program', 'id', '[unused51]', 'semester', 'id', '[unused51]', 'student', 'id', '[unused51]', 'other', 'details', '[unused50]', 'student', 'en', '##rol', '##ment', 'courses', '[unused51]', 'student', 'course', 'id', '[unused51]', 'course', 'id', '[unused51]', 'student', 'en', '##rol', '##ment', 'id', '[unused50]', 'transcript', '##s', '[unused51]', 'transcript', 'id', '[unused51]', 'transcript', 'date', '[unused51]', 'other', 'details', '[unused50]', 'transcript', 'contents', '[unused51]', 'student', 'course', 'id', '[unused51]', 'transcript', 'id', '[SEP]']
-Target 0: b'SELECT T1.student_id ,  T1.first_name ,  T1.middle_name ,  T1.last_name ,  count(*) ,  T1.student_id FROM Students AS T1 JOIN Student_Enrolment AS T2 ON T1.student_id  =  T2.student_id GROUP BY T1.student_id ORDER BY count(*) DESC LIMIT 1'
-Target TF-P tokens: from Students join Student_Enrolment on Students.student_id = Student_Enrolment.student_id group by Students.student_id select Students.student_id , Students.first_name , Students.middle_name , Students.last_name , count (*) , Students.student_id order by count (*) desc limit 1
-
-[WRONG] [extra] Pred 0:	b'SELECT COUNT(*), Students.first_name, Students.last_name, Students.student_id FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id' (-0.283) (length=29)
-[WRONG] [extra] Pred 1:	b'SELECT Students.first_name, Students.middle_name, Students.last_name, COUNT(*), Students.student_id FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.360) (length=32)
-[WRONG] [extra] Pred 2:	b'SELECT *, Students.first_name, Students.last_name, COUNT(*), Students.student_id FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.472) (length=32)
-[WRONG] [extra] Pred 3:	b'SELECT Students.first_name, Students.middle_name, Students.last_name, COUNT(*), Students.student_id FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id' (-0.484) (length=31)
-[WRONG] [extra] Pred 4:	b'SELECT Students.first_name, Students.middle_name, Students.student_id, COUNT(*) FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id' (-0.485) (length=29)
-[WRONG] [extra] Pred 5:	b'SELECT Students.first_name, Students.middle_name, Students.last_name, COUNT(*), Students.student_id FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.534) (length=37)
-[WRONG] [extra] Pred 6:	b'SELECT COUNT(*), Students.first_name, Students.middle_name, Students.last_name, Students.student_id FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id' (-0.585) (length=31)
-[WRONG] [extra] Pred 7:	b'SELECT *, Students.middle_name, Students.last_name, COUNT(*), Students.student_id FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.609) (length=32)
-[WRONG] [extra] Pred 8:	b'SELECT COUNT(*), Students.first_name, Students.student_id FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id' (-0.631) (length=27)
-[WRONG] [extra] Pred 9:	b'SELECT Students.first_name, Students.middle_name, Students.student_id, COUNT(*) FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.636) (length=30)
-[WRONG] [extra] Pred 10:	b'SELECT Students.first_name, Students.middle_name, Students.last_name, COUNT(*), Students.student_id FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id' (-0.698) (length=29)
-[WRONG] [extra] Pred 11:	b'SELECT *, Students.first_name, Students.student_id, COUNT(*) FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id' (-0.702) (length=29)
-Error Case 11
-
-Example 542
-student_transcripts_tracking
- +-- Addresses (addresses)
- |   +-- address_id (address id) [PRIMARY] [FOREIGN]
- |   +-- line_1 (line 1)
- |   +-- line_2 (line 2)
- |   +-- line_3 (line 3)
- |   +-- city (city)
- |   +-- zip_postcode (zip postcode)
- |   +-- state_province_county (state province county)
- |   +-- country (country)
- |   +-- other_address_details (other address details)
- +-- Courses (courses)
- |   +-- course_id (course id) [PRIMARY] [FOREIGN]
- |   +-- course_name (course name)
- |   +-- course_description (course description)
- |   +-- other_details (other details)
- +-- Departments (departments)
- |   +-- department_id (department id) [PRIMARY] [FOREIGN]
- |   +-- department_name (department name)
- |   +-- department_description (department description)
- |   +-- other_details (other details)
- +-- Degree_Programs (degree programs)
- |   +-- degree_program_id (degree program id) [PRIMARY] [FOREIGN]
- |   +-- department_id (department id) [FOREIGN]
- |   +-- degree_summary_name (degree summary name)
- |   +-- degree_summary_description (degree summary description)
- |   +-- other_details (other details)
- +-- Sections (sections)
- |   +-- section_id (section id) [PRIMARY]
- |   +-- course_id (course id) [FOREIGN]
- |   +-- section_name (section name)
- |   +-- section_description (section description)
- |   +-- other_details (other details)
- +-- Semesters (semesters)
- |   +-- semester_id (semester id) [PRIMARY] [FOREIGN]
- |   +-- semester_name (semester name)
- |   +-- semester_description (semester description)
- |   +-- other_details (other details)
- +-- Students (students)
- |   +-- student_id (student id) [PRIMARY] [FOREIGN]
- |   +-- current_address_id (current address id) [FOREIGN]
- |   +-- permanent_address_id (permanent address id) [FOREIGN]
- |   +-- first_name (first name)
- |   +-- middle_name (middle name)
- |   +-- last_name (last name)
- |   +-- cell_mobile_number (cell mobile number)
- |   +-- email_address (email address)
- |   +-- ssn (ssn)
- |   +-- date_first_registered (date first registered)
- |   +-- date_left (date left)
- |   +-- other_student_details (other student details)
- +-- Student_Enrolment (student enrolment)
- |   +-- student_enrolment_id (student enrolment id) [PRIMARY] [FOREIGN]
- |   +-- degree_program_id (degree program id) [FOREIGN]
- |   +-- semester_id (semester id) [FOREIGN]
- |   +-- student_id (student id) [FOREIGN]
- |   +-- other_details (other details)
- +-- Student_Enrolment_Courses (student enrolment courses)
- |   +-- student_course_id (student course id) [PRIMARY] [FOREIGN]
- |   +-- course_id (course id) [FOREIGN]
- |   +-- student_enrolment_id (student enrolment id) [FOREIGN]
- +-- Transcripts (transcripts)
- |   +-- transcript_id (transcript id) [PRIMARY] [FOREIGN]
- |   +-- transcript_date (transcript date)
- |   +-- other_details (other details)
- +-- Transcript_Contents (transcript contents)
-     +-- student_course_id (student course id) [FOREIGN]
-     +-- transcript_id (transcript id) [FOREIGN]
-NL: b'What is the first, middle, and last name, along with the id and number of enrollments, for the student who enrolled the most in any program?'
-NL tokens: [b'what', b'is', b'the', b'first', b',', b'middle', b',', b'and', b'last', b'name', b',', b'along', b'with', b'the', b'id', b'and', b'number', b'of', b'enrollment', b'##s', b',', b'for', b'the', b'student', b'who', b'enrolled', b'the', b'most', b'in', b'any', b'program', b'?']
-NL tokens (original): [b'What', b'is', b'the', b'first', b',', b'middle', b',', b'and', b'last', b'name', b',', b'along', b'with', b'the', b'id', b'and', b'number', b'of', b'enrollment', b'##s', b',', b'for', b'the', b'student', b'who', b'enrolled', b'the', b'most', b'in', b'any', b'program', b'?']
- 52%|█████▏    | 68/130 [02:24<04:15,  4.11s/it] 53%|█████▎    | 69/130 [02:26<03:25,  3.36s/it] 54%|█████▍    | 70/130 [02:28<03:09,  3.15s/it] 55%|█████▍    | 71/130 [02:30<02:31,  2.57s/it] 55%|█████▌    | 72/130 [02:31<02:11,  2.27s/it] 56%|█████▌    | 73/130 [02:34<02:14,  2.36s/it] 57%|█████▋    | 74/130 [02:35<01:48,  1.94s/it] 58%|█████▊    | 75/130 [02:37<01:55,  2.09s/it] 58%|█████▊    | 76/130 [02:38<01:33,  1.73s/it] 59%|█████▉    | 77/130 [02:39<01:22,  1.56s/it] 60%|██████    | 78/130 [02:40<01:12,  1.39s/it] 61%|██████    | 79/130 [02:42<01:25,  1.67s/it] 62%|██████▏   | 80/130 [02:44<01:19,  1.58s/it] 62%|██████▏   | 81/130 [02:46<01:32,  1.88s/it] 63%|██████▎   | 82/130 [02:47<01:16,  1.60s/it] 64%|██████▍   | 83/130 [02:48<01:04,  1.38s/it] 65%|██████▍   | 84/130 [02:49<01:00,  1.31s/it] 65%|██████▌   | 85/130 [02:52<01:11,  1.60s/it] 66%|██████▌   | 86/130 [02:53<01:03,  1.44s/it] 67%|██████▋   | 87/130 [02:54<00:55,  1.30s/it] 68%|██████▊   | 88/130 [02:57<01:15,  1.79s/it] 68%|██████▊   | 89/130 [02:58<01:03,  1.56s/it] 69%|██████▉   | 90/130 [03:00<01:13,  1.83s/it] 70%|███████   | 91/130 [03:01<01:05,  1.67s/it] 71%|███████   | 92/130 [03:04<01:12,  1.92s/it]['[CLS]', 'what', 'is', 'the', 'first', ',', 'middle', ',', 'and', 'last', 'name', ',', 'along', 'with', 'the', 'id', 'and', 'number', 'of', 'enrollment', '##s', ',', 'for', 'the', 'student', 'who', 'enrolled', 'the', 'most', 'in', 'any', 'program', '?', '[SEP]', '*', '[unused50]', 'addresses', '[unused51]', 'address', 'id', '[unused51]', 'line', '1', '[unused51]', 'line', '2', '[unused51]', 'line', '3', '[unused51]', 'city', '[unused51]', 'zip', 'post', '##code', '[unused51]', 'state', 'province', 'county', '[unused51]', 'country', '[unused51]', 'other', 'address', 'details', '[unused50]', 'courses', '[unused51]', 'course', 'id', '[unused51]', 'course', 'name', '[unused51]', 'course', 'description', '[unused51]', 'other', 'details', '[unused50]', 'departments', '[unused51]', 'department', 'id', '[unused51]', 'department', 'name', '[unused51]', 'department', 'description', '[unused51]', 'other', 'details', '[unused50]', 'degree', 'programs', '[unused51]', 'degree', 'program', 'id', '[unused51]', 'department', 'id', '[unused51]', 'degree', 'summary', 'name', '[unused51]', 'degree', 'summary', 'description', '[unused51]', 'other', 'details', '[unused50]', 'sections', '[unused51]', 'section', 'id', '[unused51]', 'course', 'id', '[unused51]', 'section', 'name', '[unused51]', 'section', 'description', '[unused51]', 'other', 'details', '[unused50]', 'semester', '##s', '[unused51]', 'semester', 'id', '[unused51]', 'semester', 'name', '[unused51]', 'semester', 'description', '[unused51]', 'other', 'details', '[unused50]', 'students', '[unused51]', 'student', 'id', '[unused51]', 'current', 'address', 'id', '[unused51]', 'permanent', 'address', 'id', '[unused51]', 'first', 'name', '[unused51]', 'middle', 'name', '[unused51]', 'last', 'name', '[unused51]', 'cell', 'mobile', 'number', '[unused51]', 'email', 'address', '[unused51]', 'ss', '##n', '[unused51]', 'date', 'first', 'registered', '[unused51]', 'date', 'left', '[unused51]', 'other', 'student', 'details', '[unused50]', 'student', 'en', '##rol', '##ment', '[unused51]', 'student', 'en', '##rol', '##ment', 'id', '[unused51]', 'degree', 'program', 'id', '[unused51]', 'semester', 'id', '[unused51]', 'student', 'id', '[unused51]', 'other', 'details', '[unused50]', 'student', 'en', '##rol', '##ment', 'courses', '[unused51]', 'student', 'course', 'id', '[unused51]', 'course', 'id', '[unused51]', 'student', 'en', '##rol', '##ment', 'id', '[unused50]', 'transcript', '##s', '[unused51]', 'transcript', 'id', '[unused51]', 'transcript', 'date', '[unused51]', 'other', 'details', '[unused50]', 'transcript', 'contents', '[unused51]', 'student', 'course', 'id', '[unused51]', 'transcript', 'id', '[SEP]']
-Target 0: b'SELECT T1.student_id ,  T1.first_name ,  T1.middle_name ,  T1.last_name ,  count(*) ,  T1.student_id FROM Students AS T1 JOIN Student_Enrolment AS T2 ON T1.student_id  =  T2.student_id GROUP BY T1.student_id ORDER BY count(*) DESC LIMIT 1'
-Target TF-P tokens: from Students join Student_Enrolment on Students.student_id = Student_Enrolment.student_id group by Students.student_id select Students.student_id , Students.first_name , Students.middle_name , Students.last_name , count (*) , Students.student_id order by count (*) desc limit 1
-
-[WRONG] [extra] Pred 0:	b'SELECT Students.student_id, Students.first_name, Students.middle_name, Students.last_name, COUNT(*) FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.239) (length=32)
-[WRONG] [extra] Pred 1:	b'SELECT Students.student_id, Students.first_name, Students.middle_name, Students.last_name, COUNT(*) FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.254) (length=34)
-[WRONG] [extra] Pred 2:	b'SELECT Students.student_id, Students.first_name, Students.middle_name, COUNT(*) FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.267) (length=32)
-[WRONG] [extra] Pred 3:	b'SELECT COUNT(*), Students.middle_name, Students.last_name, Students.student_id FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.309) (length=30)
-[WRONG] [extra] Pred 4:	b'SELECT Students.student_id, Students.first_name, Students.middle_name, Students.last_name, COUNT(*) FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.407) (length=37)
-[WRONG] [extra] Pred 5:	b'SELECT COUNT(*), Students.middle_name, Students.last_name, Students.student_id FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.492) (length=32)
-[WRONG] [extra] Pred 6:	b'SELECT Students.student_id, Students.first_name, Students.middle_name, Students.last_name, COUNT(*), MAX(*) FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.507) (length=37)
-[WRONG] [extra] Pred 7:	b'SELECT Students.student_id, Students.first_name, Students.middle_name, COUNT(*) FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.513) (length=30)
-[WRONG] [extra] Pred 8:	b'SELECT COUNT(*), Students.first_name, Students.middle_name, Students.last_name, Students.student_id FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.558) (length=32)
-[WRONG] [extra] Pred 9:	b'SELECT Students.student_id, Students.first_name, Students.last_name, COUNT(*) FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.581) (length=30)
-[WRONG] [extra] Pred 10:	b'SELECT Students.first_name, Students.middle_name, Students.last_name, COUNT(*), Students.student_id FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.635) (length=32)
-[WRONG] [extra] Pred 11:	b'SELECT Students.student_id, Students.first_name, Students.last_name, COUNT(*) FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.648) (length=32)
-[WRONG] [extra] Pred 12:	b'SELECT COUNT(*), Students.first_name, Students.last_name, Students.student_id FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.654) (length=30)
-[WRONG] [extra] Pred 13:	b'SELECT Students.student_id, Students.first_name, Students.middle_name, Students.last_name, COUNT(*), MAX(*) FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id' (-0.825) (length=31)
-[WRONG] [extra] Pred 14:	b'SELECT Students.student_id, Students.middle_name, Students.last_name, COUNT(*) FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.864) (length=30)
-[WRONG] [extra] Pred 15:	b'SELECT MAX(*), Students.middle_name, Students.last_name, Students.student_id FROM Students JOIN Student_Enrolment ON Students.student_id = Student_Enrolment.student_id GROUP BY Students.student_id ORDER BY COUNT(*) DESC LIMIT 1' (-0.865) (length=30)
-Error Case 12
-
-Example 737
- 72%|███████▏  | 93/130 [03:06<01:07,  1.83s/it] 72%|███████▏  | 94/130 [03:09<01:21,  2.26s/it] 73%|███████▎  | 95/130 [03:13<01:41,  2.91s/it] 74%|███████▍  | 96/130 [03:17<01:44,  3.07s/it] 75%|███████▍  | 97/130 [03:20<01:44,  3.18s/it] 75%|███████▌  | 98/130 [03:23<01:37,  3.05s/it] 76%|███████▌  | 99/130 [03:29<02:06,  4.08s/it] 77%|███████▋  | 100/130 [03:31<01:39,  3.33s/it] 78%|███████▊  | 101/130 [03:32<01:15,  2.60s/it] 78%|███████▊  | 102/130 [03:35<01:13,  2.63s/it] 79%|███████▉  | 103/130 [03:36<00:58,  2.16s/it] 80%|████████  | 104/130 [03:36<00:46,  1.77s/it] 81%|████████  | 105/130 [03:39<00:48,  1.92s/it] 82%|████████▏ | 106/130 [03:40<00:41,  1.74s/it]world_1
- +-- city (city)
- |   +-- ID (id) [PRIMARY]
- |   +-- Name (name)
- |   +-- CountryCode (country code) [FOREIGN]
- |   +-- District (district)
- |   +-- Population (population)
- +-- sqlite_sequence (sqlite sequence)
- |   +-- name (name)
- |   +-- seq (seq)
- +-- country (country)
- |   +-- Code (code) [PRIMARY] [FOREIGN]
- |   +-- Name (name)
- |   +-- Continent (continent)
- |   +-- Region (region)
- |   +-- SurfaceArea (surface area)
- |   +-- IndepYear (indepdent year)
- |   +-- Population (population)
- |   +-- LifeExpectancy (life expectancy)
- |   +-- GNP (gnp)
- |   +-- GNPOld (gnp old)
- |   +-- LocalName (local name)
- |   +-- GovernmentForm (government form)
- |   +-- HeadOfState (head of state)
- |   +-- Capital (capital)
- |   +-- Code2 (code2)
- +-- countrylanguage (countrylanguage)
-     +-- CountryCode (countrycode) [PRIMARY] [FOREIGN]
-     +-- Language (language)
-     +-- IsOfficial (is official)
-     +-- Percentage (percentage)
-NL: b'How many languages are spoken in Aruba?'
-NL tokens: [b'how', b'many', b'languages', b'are', b'spoken', b'in', b'ar', b'##uba', b'?']
-NL tokens (original): [b'How', b'many', b'languages', b'are', b'spoken', b'in', b'Ar', b'##uba', b'?']
-['[CLS]', 'how', 'many', 'languages', 'are', 'spoken', 'in', 'ar', '##uba', '?', '[SEP]', '*', '[unused50]', 'city', '[unused51]', 'id', '[unused51]', 'name', '[unused51]', 'country', 'code', '[unused51]', 'district', '[unused51]', 'population', '[unused50]', 'sql', '##ite', 'sequence', '[unused51]', 'name', '[unused51]', 'se', '##q', '[unused50]', 'country', '[unused51]', 'code', '[unused51]', 'name', '[unused49]', 'ar', '##uba', '[unused51]', 'continent', '[unused51]', 'region', '[unused51]', 'surface', 'area', '[unused51]', 'ind', '##ep', '##dent', 'year', '[unused51]', 'population', '[unused51]', 'life', 'expect', '##ancy', '[unused51]', 'g', '##np', '[unused51]', 'g', '##np', 'old', '[unused51]', 'local', 'name', '[unused49]', 'ar', '##uba', '[unused51]', 'government', 'form', '[unused51]', 'head', 'of', 'state', '[unused51]', 'capital', '[unused51]', 'code', '##2', '[unused50]', 'country', '##lang', '##ua', '##ge', '[unused51]', 'country', '##code', '[unused51]', 'language', '[unused51]', 'is', 'official', '[unused51]', 'percentage', '[SEP]']
-Target 0: b'SELECT COUNT(T2.Language) FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T1.Name  =  "Aruba"'
-Target TF-P tokens: from country join countrylanguage on country.Code = countrylanguage.CountryCode where country.Name = "Aruba" select count (countrylanguage.Language)
-
-[WRONG] [medium] Pred 0:	b'SELECT COUNT(*) FROM country JOIN countrylanguage ON country.Code = countrylanguage.CountryCode WHERE country.Name = "Aruba"' (-0.022) (length=21)
-[CORRE] [medium] Pred 1:	b'SELECT COUNT(countrylanguage.Language) FROM country JOIN countrylanguage ON country.Code = countrylanguage.CountryCode WHERE country.Name = "Aruba"' (-0.512) (length=21)
-Error Case 13
-
-Example 850
-orchestra
- +-- conductor (conductor)
- |   +-- Conductor_ID (conductor id) [PRIMARY] [FOREIGN]
- |   +-- Name (name)
- |   +-- Age (age)
- |   +-- Nationality (nationality)
- |   +-- Year_of_Work (year of work)
- +-- orchestra (orchestra)
- |   +-- Orchestra_ID (orchestra id) [PRIMARY] [FOREIGN]
- |   +-- Orchestra (orchestra)
- |   +-- Conductor_ID (conductor id) [FOREIGN]
- |   +-- Record_Company (record company)
- |   +-- Year_of_Founded (year of founded)
- |   +-- Major_Record_Format (major record format)
- +-- performance (performance)
- |   +-- Performance_ID (performance id) [PRIMARY] [FOREIGN]
- |   +-- Orchestra_ID (orchestra id) [FOREIGN]
- |   +-- Type (type)
- |   +-- Date (date)
- |   +-- Official_ratings_(millions) (official ratings (millions))
- |   +-- Weekly_rank (weekly rank)
- |   +-- Share (share)
- +-- show (show)
-     +-- Show_ID (show id)
-     +-- Performance_ID (performance id) [FOREIGN]
-     +-- If_first_show (if first show)
-     +-- Result (result)
-     +-- Attendance (attendance)
-NL: b'Please show the record formats of orchestras in ascending order of count.'
-NL tokens: [b'please', b'show', b'the', b'record', b'formats', b'of', b'orchestras', b'in', b'ascending', b'order', b'of', b'count', b'.']
-NL tokens (original): [b'Please', b'show', b'the', b'record', b'formats', b'of', b'orchestras', b'in', b'ascending', b'order', b'of', b'count', b'.']
-['[CLS]', 'please', 'show', 'the', 'record', 'formats', 'of', 'orchestras', 'in', 'ascending', 'order', 'of', 'count', '.', '[SEP]', '*', '[unused50]', 'conductor', '[unused51]', 'conductor', 'id', '[unused51]', 'name', '[unused51]', 'age', '[unused51]', 'nationality', '[unused51]', 'year', 'of', 'work', '[unused50]', 'orchestra', '[unused51]', 'orchestra', 'id', '[unused51]', 'orchestra', '[unused51]', 'conductor', 'id', '[unused51]', 'record', 'company', '[unused51]', 'year', 'of', 'founded', '[unused51]', 'major', 'record', 'format', '[unused50]', 'performance', '[unused51]', 'performance', 'id', '[unused51]', 'orchestra', 'id', '[unused51]', 'type', '[unused51]', 'date', '[unused51]', 'official', 'ratings', '(', 'millions', ')', '[unused51]', 'weekly', 'rank', '[unused51]', 'share', '[unused50]', 'show', '[unused51]', 'show', 'id', '[unused51]', 'performance', 'id', '[unused51]', 'if', 'first', 'show', '[unused51]', 'result', '[unused51]', 'attendance', '[SEP]']
-Target 0: b'SELECT Major_Record_Format FROM orchestra GROUP BY Major_Record_Format ORDER BY COUNT(*) ASC'
-Target TF-P tokens: from orchestra group by orchestra.Major_Record_Format select orchestra.Major_Record_Format order by count (*) asc
-
-[WRONG] [medium] Pred 0:	b'SELECT orchestra.Major_Record_Format FROM orchestra GROUP BY orchestra.Major_Record_Format ORDER BY COUNT(*) DESC LIMIT 1' (-0.071) (length=15)
-[WRONG] [medium] Pred 1:	b'SELECT orchestra.Major_Record_Format FROM orchestra GROUP BY orchestra.Major_Record_Format ORDER BY COUNT(*) DESC' (-0.545) (length=13)
-[WRONG] [medium] Pred 2:	b'SELECT orchestra.Major_Record_Format FROM orchestra GROUP BY orchestra.Major_Record_Format ORDER BY COUNT(*) ASC LIMIT 1' (-0.959) (length=15)
-[CORRE] [medium] Pred 3:	b'SELECT orchestra.Major_Record_Format FROM orchestra GROUP BY orchestra.Major_Record_Format ORDER BY COUNT(*) ASC' (-1.508) (length=13)
-Error Case 14
-
-Example 851
-orchestra
- +-- conductor (conductor)
- |   +-- Conductor_ID (conductor id) [PRIMARY] [FOREIGN]
- |   +-- Name (name)
- |   +-- Age (age)
- |   +-- Nationality (nationality)
- |   +-- Year_of_Work (year of work)
- +-- orchestra (orchestra)
- |   +-- Orchestra_ID (orchestra id) [PRIMARY] [FOREIGN]
- |   +-- Orchestra (orchestra)
- |   +-- Conductor_ID (conductor id) [FOREIGN]
- |   +-- Record_Company (record company)
- |   +-- Year_of_Founded (year of founded)
- |   +-- Major_Record_Format (major record format)
- +-- performance (performance)
- |   +-- Performance_ID (performance id) [PRIMARY] [FOREIGN]
- |   +-- Orchestra_ID (orchestra id) [FOREIGN]
- |   +-- Type (type)
- |   +-- Date (date)
- |   +-- Official_ratings_(millions) (official ratings (millions))
- |   +-- Weekly_rank (weekly rank)
- |   +-- Share (share)
- +-- show (show)
-     +-- Show_ID (show id)
-     +-- Performance_ID (performance id) [FOREIGN]
-     +-- If_first_show (if first show)
-     +-- Result (result)
-     +-- Attendance (attendance)
-NL: b'What are the major record formats of orchestras, sorted by their frequency?'
-NL tokens: [b'what', b'are', b'the', b'major', b'record', b'formats', b'of', b'orchestras', b',', b'sorted', b'by', b'their', b'frequency', b'?']
-NL tokens (original): [b'What', b'are', b'the', b'major', b'record', b'formats', b'of', b'orchestras', b',', b'sorted', b'by', b'their', b'frequency', b'?']
- 82%|████████▏ | 107/130 [03:42<00:43,  1.88s/it] 83%|████████▎ | 108/130 [03:43<00:36,  1.67s/it] 84%|████████▍ | 109/130 [03:44<00:29,  1.42s/it] 85%|████████▍ | 110/130 [03:47<00:35,  1.76s/it] 85%|████████▌ | 111/130 [03:48<00:29,  1.54s/it] 86%|████████▌ | 112/130 [03:50<00:32,  1.83s/it] 87%|████████▋ | 113/130 [03:51<00:27,  1.60s/it] 88%|████████▊ | 114/130 [03:53<00:23,  1.48s/it]['[CLS]', 'what', 'are', 'the', 'major', 'record', 'formats', 'of', 'orchestras', ',', 'sorted', 'by', 'their', 'frequency', '?', '[SEP]', '*', '[unused50]', 'conductor', '[unused51]', 'conductor', 'id', '[unused51]', 'name', '[unused51]', 'age', '[unused51]', 'nationality', '[unused51]', 'year', 'of', 'work', '[unused50]', 'orchestra', '[unused51]', 'orchestra', 'id', '[unused51]', 'orchestra', '[unused51]', 'conductor', 'id', '[unused51]', 'record', 'company', '[unused51]', 'year', 'of', 'founded', '[unused51]', 'major', 'record', 'format', '[unused50]', 'performance', '[unused51]', 'performance', 'id', '[unused51]', 'orchestra', 'id', '[unused51]', 'type', '[unused51]', 'date', '[unused51]', 'official', 'ratings', '(', 'millions', ')', '[unused51]', 'weekly', 'rank', '[unused51]', 'share', '[unused50]', 'show', '[unused51]', 'show', 'id', '[unused51]', 'performance', 'id', '[unused51]', 'if', 'first', 'show', '[unused51]', 'result', '[unused51]', 'attendance', '[SEP]']
-Target 0: b'SELECT Major_Record_Format FROM orchestra GROUP BY Major_Record_Format ORDER BY COUNT(*) ASC'
-Target TF-P tokens: from orchestra group by orchestra.Major_Record_Format select orchestra.Major_Record_Format order by count (*) asc
-
-[WRONG] [medium] Pred 0:	b'SELECT orchestra.Major_Record_Format FROM orchestra GROUP BY orchestra.Major_Record_Format ORDER BY COUNT(*) ASC LIMIT 1' (-0.065) (length=15)
-[CORRE] [medium] Pred 1:	b'SELECT orchestra.Major_Record_Format FROM orchestra GROUP BY orchestra.Major_Record_Format ORDER BY COUNT(*) ASC' (-0.508) (length=13)
-Error Case 15
-
-Parsing error: from Highschooler where Highschooler.ID in (from Friend join Highschooler on Friend.student_id = Highschooler.ID select min (Friend.student_id) select avg (Highschooler.grade)
-Example 914
-network_1
- +-- Highschooler (high schooler)
- |   +-- ID (id) [PRIMARY] [FOREIGN]
- |   +-- name (name)
- |   +-- grade (grade)
- +-- Friend (friend)
- |   +-- student_id (student id) [PRIMARY] [FOREIGN]
- |   +-- friend_id (friend id) [FOREIGN]
- +-- Likes (likes)
-     +-- student_id (student id) [PRIMARY] [FOREIGN]
-     +-- liked_id (liked id) [FOREIGN]
-NL: b'Find the average grade of all students who have some friends.'
-NL tokens: [b'find', b'the', b'average', b'grade', b'of', b'all', b'students', b'who', b'have', b'some', b'friends', b'.']
-NL tokens (original): [b'Find', b'the', b'average', b'grade', b'of', b'all', b'students', b'who', b'have', b'some', b'friends', b'.']
-['[CLS]', 'find', 'the', 'average', 'grade', 'of', 'all', 'students', 'who', 'have', 'some', 'friends', '.', '[SEP]', '*', '[unused50]', 'high', 'school', '##er', '[unused51]', 'id', '[unused51]', 'name', '[unused51]', 'grade', '[unused50]', 'friend', '[unused51]', 'student', 'id', '[unused51]', 'friend', 'id', '[unused50]', 'likes', '[unused51]', 'student', 'id', '[unused51]', 'liked', 'id', '[SEP]']
-Target 0: b'SELECT avg(grade) FROM Highschooler WHERE id IN (SELECT T1.student_id FROM Friend AS T1 JOIN Highschooler AS T2 ON T1.student_id  =  T2.id)'
-Target TF-P tokens: from Highschooler where Highschooler.ID in (from Friend join Highschooler on Friend.student_id = Highschooler.ID select Friend.student_id) select avg (Highschooler.grade)
-
-[WRONG] [hard] Pred 0:	b'SELECT AVG(Highschooler.grade) FROM Highschooler WHERE Highschooler.ID IN (SELECT MIN(Highschooler.grade) FROM Friend JOIN Highschooler ON Friend.student_id = Highschooler.ID)' (-0.148) (length=26)
-[CORRE] [hard] Pred 1:	b'SELECT AVG(Highschooler.grade) FROM Highschooler WHERE Highschooler.ID IN (SELECT Friend.student_id FROM Friend JOIN Highschooler ON Friend.student_id = Highschooler.ID)' (-0.484) (length=23)
-Error Case 16
-
-Example 915
-network_1
- +-- Highschooler (high schooler)
- |   +-- ID (id) [PRIMARY] [FOREIGN]
- |   +-- name (name)
- |   +-- grade (grade)
- +-- Friend (friend)
- |   +-- student_id (student id) [PRIMARY] [FOREIGN]
- |   +-- friend_id (friend id) [FOREIGN]
- +-- Likes (likes)
-     +-- student_id (student id) [PRIMARY] [FOREIGN]
-     +-- liked_id (liked id) [FOREIGN]
-NL: b'What is the average grade of students who have friends?'
-NL tokens: [b'what', b'is', b'the', b'average', b'grade', b'of', b'students', b'who', b'have', b'friends', b'?']
-NL tokens (original): [b'What', b'is', b'the', b'average', b'grade', b'of', b'students', b'who', b'have', b'friends', b'?']
-['[CLS]', 'what', 'is', 'the', 'average', 'grade', 'of', 'students', 'who', 'have', 'friends', '?', '[SEP]', '*', '[unused50]', 'high', 'school', '##er', '[unused51]', 'id', '[unused51]', 'name', '[unused51]', 'grade', '[unused50]', 'friend', '[unused51]', 'student', 'id', '[unused51]', 'friend', 'id', '[unused50]', 'likes', '[unused51]', 'student', 'id', '[unused51]', 'liked', 'id', '[SEP]']
-Target 0: b'SELECT avg(grade) FROM Highschooler WHERE id IN (SELECT T1.student_id FROM Friend AS T1 JOIN Highschooler AS T2 ON T1.student_id  =  T2.id)'
-Target TF-P tokens: from Highschooler where Highschooler.ID in (from Friend join Highschooler on Friend.student_id = Highschooler.ID select Friend.student_id) select avg (Highschooler.grade)
-
-[WRONG] [hard] Pred 0:	b'SELECT AVG(Highschooler.grade) FROM Highschooler WHERE Highschooler.ID IN (SELECT MIN(Highschooler.grade) FROM Friend JOIN Highschooler ON Friend.student_id = Highschooler.ID)' (-0.218) (length=26)
-[CORRE] [hard] Pred 1:	b'SELECT AVG(Highschooler.grade) FROM Highschooler WHERE Highschooler.ID IN (SELECT Friend.student_id FROM Friend JOIN Highschooler ON Friend.student_id = Highschooler.ID)' (-0.241) (length=23)
-Error Case 17
-
-ERROR: table "Friend" in field expression Friend.student_id is not in the current scope
-ERROR: table "Friend" in field expression Friend.student_id is not in the current scope
-Example 916
-network_1
- +-- Highschooler (high schooler)
- |   +-- ID (id) [PRIMARY] [FOREIGN]
- |   +-- name (name)
- |   +-- grade (grade)
- +-- Friend (friend)
- |   +-- student_id (student id) [PRIMARY] [FOREIGN]
- |   +-- friend_id (friend id) [FOREIGN]
- +-- Likes (likes)
-     +-- student_id (student id) [PRIMARY] [FOREIGN]
-     +-- liked_id (liked id) [FOREIGN]
-NL: b'Find the minimum grade of students who have no friends.'
-NL tokens: [b'find', b'the', b'minimum', b'grade', b'of', b'students', b'who', b'have', b'no', b'friends', b'.']
-NL tokens (original): [b'Find', b'the', b'minimum', b'grade', b'of', b'students', b'who', b'have', b'no', b'friends', b'.']
-['[CLS]', 'find', 'the', 'minimum', 'grade', 'of', 'students', 'who', 'have', 'no', 'friends', '.', '[SEP]', '*', '[unused50]', 'high', 'school', '##er', '[unused51]', 'id', '[unused51]', 'name', '[unused51]', 'grade', '[unused50]', 'friend', '[unused51]', 'student', 'id', '[unused51]', 'friend', 'id', '[unused50]', 'likes', '[unused51]', 'student', 'id', '[unused51]', 'liked', 'id', '[SEP]']
-Target 0: b'SELECT min(grade) FROM Highschooler WHERE id NOT IN (SELECT T1.student_id FROM Friend AS T1 JOIN Highschooler AS T2 ON T1.student_id  =  T2.id)'
-Target TF-P tokens: from Highschooler where Highschooler.ID not in (from Friend join Highschooler on Friend.student_id = Highschooler.ID select Friend.student_id) select min (Highschooler.grade)
-
-[WRONG] [extra] Pred 0:	b'SELECT MIN(Highschooler.grade) FROM Highschooler WHERE Highschooler.ID NOT IN (SELECT MIN(Highschooler.grade) FROM Friend JOIN Highschooler ON Friend.student_id = Highschooler.ID)' (-0.072) (length=27)
-[WRONG] [extra] Pred 1:	b'SELECT Highschooler.grade FROM Highschooler WHERE Highschooler.ID NOT IN (SELECT MIN(Highschooler.grade) FROM Friend JOIN Highschooler ON Friend.student_id = Highschooler.ID)' (-0.436) (length=24)
-[WRONG] [extra] Pred 2:	b'SELECT Highschooler.ID FROM Highschooler WHERE Highschooler.ID NOT IN (SELECT MIN(Highschooler.grade) FROM Friend JOIN Highschooler ON Friend.student_id = Highschooler.ID)' (-0.548) (length=24)
-[WRONG] [extra] Pred 3:	b'SELECT MIN(Highschooler.grade) FROM Highschooler WHERE Highschooler.grade <= (SELECT MIN(Highschooler.grade) FROM Friend JOIN Highschooler ON Friend.student_id = Highschooler.ID)' (-0.647) (length=26)
- 88%|████████▊ | 115/130 [04:01<00:55,  3.70s/it] 89%|████████▉ | 116/130 [04:03<00:42,  3.03s/it] 90%|█████████ | 117/130 [04:06<00:37,  2.90s/it] 91%|█████████ | 118/130 [04:08<00:33,  2.83s/it] 92%|█████████▏| 119/130 [04:10<00:27,  2.49s/it][WRONG] [extra] Pred 4:	b'SELECT MIN(Highschooler.grade) FROM Highschooler WHERE Highschooler.grade NOT IN (SELECT MIN(Highschooler.grade) FROM Friend JOIN Highschooler ON Friend.student_id = Highschooler.ID)' (-0.798) (length=27)
-[WRONG] [extra] Pred 5:	b'SELECT MIN(Highschooler.grade) FROM Highschooler WHERE Highschooler.grade = (SELECT MIN(Highschooler.grade) FROM Friend JOIN Highschooler ON Friend.student_id = Highschooler.ID)' (-0.834) (length=26)
-[CORRE] [extra] Pred 6:	b'SELECT MIN(Highschooler.grade) FROM Highschooler WHERE Highschooler.ID NOT IN (SELECT Friend.student_id FROM Friend JOIN Highschooler ON Friend.student_id = Highschooler.ID)' (-0.839) (length=24)
-Error Case 18
-
-Example 917
-network_1
- +-- Highschooler (high schooler)
- |   +-- ID (id) [PRIMARY] [FOREIGN]
- |   +-- name (name)
- |   +-- grade (grade)
- +-- Friend (friend)
- |   +-- student_id (student id) [PRIMARY] [FOREIGN]
- |   +-- friend_id (friend id) [FOREIGN]
- +-- Likes (likes)
-     +-- student_id (student id) [PRIMARY] [FOREIGN]
-     +-- liked_id (liked id) [FOREIGN]
-NL: b'What is the lowest grade of students who do not have any friends?'
-NL tokens: [b'what', b'is', b'the', b'lowest', b'grade', b'of', b'students', b'who', b'do', b'not', b'have', b'any', b'friends', b'?']
-NL tokens (original): [b'What', b'is', b'the', b'lowest', b'grade', b'of', b'students', b'who', b'do', b'not', b'have', b'any', b'friends', b'?']
-['[CLS]', 'what', 'is', 'the', 'lowest', 'grade', 'of', 'students', 'who', 'do', 'not', 'have', 'any', 'friends', '?', '[SEP]', '*', '[unused50]', 'high', 'school', '##er', '[unused51]', 'id', '[unused51]', 'name', '[unused51]', 'grade', '[unused50]', 'friend', '[unused51]', 'student', 'id', '[unused51]', 'friend', 'id', '[unused50]', 'likes', '[unused51]', 'student', 'id', '[unused51]', 'liked', 'id', '[SEP]']
-Target 0: b'SELECT min(grade) FROM Highschooler WHERE id NOT IN (SELECT T1.student_id FROM Friend AS T1 JOIN Highschooler AS T2 ON T1.student_id  =  T2.id)'
-Target TF-P tokens: from Highschooler where Highschooler.ID not in (from Friend join Highschooler on Friend.student_id = Highschooler.ID select Friend.student_id) select min (Highschooler.grade)
-
-[WRONG] [extra] Pred 0:	b'SELECT MIN(Highschooler.grade) FROM Highschooler WHERE Highschooler.ID NOT IN (SELECT MIN(Highschooler.grade) FROM Friend JOIN Highschooler ON Friend.student_id = Highschooler.ID)' (-0.017) (length=27)
-[WRONG] [extra] Pred 1:	b'SELECT Highschooler.grade FROM Highschooler WHERE Highschooler.ID NOT IN (SELECT MIN(Highschooler.grade) FROM Friend JOIN Highschooler ON Friend.student_id = Highschooler.ID)' (-0.706) (length=24)
-[WRONG] [extra] Pred 2:	b'SELECT MIN(Highschooler.grade) FROM Highschooler WHERE Highschooler.grade NOT IN (SELECT MIN(Highschooler.grade) FROM Friend JOIN Highschooler ON Friend.student_id = Highschooler.ID)' (-0.707) (length=27)
-[WRONG] [extra] Pred 3:	b'SELECT DISTINCT Highschooler.grade FROM Highschooler WHERE Highschooler.ID NOT IN (SELECT MIN(Highschooler.grade) FROM Friend JOIN Highschooler ON Friend.student_id = Highschooler.ID)' (-0.791) (length=25)
-[CORRE] [extra] Pred 4:	b'SELECT MIN(Highschooler.grade) FROM Highschooler WHERE Highschooler.ID NOT IN (SELECT Friend.student_id FROM Friend JOIN Highschooler ON Friend.student_id = Highschooler.ID)' (-0.868) (length=24)
-Error Case 19
-
-'on'
-'on'
-Example 954
-dog_kennels
- +-- Breeds (breeds)
- |   +-- breed_code (breed code) [PRIMARY] [FOREIGN]
- |   +-- breed_name (breed name)
- +-- Charges (charges)
- |   +-- charge_id (charge id) [PRIMARY]
- |   +-- charge_type (charge type)
- |   +-- charge_amount (charge amount)
- +-- Sizes (sizes)
- |   +-- size_code (size code) [PRIMARY] [FOREIGN]
- |   +-- size_description (size description)
- +-- Treatment_Types (treatment types)
- |   +-- treatment_type_code (treatment type code) [PRIMARY] [FOREIGN]
- |   +-- treatment_type_description (treatment type description)
- +-- Owners (owners)
- |   +-- owner_id (owner id) [PRIMARY] [FOREIGN]
- |   +-- first_name (first name)
- |   +-- last_name (last name)
- |   +-- street (street)
- |   +-- city (city)
- |   +-- state (state)
- |   +-- zip_code (zip code)
- |   +-- email_address (email address)
- |   +-- home_phone (home phone)
- |   +-- cell_number (cell number)
- +-- Dogs (dogs)
- |   +-- dog_id (dog id) [PRIMARY] [FOREIGN]
- |   +-- owner_id (owner id) [FOREIGN]
- |   +-- abandoned_yn (abandoned yes or no)
- |   +-- breed_code (breed code) [FOREIGN]
- |   +-- size_code (size code) [FOREIGN]
- |   +-- name (name)
- |   +-- age (age)
- |   +-- date_of_birth (date of birth)
- |   +-- gender (gender)
- |   +-- weight (weight)
- |   +-- date_arrived (date arrived)
- |   +-- date_adopted (date adopted)
- |   +-- date_departed (date departed)
- +-- Professionals (professionals)
- |   +-- professional_id (professional id) [PRIMARY] [FOREIGN]
- |   +-- role_code (role code)
- |   +-- first_name (first name)
- |   +-- street (street)
- |   +-- city (city)
- |   +-- state (state)
- |   +-- zip_code (zip code)
- |   +-- last_name (last name)
- |   +-- email_address (email address)
- |   +-- home_phone (home phone)
- |   +-- cell_number (cell number)
- +-- Treatments (treatments)
-     +-- treatment_id (treatment id) [PRIMARY]
-     +-- dog_id (dog id) [FOREIGN]
-     +-- professional_id (professional id) [FOREIGN]
-     +-- treatment_type_code (treatment type code) [FOREIGN]
-     +-- date_of_treatment (date of treatment)
-     +-- cost_of_treatment (cost of treatment)
-NL: b'List the names of the dogs of the rarest breed and the treatment dates of them.'
-NL tokens: [b'list', b'the', b'names', b'of', b'the', b'dogs', b'of', b'the', b'rare', b'##st', b'breed', b'and', b'the', b'treatment', b'dates', b'of', b'them', b'.']
-NL tokens (original): [b'List', b'the', b'names', b'of', b'the', b'dogs', b'of', b'the', b'rare', b'##st', b'breed', b'and', b'the', b'treatment', b'dates', b'of', b'them', b'.']
-['[CLS]', 'list', 'the', 'names', 'of', 'the', 'dogs', 'of', 'the', 'rare', '##st', 'breed', 'and', 'the', 'treatment', 'dates', 'of', 'them', '.', '[SEP]', '*', '[unused50]', 'breeds', '[unused51]', 'breed', 'code', '[unused51]', 'breed', 'name', '[unused50]', 'charges', '[unused51]', 'charge', 'id', '[unused51]', 'charge', 'type', '[unused51]', 'charge', 'amount', '[unused50]', 'sizes', '[unused51]', 'size', 'code', '[unused51]', 'size', 'description', '[unused50]', 'treatment', 'types', '[unused51]', 'treatment', 'type', 'code', '[unused51]', 'treatment', 'type', 'description', '[unused50]', 'owners', '[unused51]', 'owner', 'id', '[unused51]', 'first', 'name', '[unused51]', 'last', 'name', '[unused51]', 'street', '[unused51]', 'city', '[unused51]', 'state', '[unused51]', 'zip', 'code', '[unused51]', 'email', 'address', '[unused51]', 'home', 'phone', '[unused51]', 'cell', 'number', '[unused50]', 'dogs', '[unused51]', 'dog', 'id', '[unused51]', 'owner', 'id', '[unused51]', 'abandoned', 'yes', 'or', 'no', '[unused51]', 'breed', 'code', '[unused51]', 'size', 'code', '[unused51]', 'name', '[unused51]', 'age', '[unused51]', 'date', 'of', 'birth', '[unused51]', 'gender', '[unused51]', 'weight', '[unused51]', 'date', 'arrived', '[unused51]', 'date', 'adopted', '[unused51]', 'date', 'departed', '[unused50]', 'professionals', '[unused51]', 'professional', 'id', '[unused51]', 'role', 'code', '[unused51]', 'first', 'name', '[unused51]', 'street', '[unused51]', 'city', '[unused51]', 'state', '[unused51]', 'zip', 'code', '[unused51]', 'last', 'name', '[unused51]', 'email', 'address', '[unused51]', 'home', 'phone', '[unused51]', 'cell', 'number', '[unused50]', 'treatments', '[unused51]', 'treatment', 'id', '[unused51]', 'dog', 'id', '[unused51]', 'professional', 'id', '[unused51]', 'treatment', 'type', 'code', '[unused51]', 'date', 'of', 'treatment', '[unused51]', 'cost', 'of', 'treatment', '[SEP]']
-Target 0: b'SELECT T1.name ,  T2.date_of_treatment FROM Dogs AS T1 JOIN Treatments AS T2 ON T1.dog_id  =  T2.dog_id WHERE T1.breed_code  =  ( SELECT breed_code FROM Dogs GROUP BY breed_code ORDER BY count(*) ASC LIMIT 1 )'
- 92%|█████████▏| 120/130 [04:13<00:26,  2.64s/it] 93%|█████████▎| 121/130 [04:16<00:23,  2.66s/it] 94%|█████████▍| 122/130 [04:17<00:17,  2.23s/it] 95%|█████████▍| 123/130 [04:20<00:16,  2.37s/it] 95%|█████████▌| 124/130 [04:21<00:12,  2.04s/it] 96%|█████████▌| 125/130 [04:22<00:08,  1.76s/it] 97%|█████████▋| 126/130 [04:23<00:05,  1.45s/it] 98%|█████████▊| 127/130 [04:24<00:03,  1.28s/it] 98%|█████████▊| 128/130 [04:26<00:03,  1.65s/it] 99%|█████████▉| 129/130 [04:27<00:01,  1.57s/it]100%|██████████| 130/130 [04:28<00:00,  1.37s/it]
-Target TF-P tokens: from Dogs join Treatments on Dogs.dog_id = Treatments.dog_id where Dogs.breed_code = (from Dogs group by Dogs.breed_code select Dogs.breed_code order by count (*) asc limit 1) select Dogs.name , Treatments.date_of_treatment
-
-[WRONG] [extra] Pred 0:	b'SELECT Dogs.name, Treatments.date_of_treatment FROM Dogs JOIN Treatments ON Dogs.dog_id = Treatments.dog_id GROUP BY Dogs.breed_code ORDER BY COUNT(*) ASC LIMIT 1' (-0.035) (length=23)
-[CORRE] [extra] Pred 1:	b'SELECT Dogs.name, Treatments.date_of_treatment FROM Dogs JOIN Treatments ON Dogs.dog_id = Treatments.dog_id WHERE Dogs.breed_code = (SELECT Dogs.breed_code FROM Dogs GROUP BY Dogs.breed_code ORDER BY COUNT(*) ASC LIMIT 1)' (-0.460) (length=32)
-Error Case 20
-
-ERROR: Join condition does not match with table: ['singer', {'join': 'song', 'on': {'eq': ['song.Song_ID', 'song.Singer_ID']}}]
-Example 1033
-real_estate_properties
- +-- Ref_Feature_Types (reference feature types)
- |   +-- feature_type_code (feature type code) [PRIMARY] [FOREIGN]
- |   +-- feature_type_name (feature type name)
- +-- Ref_Property_Types (reference property types)
- |   +-- property_type_code (property type code) [PRIMARY] [FOREIGN]
- |   +-- property_type_description (property type description)
- +-- Other_Available_Features (other available features)
- |   +-- feature_id (feature id) [PRIMARY] [FOREIGN]
- |   +-- feature_type_code (feature type code) [FOREIGN]
- |   +-- feature_name (feature name)
- |   +-- feature_description (feature description)
- +-- Properties (properties)
- |   +-- property_id (property id) [PRIMARY] [FOREIGN]
- |   +-- property_type_code (property type code) [FOREIGN]
- |   +-- date_on_market (date on market)
- |   +-- date_sold (date sold)
- |   +-- property_name (property name)
- |   +-- property_address (property address)
- |   +-- room_count (room count)
- |   +-- vendor_requested_price (vendor requested price)
- |   +-- buyer_offered_price (buyer offered price)
- |   +-- agreed_selling_price (agreed selling price)
- |   +-- apt_feature_1 (apt feature 1)
- |   +-- apt_feature_2 (apt feature 2)
- |   +-- apt_feature_3 (apt feature 3)
- |   +-- fld_feature_1 (fld feature 1)
- |   +-- fld_feature_2 (fld feature 2)
- |   +-- fld_feature_3 (fld feature 3)
- |   +-- hse_feature_1 (hse feature 1)
- |   +-- hse_feature_2 (hse feature 2)
- |   +-- hse_feature_3 (hse feature 3)
- |   +-- oth_feature_1 (oth feature 1)
- |   +-- oth_feature_2 (oth feature 2)
- |   +-- oth_feature_3 (oth feature 3)
- |   +-- shp_feature_1 (shp feature 1)
- |   +-- shp_feature_2 (shp feature 2)
- |   +-- shp_feature_3 (shp feature 3)
- |   +-- other_property_details (other property details)
- +-- Other_Property_Features (other property features)
-     +-- property_id (property id) [FOREIGN]
-     +-- feature_id (feature id) [FOREIGN]
-     +-- property_feature_description (property feature description)
-NL: b'What are the names of properties that are either houses or apartments with more than 1 room?'
-NL tokens: [b'what', b'are', b'the', b'names', b'of', b'properties', b'that', b'are', b'either', b'houses', b'or', b'apartments', b'with', b'more', b'than', b'1', b'room', b'?']
-NL tokens (original): [b'What', b'are', b'the', b'names', b'of', b'properties', b'that', b'are', b'either', b'houses', b'or', b'apartments', b'with', b'more', b'than', b'1', b'room', b'?']
-['[CLS]', 'what', 'are', 'the', 'names', 'of', 'properties', 'that', 'are', 'either', 'houses', 'or', 'apartments', 'with', 'more', 'than', '1', 'room', '?', '[SEP]', '*', '[unused50]', 'reference', 'feature', 'types', '[unused51]', 'feature', 'type', 'code', '[unused51]', 'feature', 'type', 'name', '[unused50]', 'reference', 'property', 'types', '[unused51]', 'property', 'type', 'code', '[unused49]', 'apartment', '[unused49]', 'house', '[unused51]', 'property', 'type', 'description', '[unused50]', 'other', 'available', 'features', '[unused51]', 'feature', 'id', '[unused51]', 'feature', 'type', 'code', '[unused51]', 'feature', 'name', '[unused51]', 'feature', 'description', '[unused50]', 'properties', '[unused51]', 'property', 'id', '[unused51]', 'property', 'type', 'code', '[unused49]', 'apartment', '[unused49]', 'house', '[unused51]', 'date', 'on', 'market', '[unused51]', 'date', 'sold', '[unused51]', 'property', 'name', '[unused51]', 'property', 'address', '[unused51]', 'room', 'count', '[unused51]', 'vendor', 'requested', 'price', '[unused51]', 'buyer', 'offered', 'price', '[unused51]', 'agreed', 'selling', 'price', '[unused51]', 'apt', 'feature', '1', '[unused51]', 'apt', 'feature', '2', '[unused51]', 'apt', 'feature', '3', '[unused51]', 'fl', '##d', 'feature', '1', '[unused51]', 'fl', '##d', 'feature', '2', '[unused51]', 'fl', '##d', 'feature', '3', '[unused51]', 'hs', '##e', 'feature', '1', '[unused51]', 'hs', '##e', 'feature', '2', '[unused51]', 'hs', '##e', 'feature', '3', '[unused51]', 'ot', '##h', 'feature', '1', '[unused51]', 'ot', '##h', 'feature', '2', '[unused51]', 'ot', '##h', 'feature', '3', '[unused51]', 'sh', '##p', 'feature', '1', '[unused51]', 'sh', '##p', 'feature', '2', '[unused51]', 'sh', '##p', 'feature', '3', '[unused51]', 'other', 'property', 'details', '[unused50]', 'other', 'property', 'features', '[unused51]', 'property', 'id', '[unused51]', 'feature', 'id', '[unused51]', 'property', 'feature', 'description', '[SEP]']
-Target 0: b'SELECT property_name FROM Properties WHERE property_type_code  =  "House" UNION SELECT property_name FROM Properties WHERE property_type_code  =  "Apartment" AND room_count  >  1'
-Target TF-P tokens: from Properties where Properties.property_type_code = "VALUE" select Properties.property_name union from Properties where Properties.property_type_code = "VALUE" and Properties.room_count > 1 select Properties.property_name
-
-[WRONG] [hard] Pred 0:	b'SELECT Properties.property_name FROM Properties WHERE Properties.property_type_code = "VALUE" AND Properties.room_count > 1' (-0.077) (length=15)
-[CORRE] [hard] Pred 1:	b'SELECT Properties.property_name FROM Properties WHERE Properties.property_type_code = "VALUE" UNION SELECT Properties.property_name FROM Properties WHERE Properties.property_type_code = "VALUE" AND Properties.room_count > 1' (-0.300) (length=26)
-Error Case 21
-
-Model predictions saved to /home/shelunts/thesis/TabularSemantingParsing/model/spider.bridge.lstm.meta.ts.ppl-0.85.2.dn.eo.feat.bert-large-uncased.xavier-1024-400-400-8-2-0.0005-inv-sqr-0.0005-4000-6e-05-inv-sqr-3e-05-4000-0.3-0.3-0.0-0.0-1-8-0.0-0.0-res-0.2-0.0-ff-0.4-0.0/predictions.16.1.05.dev.txt
-DEV set performance
-Top-1 exact match: 0.980
-Top-2 exact match: 0.991
-Top-3 exact match: 0.993
-Top-5 exact match: 0.995
-Top-10 exact match: 0.996
-Table error: -0.001
