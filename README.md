@@ -1,6 +1,6 @@
 # Conversational Analytics for Research Papers Based on Semantic Parsing with SQL Generation 
 
-This is the code repository for the master thesis research paper "Conversational Analytics for Research Papers Based on Semantic Parsing with SQL Generation" implemented within the scope of master studies at the Berlin School of Economics in Law. This code repository predominantly incorporated the source code from two research papers:
+This is the code repository for the master thesis research paper "Conversational Analytics for Research Papers Based on Semantic Parsing with SQL Generation" implemented within the scope of master studies at the Berlin School of Economics in Law. This code repository predominantly incorporates the source code from two research papers:
 - Xi Victoria Lin, Richard Socher and Caiming Xiong. [Bridging Textual and Tabular Data for Cross-Domain Text-to-SQL Semantic Parsing](https://github.com/salesforce/TabularSemanticParsing)
 - Tao Yu, Rui Zhang, Kai Yang,Michihiro Yasunaga, Dongxu Wang, Zifan Li, James Ma, Irene Li, Qingning Yao, Shanelle Roman, Zilin Zhang, Dragomir R. Radev.
 [Spider: A Large-Scale Human-Labeled Dataset for Complex and Cross-Domain Semantic Parsing and Text-to-SQL Task](https://github.com/taoyds/spider)
