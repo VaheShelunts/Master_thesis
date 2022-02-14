@@ -32,9 +32,11 @@ from src.semantic_parser.learn_framework import EncoderDecoderLFramework
 from src.trans_checker.args import args as cs_args
 import src.utils.utils as utils
 import sqlite3
+import warnings
+warnings.filterwarnings("ignore")
 
 import torch
-# if not args.data_parallel:
+# if not args.daa_parallel:
 #     torch.cuda.set_device('cuda:{}'.format(args.gpu))
 torch.manual_seed(args.seed)
 torch.cuda.manual_seed_all(args.seed)
@@ -314,24 +316,6 @@ def process_data():
     preprocess(args, dataset, verbose=True)
 
 
-""""NEW ADDED FUNCTIONS"""
-def process_data_train():
-    """
-    Data preprocess.
-
-    1. Build vocabulary.
-    2. Vectorize data.
-    """
-    if args.dataset_name == 'spider':
-        dataset = data_loader.load_data_split_spider_train(args)
-    elif args.dataset_name == 'wikisql':
-        dataset = data_loader.load_data_wikisql(args)
-    else:
-        dataset = data_loader.load_data_by_split(args)
-
-    # build_vocab(args, dataset, dataset['schema'])
-    preprocess_train(args, dataset, verbose=True)
-
 def demo(args):
     """
     Interactive command line demo.
@@ -348,7 +332,7 @@ def demo(args):
     else:
         db_name = args.demo_db
     db_path = os.path.join(args.db_dir, db_name, '{}.sqlite'.format(db_name))
-    db_connection = sqlite3.connect('/home/shelunts/thesis/TabularSemantingParsing/data/spider/database/isrecon/isrecon.sqlite').cursor()
+    db_connection = sqlite3.connect('data/isrecon/isrecon/isrecon.sqlite').cursor()
     schema = SchemaGraph(db_name, db_path=db_path)
     if db_name == 'covid_19':
         in_csv = os.path.join(data_dir, db_name, '{}.csv'.format(db_name))
@@ -357,7 +341,7 @@ def demo(args):
     else:
         # TODO: currently the demo is configured for the Spider dataset.
         import json
-        in_json = os.path.join(args.data_dir, 'tables.json')
+        in_json = os.path.join('data/spider', 'tables.json')
         with open(in_json) as f:
             tables = json.load(f)
         for table in tables:
@@ -376,6 +360,7 @@ def demo(args):
     sys.stdout.flush()
     text = sys.stdin.readline()
 
+
     while text:
         output = t2sql.process(text, schema.name)
         translatable = output['translatable']
@@ -385,9 +370,9 @@ def demo(args):
         replacement_span = output['replace_span']
         print('Translatable: {}'.format(translatable))
         print('SQL: {}'.format(sql_query))
+        print('SQL exec output: {}'.format(sql_output))
         print('Confusion span: {}'.format(confusion_span))
         print('Replacement span: {}'.format(replacement_span))
-        print('SQL exec output: {}'.format(sql_output))
         sys.stdout.flush()
         sys.stdout.write('\nEnter a natural language question: ')
         sys.stdout.write('> ')
