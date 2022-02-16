@@ -95,11 +95,13 @@ In case of training the model all over again use the command below. Please note 
 
 Interactive command line demo for querying ISRECON database. The output includes:
 
-        1. if the input question can be converted into the SQL query, the SQL query and SQL query outputs are returned
-        2. otherwise,  a confusion span is returned in the question that prompted the input to be invalid for conversion.
+1. if the input question can be converted into the SQL query, the SQL query and SQL query outputs are returned
+2. otherwise,  a confusion span is returned in the question that prompted the input to be invalid for conversion.
+
 
 ```
 ./experiment-bridge.sh configs/bridge/spider-bridge-bert-large.sh --demo 0 --demo_db isrecon --checkpoint_path [path_to_checkpoint_tar_file]
+
 ```
 
 
