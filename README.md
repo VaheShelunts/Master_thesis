@@ -19,6 +19,13 @@ Model 1 uses BRIDGE model as the base of its architecture. It is trained on the 
 
 Model 2 is further fine-tuned both on the ISRECON schema as well as small set of annotated question-SQL pairs. The checkpoint of the Model 2 is available [in this link](https://drive.google.com/file/d/1HmkVp4M41bMtr6XuB9FrVQctqvHFw622/view?usp=sharing).
 
+After downloading the model put it into the "model" directory:
+
+```
+mv model2_isrecon.tar model/
+
+```
+
 
 ## Data
 
