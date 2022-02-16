@@ -104,7 +104,43 @@ def load_data_by_split(args):
     return dataset
 
 
+def load_data_wikisql(args):
+    """
+    Load the WikiSQL dataset released by Zhong et. al. 2018, assuming that the data format has been
+    changed by the script `data_processor_wikisql.py`.
+    """
+    in_dir = args.data_dir
+    splits = ['train', 'dev', 'test']
+    schema_graphs = load_schema_graphs_wikisql(in_dir, splits=splits)
 
+    dataset = dict()
+    for split in splits:
+        dataset[split] = load_data_split_wikisql(in_dir, split, schema_graphs)
+    dataset['schema'] = schema_graphs
+    return dataset
+
+
+def load_data_split_wikisql(in_dir, split, schema_graphs):
+    in_jsonl = os.path.join(in_dir, '{}.jsonl'.format(split))
+    data_split = []
+    with open(in_jsonl) as f:
+        for line in f:
+            example = json.loads(line.strip())
+            db_name = example['table_id']
+            text = example['question']
+            exp = Text2SQLExample(WIKISQL, db_name, db_id=schema_graphs.get_db_id(db_name))
+            exp.text = text
+            # program = example['query']
+            # if program.endswith(';'):
+            #     program = program[:-1].rstrip()
+            program_ast = example['sql']
+            exp.add_program_official('', program_ast)
+            schema_graph = schema_graphs[db_name]
+            gt_tables = [0]
+            gt_table_names = [schema_graph.get_table(0).name]
+            exp.add_gt_tables(gt_tables, gt_table_names)
+            data_split.append(exp)
+    return data_split
 
 
 def load_data_spider(args):
@@ -293,23 +329,3 @@ def load_vocab(vocab_path, min_freq, tag='', func_token_index=None, tu=None):
             vocab.index_token(v, in_vocab, check_for_seen_vocab=True)
         print('vocab size = {}, loaded from {} with frequency threshold {}'.format(vocab.size, vocab_path, min_freq))
     return vocab
-
-def load_data_spider_train(args):
-    """
-    Load the Spider dataset released by Yu et. al. 2018.
-    """
-    in_dir = args.data_dir
-    dataset = dict()
-    schema_graphs = load_schema_graphs_spider(in_dir, 'spider', augment_with_wikisql=args.augment_with_wikisql,
-                                              db_dir=args.db_dir)
-    dataset['train'] = load_data_split_spider_train(in_dir, 'train_non_academic', schema_graphs, get_data_augmentation_tag(args),
-                                              augment_with_wikisql=args.augment_with_wikisql)
-    dataset['dev'] = load_data_split_spider_train(in_dir, 'dev_academic', schema_graphs,
-                                            augment_with_wikisql=args.augment_with_wikisql)
-    dataset['schema'] = schema_graphs
-
-    fine_tune_set = load_data_split_spider_train(in_dir, 'fine-tune', schema_graphs,
-                                           augment_with_wikisql=args.augment_with_wikisql)
-    if fine_tune_set:
-        dataset['fine-tune'] = fine_tune_set
-    return dataset

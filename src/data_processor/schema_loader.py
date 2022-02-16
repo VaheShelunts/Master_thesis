@@ -8,16 +8,16 @@
 
  Load database schema.
 """
-import sys
-#sys.path.append('/home/shelunts/thesis/TabularSemantingParsing')
+
 import collections
 import csv
 import json
 import sqlite3
 import os
 import re
+import sys
 
-from src.data_processor.schema_graph import SchemaGraph, SchemaGraphs
+from src.data_processor.schema_graph import SchemaGraph, WikiSQLSchemaGraph, SchemaGraphs
 
 
 def get_field_id(table_name, field_name):
@@ -196,6 +196,28 @@ def load_schema_graphs_spider(data_dir, dataset_name, db_dir=None, augment_with_
             schema_graph = wikisql_schema_graphs.get_schema(db_id)
             schema_graphs.index_schema_graph(schema_graph)
         print('{} schema graphs loaded (+wikisql)'.format(schema_graphs.size))
+
+    return schema_graphs
+
+
+def load_schema_graphs_wikisql(data_dir, splits=['train', 'dev', 'test']):
+    schema_graphs = SchemaGraphs()
+
+    for split in splits:
+        in_jsonl = os.path.join(data_dir, '{}.tables.jsonl'.format(split))
+        db_count = 0
+        with open(in_jsonl) as f:
+            for line in f:
+                table = json.loads(line.strip())
+                db_name = table['id']
+                schema_graph = WikiSQLSchemaGraph(db_name, table, caseless=False)
+                schema_graph.id = table['id']
+                schema_graph.load_data_from_wikisql_json(table)
+                schema_graph.compute_field_picklist(table)
+                schema_graphs.index_schema_graph(schema_graph)
+                db_count += 1
+        print('{} databases in {}'.format(db_count, split))
+    print('{} databases loaded in total'.format(schema_graphs.size))
 
     return schema_graphs
 

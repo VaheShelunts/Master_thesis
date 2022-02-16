@@ -1025,6 +1025,62 @@ class SchemaGraph(object):
             self.foreign_key_index[key2].append((y, x))
 
 
+class WikiSQLSchemaGraph(SchemaGraph):
+    """
+    Table Representation for WikiSQL dataset.
+    """
+    def __init__(self, name, table, caseless=False):
+        super().__init__(name, caseless=caseless)
+        self.table = table
+
+    def compute_field_picklist(self, table):
+        for field_id in self.field_rev_index:
+            self.get_field_picklist(field_id)
+
+    def get_field_picklist(self, field_id):
+        if field_id not in self.picklists:
+            picklist = set()
+            for row in self.table['rows']:
+                picklist.add(row[field_id])
+            self.picklists[field_id] = list(picklist)
+        return self.picklists[field_id]
+
+    def load_data_from_wikisql_json(self, in_json):
+        """
+        Load graph data from json object (as release in WikiSQL by Zhong et. al. 2017) and create adjacency list.
+        """
+
+        def get_table_name(json):
+            if 'caption' in json and len(json['caption']) > 0:
+                table_name = utils.remove_parentheses_str(json['caption'])
+            elif 'section_title' in json and len(json['section_title']) > 0:
+                table_name = utils.remove_parentheses_str(json['section_title'])
+            elif 'page_title' in json and len(json['page_title']) > 0:
+                table_name = utils.remove_parentheses_str(json['page_title'])
+            else:
+                table_name = utils.remove_parentheses_str(json['header'][0])
+            if not table_name:
+                table_name = 'table'
+            # escape "'"
+            table_name = table_name.replace('\'', '\'\'')
+            return table_name
+
+        table_name = get_table_name(in_json)
+        table_node = Table(table_name, caseless=self.caseless)
+        self.index_table(table_node)
+
+        for i, (field_name, field_type) in enumerate(zip(in_json['header'], in_json['types'])):
+            field_name = ' '.join(field_name.split())
+            # escape "'"
+            field_name = field_name.replace('\'', '\'\'')
+            if field_type == 'real':
+                field_type = 'number'
+            field_node = Field(table_node, field_name, caseless=self.caseless, data_type=field_type)
+            self.index_field(field_node)
+
+        self.create_adjacency_matrix()
+
+
 def get_normalized_name(s):
     return s.lower().replace('_', ' ')
 
