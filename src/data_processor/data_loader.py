@@ -104,43 +104,7 @@ def load_data_by_split(args):
     return dataset
 
 
-def load_data_wikisql(args):
-    """
-    Load the WikiSQL dataset released by Zhong et. al. 2018, assuming that the data format has been
-    changed by the script `data_processor_wikisql.py`.
-    """
-    in_dir = args.data_dir
-    splits = ['train', 'dev', 'test']
-    schema_graphs = load_schema_graphs_wikisql(in_dir, splits=splits)
 
-    dataset = dict()
-    for split in splits:
-        dataset[split] = load_data_split_wikisql(in_dir, split, schema_graphs)
-    dataset['schema'] = schema_graphs
-    return dataset
-
-
-def load_data_split_wikisql(in_dir, split, schema_graphs):
-    in_jsonl = os.path.join(in_dir, '{}.jsonl'.format(split))
-    data_split = []
-    with open(in_jsonl) as f:
-        for line in f:
-            example = json.loads(line.strip())
-            db_name = example['table_id']
-            text = example['question']
-            exp = Text2SQLExample(WIKISQL, db_name, db_id=schema_graphs.get_db_id(db_name))
-            exp.text = text
-            # program = example['query']
-            # if program.endswith(';'):
-            #     program = program[:-1].rstrip()
-            program_ast = example['sql']
-            exp.add_program_official('', program_ast)
-            schema_graph = schema_graphs[db_name]
-            gt_tables = [0]
-            gt_table_names = [schema_graph.get_table(0).name]
-            exp.add_gt_tables(gt_tables, gt_table_names)
-            data_split.append(exp)
-    return data_split
 
 
 def load_data_spider(args):
@@ -329,57 +293,6 @@ def load_vocab(vocab_path, min_freq, tag='', func_token_index=None, tu=None):
             vocab.index_token(v, in_vocab, check_for_seen_vocab=True)
         print('vocab size = {}, loaded from {} with frequency threshold {}'.format(vocab.size, vocab_path, min_freq))
     return vocab
-
-""""NEW ADDED FUNCTIONS"""
-def load_data_split_spider_train(in_dir, split, schema_graphs, aug_tag='', augment_with_wikisql=False):
-    if split == 'train_non_academic':
-        in_json = os.path.join(in_dir, '{}.{}json'.format(split, aug_tag))
-    else:
-        in_json = os.path.join(in_dir, '{}.json'.format(split))
-    if not os.path.exists(in_json):
-        print('Warning: file {} not found.'.format(in_json))
-        return None
-    data_split = []
-    num_train_exps_by_db = collections.defaultdict(int)
-    with open(in_json) as f:
-        content = json.load(f)
-        for example in content:
-            db_name = example['db_id']
-            if split == 'train_non_academic':
-                num_train_exps_by_db[db_name] += 1
-            exp = Text2SQLExample(SPIDER, db_name, db_id=schema_graphs.get_db_id(db_name))
-            text = example['question'].replace('’', '\'')
-            program = example['query']
-            if program.endswith(';'):
-                program = program[:-1].rstrip()
-            exp.text = text
-            if 'question_toks' in example:
-                text_tokens = example['question_toks']
-                exp.text_tokens = [t.lower() for t in text_tokens]
-                exp.text_ptr_values = text_tokens
-            program_ast = example['sql'] if 'sql' in example else None
-            program_tokens = example['query_toks'] if 'query_toks' in example else None
-            if program_tokens and program_tokens[-1] == ';':
-                program_tokens = program_tokens[:len(program_tokens)-1]
-            exp.add_program_official(program, program_ast, program_tokens)
-            if 'tables' in example:
-                gt_tables = example['tables']
-                gt_table_names = example['table_names']
-                exp.add_gt_tables(gt_tables, gt_table_names)
-            if 'hardness' in example:
-                exp.hardness = example['hardness']
-            data_split.append(exp)
-
-    print('{} {} examples loaded'.format(len(data_split), split))
-
-    if split in ['train_non_academic', 'dev_academic'] and augment_with_wikisql:
-        data_dir = os.path.dirname(in_dir)
-        wikisql_dir = os.path.join(data_dir, 'wikisql1.1')
-        wikisql_split = load_data_split_wikisql(wikisql_dir, split, schema_graphs)
-        data_split += wikisql_split
-        print('{} {} examples loaded (+wikisql)'.format(len(data_split), split))
-
-    return data_split
 
 def load_data_spider_train(args):
     """

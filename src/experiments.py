@@ -73,11 +73,7 @@ def train(sp):
 def inference(sp):
     dataset = data_loader.load_processed_data(args)
     split = 'test' if args.test else 'dev'
-    if args.dataset_name == 'wikisql':
-        engine_path = os.path.join(args.data_dir, '{}.db'.format(split))
-        engine = DBEngine(engine_path)
-    else:
-        engine = None
+    engine = None
 
     def evaluate(examples, out_dict):
         metrics = eval_tools.get_exact_match_metrics(examples, out_dict['pred_decoded'], engine=engine)
@@ -86,12 +82,6 @@ def inference(sp):
         print('Top-3 exact match: {:.3f}'.format(metrics['top_3_em']))
         print('Top-5 exact match: {:.3f}'.format(metrics['top_5_em']))
         print('Top-10 exact match: {:.3f}'.format(metrics['top_10_em']))
-        if args.dataset_name == 'wikisql':
-            print('Top-1 exe match: {:.3f}'.format(metrics['top_1_ex']))
-            print('Top-2 exe match: {:.3f}'.format(metrics['top_2_ex']))
-            print('Top-3 exe match: {:.3f}'.format(metrics['top_3_ex']))
-            print('Top-5 exe match: {:.3f}'.format(metrics['top_5_ex']))
-            print('Top-10 exet match: {:.3f}'.format(metrics['top_10_ex']))
         print('Table error: {:.3f}'.format(metrics['table_err']))
 
     examples = dataset[split]
@@ -137,20 +127,11 @@ def inference(sp):
     with open(out_txt, 'w') as o_f:
         assert(len(examples) == len(out_dict['pred_decoded']))
         for i, pred_sql in enumerate(out_dict['pred_decoded']):
-            if args.dataset_name == 'wikisql':
-                example = examples[i]
-                o_f.write('{}\n'.format(json.dumps(
-                    {'sql': pred_sql[0], 'table_id': example.db_name})))
-            else:
-                o_f.write('{}\n'.format(pred_sql[0]))
+            o_f.write('{}\n'.format(pred_sql[0]))
         print('Model predictions saved to {}'.format(out_txt))
 
     print('{} set performance'.format(split.upper()))
     evaluate(examples, out_dict)
-    if args.augment_with_wikisql:
-        wikisql_out_dict = sp.forward(examples_wikisql, verbose=False)
-        print('*** WikiSQL ***')
-        evaluate(examples_wikisql, wikisql_out_dict)
 
 
 def ensemble():
@@ -158,11 +139,7 @@ def ensemble():
     split = 'test' if args.test else 'dev'
     dev_examples = dataset[split]
     print('{} dev examples loaded'.format(len(dev_examples)))
-    if args.dataset_name == 'wikisql':
-        engine_path = os.path.join(args.data_dir, '{}.db'.format(split))
-        engine = DBEngine(engine_path)
-    else:
-        engine = None
+    engine = None
 
     sps = [EncoderDecoderLFramework(args) for _ in ensemble_model_dirs]
     for i, model_dir in enumerate(ensemble_model_dirs):
@@ -191,12 +168,7 @@ def ensemble():
     with open(out_txt, 'w') as o_f:
         assert(len(dev_examples) == len(out_dict['pred_decoded']))
         for i, pred_sql in enumerate(out_dict['pred_decoded']):
-            if args.dataset_name == 'wikisql':
-                example = dev_examples[i]
-                o_f.write('{}\n'.format(json.dumps(
-                    {'sql': pred_sql[0], 'table_id': example.db_name})))
-            else:
-                o_f.write('{}\n'.format(pred_sql[0]))
+            o_f.write('{}\n'.format(pred_sql[0]))
         print('Model predictions saved to {}'.format(out_txt))
 
     print('{} set performance'.format(split.upper()))
@@ -307,8 +279,6 @@ def process_data():
     """
     if args.dataset_name == 'spider':
         dataset = data_loader.load_data_spider(args)
-    elif args.dataset_name == 'wikisql':
-        dataset = data_loader.load_data_wikisql(args)
     else:
         dataset = data_loader.load_data_by_split(args)
 
