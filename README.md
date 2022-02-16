@@ -7,7 +7,7 @@ This is the code repository for the master thesis research paper "Conversational
 
 ## Overview
 
-Text-to-SQK semantic parsing concerns itself with the task of converting a question in the form of natural language utterance to the logical form of the SQL query understood by computers.
+Text-to-SQL semantic parsing concerns itself with the task of converting a question in the form of natural language utterance to the logical form of the SQL query understood by computers.
 
 This code repository imports and evaluates a sequence-to-sequence BRIDGE semantic parsing model that has achieved state-of-the-art performance on two commonly used benchmark datasets in the field of text-to-SQL semantic parsing: [Spider](https://yale-lily.github.io/spider) and [WikiSQL](https://github.com/salesforce/WikiSQL). Since training and testing is out of the scope for the WikiSQL dataset, some parts of it were excluded from the imported source code. The sourced BRIDGE code repository also includes an SQL preprocessing and parsing functions  [SQL processing tools](moz_sp) adapted from the [Moz SQL Parser](https://github.com/mozilla/moz-sql-parser).
 
@@ -16,7 +16,8 @@ Similar to the original code package of the BRIDGE model, this package is design
 
 ### Install Dependencies
 
-The package was tested and run using Cuda 11.0 with a single GPU.
+The package was tested and run using Cuda 11.0 with a single GPU. It is available on the university Plato server in the following directory "shelunts/thesis/TabularSemantingParsing". For external work, the repo has to be clones with installation of dependencies.
+
 ```
 git clone [put the link to the git code here]
 
@@ -50,14 +51,14 @@ mv model2_isrecon.tar model/
 The model incorporates the new schema of the ISRECON database which is available on the university Plato server in the following directory: "/home/shelunts/thesis/TabularSemantingParsing/data/isrecon/isrecon/isrecon.sqlite". After downloading the database, move it into the relevant directory.
 
 ```
-mv isrecon.sqlite data/isrecon/isrecon/ 
+mv isrecon.sqlite data/spider/database/isrecon/
 
 ```
 
 To save time, download already preprocessed and parsed pickled file from the Plato server in the directory "/home/shelunts/thesis/TabularSemantingParsing/data/spider/spider.bridge.question-split.ppl-0.85.2.dn.eo.bert.pkl" and move it to the relevant directory
 
 ```
-mv spider.bridge.question-split.ppl-0.85.2.dn.eo.bert.pkl data/spider/
+mv spider.bridge.question-split.dn.eo.bert.pkl data/spider/
 
 ```
 
@@ -92,10 +93,16 @@ In case of training the model all over again use the command below. Please note 
 ```
 
 ### Commandline Demo
-Interaction with pre-trained checkpoint is possible through the commandline:
+
+Interactive command line demo for querying ISRECON database. The output includes:
+
+1. SQL query and SQL query outputs are returned if the input question is translatable into the SQL query
+2. otherwise,  a confusion span is returned in the question that prompted the input to be invalid for conversion
+
 
 ```
 ./experiment-bridge.sh configs/bridge/spider-bridge-bert-large.sh --demo 0 --demo_db isrecon --checkpoint_path [path_to_checkpoint_tar_file]
+
 ```
 
 
