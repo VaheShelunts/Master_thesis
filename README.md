@@ -16,7 +16,8 @@ Similar to the original code package of the BRIDGE model, this package is design
 
 ### Install Dependencies
 
-The package was tested and run using Cuda 11.0 with a single GPU.
+The package was tested and run using Cuda 11.0 with a single GPU. It is available on the university Plato server in the following directory "shelunts/thesis/TabularSemantingParsing". For external work, the repo has to be clones with installation of dependencies.
+
 ```
 git clone [put the link to the git code here]
 
@@ -50,7 +51,7 @@ mv model2_isrecon.tar model/
 The model incorporates the new schema of the ISRECON database which is available on the university Plato server in the following directory: "/home/shelunts/thesis/TabularSemantingParsing/data/isrecon/isrecon/isrecon.sqlite". After downloading the database, move it into the relevant directory.
 
 ```
-mv isrecon.sqlite data/isrecon/isrecon/ 
+mv isrecon.sqlite data/spider/database/isrecon/
 
 ```
 
