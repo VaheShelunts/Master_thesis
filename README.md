@@ -48,7 +48,7 @@ mv model2_isrecon.tar model/
 
 ## Data
 
-The model incorporates the new schema of the ISRECON database which is available on the university Plato server in the following directory: "/home/shelunts/thesis/TabularSemantingParsing/data/isrecon/isrecon/isrecon.sqlite". After downloading the database, move it into the relevant directory.
+The model incorporates the new schema of the ISRECON database which is available on the university Plato server in the following directory: "/shelunts/thesis/TabularSemantingParsing/data/isrecon/isrecon/isrecon.sqlite". After downloading the database, move it into the relevant directory.
 
 ```
 mv isrecon.sqlite data/spider/database/isrecon/
