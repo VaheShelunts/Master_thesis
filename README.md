@@ -58,7 +58,7 @@ mv isrecon.sqlite data/spider/database/isrecon/
 To save time, download already preprocessed and parsed pickled file from the Plato server in the directory "/home/shelunts/thesis/TabularSemantingParsing/data/spider/spider.bridge.question-split.ppl-0.85.2.dn.eo.bert.pkl" and move it to the relevant directory
 
 ```
-mv spider.bridge.question-split.ppl-0.85.2.dn.eo.bert.pkl data/spider/
+mv spider.bridge.question-split.dn.eo.bert.pkl data/spider/
 
 ```
 
