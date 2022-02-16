@@ -7,7 +7,7 @@ This is the code repository for the master thesis research paper "Conversational
 
 ## Overview
 
-Text-to-SQK semantic parsing concerns itself with the task of converting a question in the form of natural language utterance to the logical form of the SQL query understood by computers.
+Text-to-SQL semantic parsing concerns itself with the task of converting a question in the form of natural language utterance to the logical form of the SQL query understood by computers.
 
 This code repository imports and evaluates a sequence-to-sequence BRIDGE semantic parsing model that has achieved state-of-the-art performance on two commonly used benchmark datasets in the field of text-to-SQL semantic parsing: [Spider](https://yale-lily.github.io/spider) and [WikiSQL](https://github.com/salesforce/WikiSQL). Since training and testing is out of the scope for the WikiSQL dataset, some parts of it were excluded from the imported source code. The sourced BRIDGE code repository also includes an SQL preprocessing and parsing functions  [SQL processing tools](moz_sp) adapted from the [Moz SQL Parser](https://github.com/mozilla/moz-sql-parser).
 
