@@ -13,11 +13,36 @@ This code repository imports and evaluates a sequence-to-sequence BRIDGE semanti
 
 Similar to the original code package of the BRIDGE model, this package is designed to be run in the command line with instructions presented below on how to complete training, testing and demo of the natural language interface.
 
+
+### Install Dependencies
+
+The package was tested and run using Cuda 11.0 with a single GPU.
+```
+git clone [put the link to the git code here]
+
+pip install torch torchvision
+python3 -m pip install -r requirements.txt
+```
+
+### Set up Environment
+
+```
+export PYTHONPATH=`pwd` && python -m nltk.downloader punkt
+```
+
+
 ## Models
 
 Model 1 uses BRIDGE model as the base of its architecture. It is trained on the cross-domain Spider dataset, fine-tuned on the ISRECON schema which is included in the tables.json file. The checkpoint of the Model 1 is available [in this link](https://drive.google.com/file/d/1VDMdMiySbEb0c3FJutE106SaWW5UWRRs/view?usp=sharing).
 
 Model 2 is further fine-tuned both on the ISRECON schema as well as small set of annotated question-SQL pairs. The checkpoint of the Model 2 is available [in this link](https://drive.google.com/file/d/1HmkVp4M41bMtr6XuB9FrVQctqvHFw622/view?usp=sharing).
+
+After downloading the model put it into the "model" directory:
+
+```
+mv model2_isrecon.tar model/
+
+```
 
 
 ## Data
@@ -29,39 +54,25 @@ mv isrecon.sqlite data/isrecon/isrecon/
 
 ```
 
+To save time, download already preprocessed and parsed pickled file from the Plato server in the directory "/home/shelunts/thesis/TabularSemantingParsing/data/spider/spider.bridge.question-split.ppl-0.85.2.dn.eo.bert.pkl" and move it to the relevant directory
 
-- **Preprocessing:** Preprocessing and parsing of SQL queries is completed in the notebooks in the preprocess_inputs directory.
-- **Evaluation:** Model testing is done by running the relevant command line commands according to the instructions specified in the [official implementation of the BRIDGE model](https://github.com/salesforce/TabularSemanticParsing). Afterwards, the results evaluation and analysis is completed in the notebooks in the evaluation_isrecon directory.
-
-**Note:** 
-There is a potential bug in the sql token parser which fails to extract foreign keys from ISRECON database. Those were added manually. The updated schema is available in the table.json file in the directory "data/spider".
-
-### Install Dependencies
-
-The package was tested and run using Cuda 11.0 with a single GPU.
 ```
-git clone [put the link to the git code here]
-cd TabularSemanticParsing
+mv spider.bridge.question-split.ppl-0.85.2.dn.eo.bert.pkl data/spider/
 
-pip install torch torchvision
-python3 -m pip install -r requirements.txt
 ```
 
-### Set up Environment
-```
-export PYTHONPATH=`pwd` && python -m nltk.downloader punkt
-```
-
-### Process Data
-
-
-Processed different train, test sets and schemas of ISRECON as well as Spider dataset are available in the json files under the directory data/spider. Please refer to the the notebooks in the folder preprocess_inputs to check how preprocessing was completed. Make sure that the relevant train and test files for model training and testing are available under the name of "train.json" and "dev.json" respectively. Then run the following command to generate a pickled preprocessed file for later usage in the model training. 
+Alternatively, it is possible to preprocess data with the below indicated command. Make sure that processed different train, test sets and schemas of ISRECON as well as Spider dataset are available in the json files under the directory data/spider.
 
 ```
 ./experiment-bridge.sh configs/bridge/spider-bridge-bert-large.sh --process_data 0
 
 ```
 
+- **Preprocessing:** Preprocessing and parsing of SQL queries is completed in the notebooks in the preprocess_inputs directory.
+- **Evaluation:** Model testing is done by running the relevant command line commands according to the instructions specified in the [official implementation of the BRIDGE model](https://github.com/salesforce/TabularSemanticParsing). Afterwards, the results evaluation and analysis is completed in the notebooks in the evaluation_isrecon directory.
+
+**Note:** 
+There is a potential bug in the sql token parser which fails to extract foreign keys from ISRECON database. Those were added manually. The updated schema is available in the table.json file in the directory "data/spider".
 
 ### Test
 To test the model run the following command. Evaluation results will be outputted out at the end the testing run.
