@@ -139,10 +139,8 @@ cmd="python3 -m src.experiments \
     $use_graph_encoding_flag \
     $sql_consistency_check_flag \
     $use_typed_field_markers_flag \
-    $use_picklist_flag \
     --anchor_text_match_threshold $anchor_text_match_threshold \
     $no_anchor_text_flag \
-    $read_picklist_flag \
     --top_k_picklist_matches $top_k_picklist_matches \
     $process_sql_in_execution_order_flag \
     $sample_ground_truth_flag \

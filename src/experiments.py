@@ -332,7 +332,7 @@ def demo(args):
     else:
         db_name = args.demo_db
     db_path = os.path.join(args.db_dir, db_name, '{}.sqlite'.format(db_name))
-    db_connection = sqlite3.connect('data/isrecon/isrecon/isrecon.sqlite').cursor()
+    db_connection = sqlite3.connect('data/spider/database/isrecon/isrecon.sqlite').cursor()
     schema = SchemaGraph(db_name, db_path=db_path)
     if db_name == 'covid_19':
         in_csv = os.path.join(data_dir, db_name, '{}.csv'.format(db_name))
