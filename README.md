@@ -11,6 +11,8 @@ Text-to-SQL semantic parsing concerns itself with the task of converting a quest
 
 This code repository imports and evaluates a sequence-to-sequence BRIDGE semantic parsing model that has achieved state-of-the-art performance on two commonly used benchmark datasets in the field of text-to-SQL semantic parsing: [Spider](https://yale-lily.github.io/spider) and [WikiSQL](https://github.com/salesforce/WikiSQL). Since training and testing is out of the scope for the WikiSQL dataset, some parts of it were excluded from the imported source code. The sourced BRIDGE code repository also includes an SQL preprocessing and parsing functions  [SQL processing tools](moz_sp) adapted from the [Moz SQL Parser](https://github.com/mozilla/moz-sql-parser).
 
+This code package uses the private university ISRECON database which was provided for this research.
+
 Similar to the original code package of the BRIDGE model, this package is designed to be run in the command line with instructions presented below on how to complete training, testing and demo of the natural language interface.
 
 
@@ -48,7 +50,7 @@ mv model2_isrecon.tar model/
 
 ## Data
 
-The model incorporates the new schema of the ISRECON database which is available on the university Plato server in the following directory: "/shelunts/thesis/TabularSemantingParsing/data/isrecon/isrecon/isrecon.sqlite". After downloading the database, move it into the relevant directory.
+Question-SQL pairs are already available in the directory "data/isrecon". The model also incorporates the new schema of the ISRECON database which is available on the university Plato server in the following directory: "/shelunts/thesis/TabularSemantingParsing/data/isrecon/isrecon/isrecon.sqlite". After downloading the database, move it into the relevant directory.
 
 ```
 mv isrecon.sqlite data/spider/database/isrecon/
