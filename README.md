@@ -41,7 +41,6 @@ There is a potential bug in the sql token parser which fails to extract foreign 
 The package was tested and run using Cuda 11.0 with a single GPU.
 ```
 git clone [put the link to the git code here]
-cd TabularSemanticParsing
 
 pip install torch torchvision
 python3 -m pip install -r requirements.txt
