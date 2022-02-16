@@ -1,2 +1,4 @@
 
 *.sqlite
+*.pkl
+model/model1_isrecon.tar
