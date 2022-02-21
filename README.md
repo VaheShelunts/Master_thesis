@@ -77,22 +77,6 @@ Alternatively, it is possible to preprocess data with the below indicated comman
 **Note:** 
 There is a potential bug in the sql token parser which fails to extract foreign keys from ISRECON database. Those were added manually. The updated schema is available in the table.json file in the directory "data/spider".
 
-### Test
-To test the model run the following command. Evaluation results will be outputted out at the end the testing run.
-
-```
-./experiment-bridge.sh configs/bridge/spider-bridge-bert-large.sh --inference 0 --checkpoint_path [path_to_model_checkpoint_tar_file]
-
-```
-
-### Train 
-
-In case of training the model all over again use the command below. Please note that in case of checkpoint import into the directory, the training is not needed anymore. In that case, just preprocess the data as described in the command prompt above and run the test command.
-
-```
-./experiment-bridge.sh configs/bridge/spider-bridge-bert-large.sh --train 0 --checkpoint_path [path_to_model_checkpoint_tar_file]
-
-```
 
 ### Commandline Demo
 
@@ -104,6 +88,15 @@ Interactive command line demo for querying ISRECON database. The output includes
 
 ```
 ./experiment-bridge.sh configs/bridge/spider-bridge-bert-large.sh --demo 0 --demo_db isrecon --checkpoint_path [path_to_checkpoint_tar_file]
+
+```
+
+
+### Get SQL predictions on the natural language questions in the json file
+To test the model run the following command. Evaluation results will be outputted out at the end the testing run.
+
+```
+./experiment-bridge.sh configs/bridge/spider-bridge-bert-large.sh --inference 0 --checkpoint_path [path_to_model_checkpoint_tar_file]
 
 ```
 
