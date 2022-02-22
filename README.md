@@ -64,7 +64,7 @@ mv spider.bridge.question-split.dn.eo.bert.pkl data/spider/
 
 ```
 
-Alternatively, it is possible to preprocess data with the below indicated command. Make sure that processed different train, test sets and schemas of ISRECON as well as Spider dataset are available in the json files under the directory data/spider.
+Alternatively, it is possible to preprocess data with the below indicated command. Make sure that processed train, test sets and schemas of ISRECON as well as Spider dataset are available in the json files under the directory data/spider.
 
 ```
 ./experiment-bridge.sh configs/bridge/spider-bridge-bert-large.sh --process_data 0
